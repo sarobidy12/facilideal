@@ -1,17 +1,19 @@
 import React , {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,Redirect } from 'react-router-dom';
 import Moment from 'react-moment';
 import 'moment/locale/fr';
 import localhost from '../../_config';
 import axios from 'axios';
+import { useCookies } from "react-cookie";
 
 const Coupons=()=>{
 
     const [count, setCount] = useState(1);
     const [coupon, setCoupon] = useState([])
     const [id, setId] = useState(null);
-    const [dataR,setData]=useState([]);
+    const [redirect,setredirect]=useState(false);
     const [stopSend,setStopSend]=useState(0);
+    const [cookies, setCookie] = useCookies(null);
   
     useEffect(()=>{
          getData();
@@ -57,10 +59,23 @@ const Coupons=()=>{
 
     const openCoupons= function openCoupons(i,id){
         id.preventDefault();
+
+        if(cookies._lo != null){
+            document.getElementById('coupons-'+i).style='left:2vh';
+        }else{
+            setredirect(true);
+        }
         
-        document.getElementById('coupons-'+i).style='left:2vh';
     }
 
+    const redirectConexion=()=>{
+
+        if(redirect === true){
+          return <Redirect to='/connexion' />
+        }
+
+      }
+    
     const all = function all(){
 
         var data = [];
@@ -120,6 +135,7 @@ const Coupons=()=>{
 
     return (
             <div>
+                {redirectConexion()}
                  <div className='container'>
                         <div id='coupons'>
                          <h1><span><img src="/img/coupons.png"/></span>Les coupons Disponibles {id}</h1>

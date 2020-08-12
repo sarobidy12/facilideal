@@ -7,7 +7,7 @@ import All_data from "../loader/all_data";
 import axios from "axios";
 import localhost from "../../../_config";
 import { withCookies, Cookies } from 'react-cookie';
-import { Link } from "react-router-dom";
+import { Link ,Redirect } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment/locale/fr';
 import parse from 'html-react-parser';
@@ -25,7 +25,8 @@ class Index extends Component {
       resultCoupons:[],
       stop3:0,
       idViewCoupons:null,
-      resHisto:[]
+      resHisto:[],
+      redirect:false
     };
   }
   componentWillMount = () => {
@@ -54,6 +55,13 @@ class Index extends Component {
             document.querySelector("#copy").addEventListener("click", copy);
         }
   };
+
+
+  redirect=()=>{
+    if(this.state.redirect === true){
+      return <Redirect to='/connexion' />
+    }
+  }
 
   componentWillUpdate = () => {
     if (this.state.ckeck === 1) {
@@ -87,10 +95,18 @@ class Index extends Component {
     
     const { cookies } = this.props;
 
+    if( cookies.get('_lo') != null){
       var data =[
         this.WatsCategorie(window.location.pathname.split("/")[2]),
         cookies.get('_lo').id,
       ];
+    }else{
+      var data =[
+        this.WatsCategorie(window.location.pathname.split("/")[2]),
+        null,
+      ];
+    }
+     
 
     let formData = new FormData();
     formData.append("text",JSON.stringify(data));
@@ -190,6 +206,7 @@ class Index extends Component {
 
     const { cookies } = this.props;
 
+    if(cookies.get('_lo') != null){
       var data =[
         cookies.get('_lo').id,
         this.state.result.id,
@@ -221,6 +238,11 @@ class Index extends Component {
 
             }
           });
+    }else{
+      this.setState({
+        redirect:true
+      })
+    }
 
   }
 
@@ -249,6 +271,8 @@ class Index extends Component {
   }
 
   button=()=>{
+
+    
 
     if(this.state.resHisto.length > 0){
       return  <button onClick={()=>{
@@ -518,6 +542,7 @@ class Index extends Component {
   render() {
     return (
       <div>
+        {this.redirect()}
         <MetaTags>
           <title> cashback</title>
         </MetaTags>
