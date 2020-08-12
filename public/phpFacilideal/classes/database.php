@@ -21,7 +21,7 @@ class database{
      
         public static function bdd(){
     
-            $a= new \PDO("mysql:host=sql101.epizy.com;dbname=epiz_26489089_facilideal",'epiz_26489089','9nwFMCjxusheaM');
+            $a= new \PDO("mysql:host=localhost;dbname=c1317573c_facilodeal",'c1317573c_facilodeal','?()Hlr{Z{ZcY');
             $a->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
             return $a;
             
