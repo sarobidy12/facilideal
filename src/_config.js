@@ -1,2 +1,2 @@
-export default 'http://localhost/phpFacilideal';
+export default 'https://facilodeal.com//phpFacilideal';
  
