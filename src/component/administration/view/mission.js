@@ -71,7 +71,7 @@ const Mission=()=>{
                     <div id={'del-'+resData[i].id} className='content-view-table row'>
                         <div className='inline-table'><input type='checkbox'   onChange={checkio.bind(this,resData[i].id)} /></div>
                         <div className='inline-table' style={{width:'15vh'}}>{resData[i].nom}</div>
-                        <div className='inline-table'>{resData[i].remuneration}</div>
+                        <div className='inline-table'>{new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(resData[i].remuneration)}</div>
                         <div className='inline-table'>{resData[i].used}/{resData[i].used_today}</div>
                         <div className='inline-table' style={{width:'10vh'}}>{Prenium(resData[i].premium)}</div>  
                         <div className='inline-table' style={{width:'10vh'}}>{gliphicon(resData[i].actif)}</div>  

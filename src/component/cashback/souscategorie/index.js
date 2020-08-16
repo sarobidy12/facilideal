@@ -9,6 +9,7 @@ import Loader from '../loader/all_data';
 import Carre from "../loader/rarre";
 import Long from "../loader/long";
 import Empiler from "../loader/empiler";
+import Footer from '../../footer/index'
 
 const ViewAllCahsback = () => {
   const [idca, setidca] = useState(null);
@@ -26,9 +27,7 @@ const ViewAllCahsback = () => {
       behavior: "smooth",
     });
 
-      setTimeout(() => {
         getCategorie();
-      }, 500);
 
         if(document.getElementsByClassName('casbackCategorieLi')){
             for(var i=0;i < document.getElementsByClassName('casbackCategorieLi').length;i++){
@@ -37,7 +36,7 @@ const ViewAllCahsback = () => {
         }
 
         if(document.getElementById(window.location.pathname.split('/')[3])){
-          document.getElementById(window.location.pathname.split('/')[3]).classList.add('active-sous-categorie');
+           document.getElementById(window.location.pathname.split('/')[3]).classList.add('active-sous-categorie');
         }
 
           if(stop === 0){
@@ -46,7 +45,24 @@ const ViewAllCahsback = () => {
 
   });
 
+  const getData= function getData(e,id){
+
+    setStop(0);
+
+    let formData= new FormData();
+        formData.append("text",JSON.stringify(WatsCategorie(e)));
+        const url= localhost+'/controleur.php?p=ViewCashbackSousCategorieComfirme'; 
+        axios.post(url,formData)
+        .then((res)=>{  
+          SetResult(res.data);
+            setTimeout(()=>{
+              setStop(1);
+            },700);
+        });
+  }
+
   const WatsCategorie = function WatsCategorie(e) {
+
     var text = "";
 
     for (var i = 0; i < e.split("-").length; i++) {
@@ -60,7 +76,8 @@ const ViewAllCahsback = () => {
     return text;
   };
 
-  const generateUrl = function generateUrl(e) {
+  const generateUrl = function generateUrl(e){
+
     var text = "";
 
     for (var i = 0; i < e.split(" ").length; i++) {
@@ -71,10 +88,13 @@ const ViewAllCahsback = () => {
       }
     }
 
-    return text;
+    return encodeURI(text)+'';
 
   };
 
+  
+  
+ 
   const getCategorie = function getCategorie() {
     for (var i = 0; i < cookies._categorieAndSousCAtegorie.length; i++) {
       if (
@@ -150,21 +170,6 @@ const ViewAllCahsback = () => {
       }
     }
 
-    const getData= function getData(e,id){
-
-      setStop(0);
-
-      let formData= new FormData();
-          formData.append("text",JSON.stringify(WatsCategorie(e)));
-          const url= localhost+'/controleur.php?p=ViewCashbackSousCategorieComfirme'; 
-          axios.post(url,formData)
-          .then((res)=>{  
-              SetResult(res.data);
-              setTimeout(()=>{
-                setStop(1);
-              },700);
-          });
-    }
   
   
     const heroData = function stop() {
@@ -254,12 +259,17 @@ const ViewAllCahsback = () => {
       <div id="hero-cashack">{heroData()}</div>
 
       <div className="container-view-all">
-        <div className="inline-block img-view">{NavLien()}</div>
+      <div className='row'>
+          <div className='col-md-4'>
+              {NavLien()}
+          </div>
 
-        <div className="inline-block contennt-titre-view">
-{dataResult()}
+          <div className='col-md-8'>
+              {dataResult()}
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

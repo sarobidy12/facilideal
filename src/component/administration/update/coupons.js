@@ -69,55 +69,58 @@ const IndexAdmin=()=>{
         document.getElementById('btn-loader').innerHTML='chargement ...';
         SetDisabled(false);
 
-     var objet= [
-        document.getElementById('nom').value,
-        document.getElementById('description').value,
-        document.getElementById('code').value,
-        document.getElementById('Somme').value,
-        document.getElementById('url').value,
-        document.getElementById('date').value,
-        window.location.pathname.split('/')[3]
-     ];
+        var objet= [
+            document.getElementById('nom').value,
+            document.getElementById('description').value,
+            document.getElementById('code').value,
+            document.getElementById('Somme').value,
+            document.getElementById('url').value,
+            document.getElementById('url_img').value,
+            document.getElementById('date').value,
+            window.location.pathname.split('/')[3]
+        ];
 
-     if(verfie()){
+            if(verfie()){
 
-         let formData= new FormData();
-         formData.append("text", JSON.stringify(objet));
-         const url= localhost+'/controleur.php?p=UpdateCoupons'; 
-         axios.post(url,formData)
-             .then((res)=>{
+                let formData= new FormData();
+                formData.append("text", JSON.stringify(objet));
+                const url= localhost+'/controleur.php?p=UpdateCoupons'; 
+                axios.post(url,formData)
+                    .then((res)=>{
 
-                 document.getElementById('btn-loader').innerHTML='Modifier';
+                        console.log(res.data);
 
+                        document.getElementById('btn-loader').innerHTML='Modifier';
+
+                            SetDisabled(true);
+
+                                if(res.data === 'update-success-coupons'){
+                                    document.getElementById('response-message').style.display='block';
+                                    document.getElementById('response-message').style.backgroundColor='green';
+                                    document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>Le coupons à bien été Modifier";
+                                } else{
+                                    document.getElementById('response-message').style.display='block';
+                                    document.getElementById('response-message').style.backgroundColor='red';
+                                    document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>une erreur est survenu";
+                                }
+                                
+                                document.getElementById('loader').style.display='none';
+                });
+
+            }else{
+                document.getElementById('loader').style.display='none';
+                document.getElementById('response-message').style.display='block';
+                document.getElementById('response-message').style.backgroundColor='red';
+                document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>Aucune modification n'a été faite";
+            }
+
+            setTimeout(()=>{
+                if(document.getElementById('btn-loader') &&   document.getElementById('response-message')){
+                    document.getElementById('btn-loader').innerHTML='Ajouter un coupons';
                     SetDisabled(true);
-
-                        if(res.data === 'update-success-coupons'){
-                            document.getElementById('response-message').style.display='block';
-                            document.getElementById('response-message').style.backgroundColor='green';
-                            document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>Le coupons à bien été Modifier";
-                        } else{
-                            document.getElementById('response-message').style.display='block';
-                            document.getElementById('response-message').style.backgroundColor='red';
-                            document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>une erreur est survenu";
-                        }
-                        
-                        document.getElementById('loader').style.display='none';
-         });
-
-     }else{
-         document.getElementById('loader').style.display='none';
-         document.getElementById('response-message').style.display='block';
-         document.getElementById('response-message').style.backgroundColor='red';
-         document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>Aucune modification n'a été faite";
-     }
-
-     setTimeout(()=>{
-         if(document.getElementById('btn-loader') &&   document.getElementById('response-message')){
-             document.getElementById('btn-loader').innerHTML='Ajouter un coupons';
-             SetDisabled(true);
-             document.getElementById('response-message').style.display='none';
-         }
-     },2000);
+                    document.getElementById('response-message').style.display='none';
+                }
+            },2000);
 
     }
 
@@ -126,9 +129,9 @@ const IndexAdmin=()=>{
         if(
             document.getElementById('nom').value   !=  datares.title  ||
             document.getElementById('description').value   !=   datares.description ||
-            document.getElementById('code').value   !=  datares.code  ||
             document.getElementById('Somme').value   !=   datares.somme ||
             document.getElementById('url').value   != datares.link ||
+            document.getElementById('url_img').value   != datares.link_img ||
             document.getElementById('date').value   !=  datares.end_date
         ){
             return true;
@@ -154,12 +157,13 @@ const IndexAdmin=()=>{
         return     <form method="post" onSubmit={(e)=>submit(e)} >
  
                         <div className='row'>
+
                             <div className='col-md-6'>
+
                                 <div className='form-group'>
                                     <label htmlFor="type" >Nom de coupon</label>
                                     <input type="text" id="nom" defaultValue={datares.title} style={{width:'100%'}}  name="nom"/>
                                 </div>
-
 
                                 <div className='form-group'>
                                     <label htmlFor="url" >Url</label>
@@ -167,13 +171,18 @@ const IndexAdmin=()=>{
                                 </div>
 
                                 <div className='form-group'>
+                                    <label htmlFor="url" >Url img</label>
+                                    <input type="text" id="url_img" defaultValue={datares.link_img} style={{width:'100%'}} name="url" />
+                                </div>
+
+                                <div className='form-group'>
                                     <label htmlFor="url" >Somme</label>
-                                    <input  type="number" min="0"  max='99' placeholder='euro' step="1" id="Somme" defaultValue={datares.somme} style={{width:'100%'}} name="url_image" />
+                                    <input  type="text" placeholder='euro' step="1" id="Somme" defaultValue={datares.somme} style={{width:'100%'}} name="url_image" />
                                 </div>
                                     
                                 <div className='form-group'>         
                                     <label htmlFor="code">Code du coupon</label>
-                                    <input  type="number" min="0"  max='99' placeholder='###' step="1" id="code" defaultValue={datares.code} style={{width:'100%'}} name="code"/>
+                                    <input type="text"  placeholder='###' step="1" id="code" defaultValue={datares.code} style={{width:'100%'}} name="code"/>
                                 </div>
 
                                 {button()}

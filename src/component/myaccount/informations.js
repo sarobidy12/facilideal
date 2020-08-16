@@ -12,6 +12,7 @@ import Empiler from "../cashback/loader/empiler";
 import All_data from "../cashback/loader/all_data";
 import { Link, Redirect } from 'react-router-dom';
 import Menu from './menu';
+import Footer from '../footer/index';
 
 const AddSousC=(data)=>{
 
@@ -172,10 +173,12 @@ const AddSousC=(data)=>{
 
         if(stop === 1){
             return  <div className="container-view-all">
-                        <div className="inline-block img-view">
+                          <div className="row">
+
+                        <div className="col-md-4 img-view">
                             <Menu />
                         </div>
-                        <div className="inline-block contennt-titre-view">
+                        <div className="col-md-8 contennt-titre-view">
                             <div id='myInforation'>
 
                             <form method="POST" onSubmit={(e)=>{modifierMotdepasse(e)}}>
@@ -243,26 +246,29 @@ const AddSousC=(data)=>{
                                 </div>
                                 {buttonModif()}
                             </form>
-                         
                               
                             </div>
                        
                         </div>
 
                     </div>
+                    </div>
 
         }else{
             
             return  <div className="container-view-all">
-                        <div className="inline-block img-view">
-                            <Menu />
-                        </div>
-                        <div className="inline-block contennt-titre-view">
-                            <Empiler />
-                            <Empiler />
-                            <Empiler />
-                        </div>
-                    </div> 
+                        <div className="row">
+                                <div className="col-md-4 img-view">
+                                    <Menu />
+                                </div>
+                                <div className="col-md-8 contennt-titre-view">
+                                    <Empiler />
+                                    <Empiler />
+                                    <Empiler />
+                                </div>
+                        </div> 
+                </div>
+
         }
         
     }
@@ -275,7 +281,10 @@ const AddSousC=(data)=>{
                 </MetaTags>   
                 <div id='acount'>
                    {element()}
+                <Footer/>
+
                 </div>
+
  <div id='response-message-users'>
                     </div>
             </div>  

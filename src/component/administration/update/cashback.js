@@ -80,14 +80,14 @@ const UdapdeCahback=()=>{
         SetDisabled(false);
 
             var objet= [ 
-                document.getElementById('Ancien').value,
-                document.getElementById('nouveaux').value,
-                document.getElementById('url').value,
-                document.getElementById('url_img').value,
-                document.getElementById('nom').value,
-                document.getElementById('description').value,
-                document.getElementById('Condition').value,
-                document.getElementById('dateFin').value,
+                document.getElementById('Ancien').value.trim(),
+                document.getElementById('nouveaux').value.trim(),
+                document.getElementById('url').value.trim(),
+                document.getElementById('url_img').value.trim(),
+                document.getElementById('nom').value.trim(),
+                document.getElementById('description').value.trim(),
+                document.getElementById('Condition').value.trim(),
+                document.getElementById('dateFin').value.trim(),
                 window.location.pathname.split('/')[3]
             ];
 
@@ -178,12 +178,12 @@ const UdapdeCahback=()=>{
                 
                                   <div class='form-group'>
                                       <label for="renumeration">Ancien Cashback</label>
-                                      <input type="number" min="0" max='99'  placeholder='%'  step="1" style={{width:'100%'}} defaultValue={datares.Ancien} id="Ancien" name="Ancien" />
+                                      <input type="text"    placeholder='%'  step="1" style={{width:'100%'}} defaultValue={datares.Ancien} id="Ancien" name="Ancien" />
                                   </div>
                 
                                   <div class='form-group'>
                                       <label for="renumeration">Nouveau Cashback</label>
-                                      <input type="number" min="0" max='99' placeholder='%' step="1" style={{width:'100%'}} defaultValue={datares.Nouveaux} id="nouveaux" name="nouveaux" />
+                                      <input type="text"  placeholder='%' step="1" style={{width:'100%'}} defaultValue={datares.Nouveaux} id="nouveaux" name="nouveaux" />
                                   </div>
                 
                                   <div class='from-group'> 
@@ -260,7 +260,7 @@ z                                      <CKEditor
                 {findData()} 
 
             </div> 
-                       <div id='response-message'>
+                    <div id='response-message'>
                     </div>
             </div>  
         ); 

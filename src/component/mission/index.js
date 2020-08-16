@@ -5,6 +5,7 @@ import { useCookies } from "react-cookie";
 import localhost from '../../_config'
 import Empiler from "../cashback/loader/empiler";
 import MetaTags from 'react-meta-tags';
+import Footer from '../footer/index';
 
 const Mission=()=>{
         
@@ -100,7 +101,7 @@ const Mission=()=>{
                                 </div>
                             </li>
                             <li>
-                                {responseData[i].remuneration}
+                                {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format( responseData[i].remuneration)} 
                             </li>
                             <li>
                              {RestQuota(responseData[i].quota,responseData[i].id)}<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
@@ -123,7 +124,7 @@ const Mission=()=>{
                                 </div>
                             </li>
                             <li>
-                                {responseData[i].remuneration}
+                                 {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format( responseData[i].remuneration)} 
                             </li>
                             <li>
                                  {RestQuota(responseData[i].quota,responseData[i].id)}<span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
@@ -196,9 +197,11 @@ const Mission=()=>{
                             </div>
                         </div>
 
-                <div className="container-view-all">
+                        <div className="container-view-all">
+                        
+                        <div className='row'>
 
-                            <div className="inline-block img-view"  data-aos='fade-in'>
+                            <div className="col-md-4 img-view">
                                     <div className="description-content-mission">
                                         Les missions avec des adresses emails jetables sont INTERDITES ! Celui qui utilise des adreses email jetable seront banni. Les adresse non autorisé ( gmx,netcourrier,trashmail etc)
                                         Tout les membres qui effecturons l'offres LISTEOO j'offre un bonus de 1,50€ toute les 10 offres validées
@@ -206,7 +209,7 @@ const Mission=()=>{
                                     </div>
                             </div>
 
-                            <div className="inline-block contennt-titre-view">
+                            <div className="col-md-8 contennt-titre-view">
                                         <div className='all-mission-title'>
                                             <ul>
                                                 <li>
@@ -227,9 +230,15 @@ const Mission=()=>{
                                             </ul>
                                         </div>
                                         {data()}
+
                             </div>
                     </div>
+</div>
+
+                    <Footer />
+
                 </div>
+
             </div>
         </div>
 

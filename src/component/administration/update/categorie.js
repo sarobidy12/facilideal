@@ -53,13 +53,13 @@ const IndexAdmin=()=>{
         document.getElementById('btn-loader').innerHTML='chargement ...';
         SetDisabled(false);
 if(document.getElementById('Img').value != ''){
-    if(document.getElementById('categorie').value != datares.nom_categorie || document.getElementById('Img').value != datares.url_img){
+    if(document.getElementById('categorie__').value.trim() != datares.nom_categorie || document.getElementById('Img').value.trim() != datares.url_img){
                 
         let formData= new FormData();
 
         formData.append("text", JSON.stringify([
-            document.getElementById('categorie').value,
-            document.getElementById('Img').value,
+            document.getElementById('categorie__').value.trim(),
+            document.getElementById('Img').value.trim(),
             window.location.pathname.split('/')[3]])
         );
 
@@ -67,6 +67,8 @@ if(document.getElementById('Img').value != ''){
         const url= localhost+'/controleur.php?p=UpdateCategorie';
         axios.post(url,formData)
         .then((res)=>{
+
+            
                 document.getElementById('btn-loader').innerHTML='Modifier le Categorie';
                 SetDisabled(true);
                     if(res.data === 'update-success-categorie'){
@@ -111,7 +113,7 @@ if(document.getElementById('Img').value != ''){
             return  <form method="post" onSubmit={(e)=>submit(e)}>
                         <div class='form-group'>                           
                             <label for="type" >Nom de categorie</label>
-                            <input type="text" id="categorie" defaultValue={datares.nom_categorie} name="nom" />
+                            <input type="text" id="categorie__" defaultValue={datares.nom_categorie} name="categorie__" />
                         </div>
 
                         <div class='form-group'>                           

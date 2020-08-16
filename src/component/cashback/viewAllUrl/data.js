@@ -133,9 +133,7 @@ const Nav=()=>{
     }
     return (
             <div> 
-                <div className='resultat-data'>
                     {dataResult()}
-                </div>
             </div>
         ); 
 }

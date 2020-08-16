@@ -7,6 +7,8 @@ import Empiler from "../cashback/loader/empiler";
 import Menu from './menu';
 import Moment from 'react-moment';
 import 'moment/locale/fr';
+import Footer from '../footer/index';
+
 const AddSousC=(data)=>{
 
 const [stop,setStop] = useState(0);
@@ -113,7 +115,6 @@ const [historique, sethistorique] = useState([]);
         axios.post(url,formData)
         .then((res)=>{
 
-            console.log(res.data);
             if(res.data ==='delete-success'){
                //  document.getElementById('data_notif').innerHTML='<center><h2>Aucune notification</h2></center>'
                  sethistorique([]);
@@ -126,32 +127,40 @@ const [historique, sethistorique] = useState([]);
 
         if(stop === 1){
             return  <div className="container-view-all">
-                         <div className="inline-block img-view">
-                            <Menu />
-                        </div>
-                        <div className="inline-block contennt-titre-view">
-                              
-                            <div id='data_notif'>
-                                <h1>
-                                    Historique
-                                </h1>
-                                {buttonDelete()}
-                               {historiqueAll()}
-                            </div>
+                        <div className="row">
 
-                        </div>
-                    </div>
+                                <div className="col-md-4 img-view">
+                                    <Menu />
+                                </div>
+
+                                <div className="col-md-8 contennt-titre-view">
+                                    
+                                    <div id='data_notif'>
+                                        <h1>
+                                            Historique
+                                        </h1>
+                                        {buttonDelete()}
+                                    {historiqueAll()}
+                                    </div>
+
+                                </div>
+                            </div>
+                </div>
+
         }else{
             return  <div className="container-view-all">
-                        <div className="inline-block img-view">
-                            <Menu />
-                        </div>
-                        <div className="inline-block contennt-titre-view">
-                            <Empiler />
-                            <Empiler />
-                            <Empiler />
-                        </div>
-                    </div> 
+                        <div className="row">
+                                <div className="col-md-4 img-view">
+                                    <Menu />
+                                </div>
+                                <div className="col-md-6 contennt-titre-view">
+                                    <Empiler />
+                                    <Empiler />
+                                    <Empiler />
+                                </div>
+                            </div> 
+                </div>
+
         }
         
     }
@@ -164,8 +173,9 @@ const [historique, sethistorique] = useState([]);
                 </MetaTags>   
                 <div id='acount'>
                    {element()}
-                </div>
+                <Footer/>
 
+                </div>
             </div>  
         ); 
   }

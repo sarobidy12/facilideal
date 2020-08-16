@@ -148,14 +148,14 @@ const AddCashback=()=>{
         SetDisabled(false);
 
             var objet= [
-                document.getElementById('affiliation').value,
-                document.getElementById('Ancien').value,
-                document.getElementById('nouveaux').value,
-                document.getElementById('categorie_all').value,
-                document.getElementById('sousCategorie_io').value,
-                document.getElementById('url').value,
-                document.getElementById('url_img').value,
-                document.getElementById('nom').value,
+                document.getElementById('affiliation').value.trim(),
+                document.getElementById('Ancien').value.trim(),
+                document.getElementById('nouveaux').value.trim(),
+                document.getElementById('categorie_all').value.trim(),
+                document.getElementById('sousCategorie_io').value.trim(),
+                document.getElementById('url').value.trim(),
+                document.getElementById('url_img').value.trim(),
+                document.getElementById('nom').value.trim(),
                 description,
                 Condition,
                 document.getElementById('dateFin').value
@@ -302,12 +302,12 @@ const AddCashback=()=>{
 
                   <div class='form-group'>
                       <label for="renumeration">Ancien Cashback</label>
-                      <input type="number" min="0"  max='99' placeholder='% / euro'  step="1" style={{width:'100%'}} id="Ancien" name="Ancien" />
+                      <input type="text" placeholder='% / euro'  step="1" style={{width:'100%'}} id="Ancien" name="Ancien" />
                   </div>
 
                   <div class='form-group'>
                       <label for="renumeration">Nouveau Cashback</label>
-                      <input type="number" min="0"   max='99' placeholder='% / euro '  step="1" style={{width:'100%'}} id="nouveaux" name="nouveaux" />
+                      <input type="text" placeholder='% / euro '  step="1" style={{width:'100%'}} id="nouveaux" name="nouveaux" />
                   </div>
 
                   <div class='from-group'> 

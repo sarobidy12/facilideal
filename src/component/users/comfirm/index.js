@@ -4,6 +4,7 @@ import { Link,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import localhost from '../../../_config'
 
+import Footer from '../../footer/index';
 const SignUp=()=>{
    
     const [redirect,Setdredirect] =useState(0);
@@ -83,6 +84,8 @@ const SignUp=()=>{
                             </div>
                         </div>
                     </div>
+
+                    <Footer/>
               
                 </div>
             </div>

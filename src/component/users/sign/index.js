@@ -2,6 +2,10 @@ import React , {  useEffect, useState }from 'react';
 import { Link,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import localhost from '../../../_config'
+import Footer from '../../footer/index';
+import { useCookies } from 'react-cookie';
+import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
 
 const SignUp=()=>{
 
@@ -9,8 +13,20 @@ const SignUp=()=>{
     const [disabled,Setdisabled] =useState(0);
     const [redirect,Setdredirect] =useState(0);
     const [message,SetMessage] =useState(null);
+    const [cookies, setCookie] = useCookies(null);
 
-        const submit = function submit (event){
+    const [nom,setNom] =useState(null);
+    const [prenom,setPrenom] =useState(null);
+    const [mail,setMail] =useState(null);
+        
+    useEffect(()=>{
+        
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    })
+    const submit = function submit (event){
 
         event.preventDefault();
         Setdisabled(1);
@@ -105,7 +121,97 @@ const SignUp=()=>{
             return <Redirect to='/comfirmation-users'/>
         }
     }
+    const responseFacebook = response=>{
+ 
+
+        if(response.email != null){
+            Setdisabled(1);
+
+            var name = response.name;
+            var apt = name.split(' ');
+
+
+                if(sessionStorage.getItem('id-paraign') != null){
+                    var id_parraign=sessionStorage.getItem('id-paraign')
+                }else{
+                    var id_parraign=0   
+                }
+        
+                    var data = [
+                        response.email,
+                        apt[0],
+                        apt[1],
+                        id_parraign
+                    ]
+
+                        let formData= new FormData();
+                        formData.append("text",JSON.stringify(data));
+                        const url= localhost+'/controleur.php?p=registerSocial';
+                        axios.post(url,formData)
+                            .then((res)=>{
+                                
+                                 setCookie('_lo', res.data);
+                                 sessionStorage.setItem('_lo',res.data.id)
+                                 Setdisabled(0);
+                                 window.location.replace('/MyaccountInfo/tableau-de-bord')
+                            
+                            })
+        }
+        
+          
+     
+    }
+     const  componentClicked= ()=>{
+     
+        console.log('click'); 
+     }
+
+    const  responseGoogle = (response) => {
+ 
     
+       var name = response.profileObj.name;
+       var apt = name.split(' ');
+    
+        if(sessionStorage.getItem('id-paraign') != null){
+            var id_parraign=sessionStorage.getItem('id-paraign')
+        }else{
+            var id_parraign=0   
+        }
+
+            var data = [
+                response.profileObj.email,
+                apt[0],
+                apt[1],
+                id_parraign
+            ]
+
+                let formData= new FormData();
+                formData.append("text",JSON.stringify(data));
+                const url= localhost+'/controleur.php?p=registerSocial';
+                axios.post(url,formData)
+                    .then((res)=>{
+                        
+                        setCookie('_lo', res.data);
+                        sessionStorage.setItem('_lo',res.data.id)
+                        Setdisabled(0);
+                        window.location.replace('/MyaccountInfo/tableau-de-bord')
+                    
+                    })
+
+    }
+
+    let fbContent;
+    fbContent=(
+        <FacebookLogin
+            appId="3321703071194475"
+            fields="name,email,picture"
+            onClick={componentClicked}
+            callback={responseFacebook}
+            cssClass="btn_facebook"
+            textButton="inscription via Facebook"
+            icon="fa fa-facebook-square"
+         />
+    )
     return (
             <div> 
                 {redirectLink()}
@@ -123,6 +229,15 @@ const SignUp=()=>{
                                     <h1>
                                         S'inscire
                                     </h1>
+                                   {fbContent}
+                                   <GoogleLogin
+                                        clientId="799924690004-3n6l4rkr2j0kg4k4ktkg96fphgtcvocj.apps.googleusercontent.com"
+                                        buttonText='inscription via Google'
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        className='btn_login'
+                                    />
                                    <form method="POST" onSubmit={(e)=>submit(e)}>
 
                                     <label>Prénom</label>
@@ -165,6 +280,7 @@ const SignUp=()=>{
                             </div>
                         </div>
                     </div>
+                    <Footer />
                 </div>
             </div>
         ); 

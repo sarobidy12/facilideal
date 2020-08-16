@@ -39,11 +39,11 @@ const IndexAdmin=()=>{
 
         for(var i=0;i < resData.length;i++){
 
-            if(resData[i].id_type_boutique === '1'){
+            if(resData[i].id_type_boutique === '1' && resData[i].etat === '0' ){
                 paypal.push(resData[i]);
-            }else if(resData[i].id_type_boutique === '2'){
+            }else if(resData[i].id_type_boutique === '2' && resData[i].etat === '0'){
                 amazone.push(resData[i]);
-            }else if(resData[i].id_type_boutique === '3'){
+            }else if(resData[i].id_type_boutique === '3' && resData[i].etat === '0'){
                 virement.push(resData[i])
             }
 

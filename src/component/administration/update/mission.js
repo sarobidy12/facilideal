@@ -194,7 +194,7 @@ const UpdateMission=()=>{
 
                     <div class='form-group'>
                         <label for="url">Rémunération aux membres :</label>
-                        <input type="number" min="0" step="1"  style={{width:'90%'}} id='renumeration' defaultValue={datares.remuneration} name="renumeration"  />
+                        <input type="text"  style={{width:'90%'}} id='renumeration' defaultValue={datares.remuneration} name="renumeration"  />
                     </div>
 
                     <div class='form-group'>
@@ -217,11 +217,6 @@ const UpdateMission=()=>{
                 </div>
                         
                 <div className='col-md-6'>
-
-                    <div class='form-group'>                           
-                        <label for="type" >Validation directe (0 = non | 1 = oui) :</label>
-                            <input  type="number" min="0" style={{width:'90%'}}  defaultValue={datares.valid} step="1" id='valid' max='1'/>
-                    </div>
 
                     <div class='form-group'>                           
                         <label for="type" >Quota quotidien (0 = illimité) :</label>

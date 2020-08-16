@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Hero from "./hero";
 import All from "./all";
 import MetaTags from "react-meta-tags";
+import Footer from '../footer/index';
 
 class Index extends Component {
   componentDidMount = () => {
@@ -20,6 +21,8 @@ class Index extends Component {
         </MetaTags>
         <Hero />
         <All />
+        <Footer />
+
       </div>
     );
   }

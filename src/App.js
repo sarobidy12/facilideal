@@ -12,6 +12,7 @@ import LienParaignage from './component/users/sign/paraignage'
 import Sign from './component/users/sign/index'; 
 import Login from './component/users/login/index'; 
 import cashback from './component/cashback/index'; 
+import Contact from './component/contact/index'; 
 import cashbackSouscategorie from './component/cashback/souscategorie/index'; 
 
 import cashbackGetAuto from './component/cashback/viewAllUrl/index'; 
@@ -29,6 +30,7 @@ import Adminmission from './component/administration/view/mission';
 import Adminnewletter from './component/administration/view/newletter';
 import Adminvalidation from './component/administration/view/validation';
 import AdminCategorie from './component/administration/view/categorie';
+import AdminRGPD from './component/administration/view/rgdp';
 import AdminReseauxAffiliation from './component/administration/view/reseauxAffiliation';
 import AdminReseauxPayement from './component/administration/view/payement';
 import AdminReseauxPayementComfirmation from './component/administration/view/comfirmation_payment';
@@ -55,6 +57,7 @@ import AdminValidationAvis from './component/administration/view/validationAvis'
 
 
 import HeaderUser from './component/nav/index';
+
 import Parraignage from './component/myaccount/paraignage';
 import Notification from './component/myaccount/notification';
 import Informations from './component/myaccount/informations';
@@ -65,6 +68,11 @@ import Avis from './component/myaccount/avis';
 import Mission from './component/mission/index';
 import Click from './component/click/index';
 import Boutique from './component/boutique/index';
+import Gagnants from './component/gagnant/index';
+
+import RGPD from './component/RGPD/index';
+
+
 import Aos from 'aos';
 import "aos/dist/aos.css";
 import localhost from './_config';
@@ -76,42 +84,29 @@ function App() {
   const [stop,setStop]=useState(0);
 
   useEffect(()=>{
+
     Aos.init({
       duration : 1500
     })
-
-    if(cookies._categorieAndSousCAtegorie === null){
-      getCategorie();
-    }else{
-      removeCookie('_categorieAndSousCAtegorie');
-      getCategorie();
-    }
-    
-  },[]);
-
-    
-  const getCategorie = function getCategorie(){
 
     let formData= new FormData();
     formData.append("text",'text');
     const url= localhost+'/controleur.php?p=categorieAndSoucategorie'; 
     axios.post(url,formData)
     .then((res)=>{
+
         if(stop === 0){
-        
-            var data = [];
+
+          var data = [];
 
                 for(var i=0;i< res.data[0].length;i++){
-
                  var SousCategorie =[];
-
                    for(var b=0;b < res.data[1].length;b++){
                         if(res.data[0][i].id === res.data[1][b].id_categorie){
                           SousCategorie.push(res.data[1][b]);
                        }
                    }
-
-                        data.push({
+                   data.push({
                             id:res.data[0][i].id,
                             nom_categorie:res.data[0][i].nom_categorie,
                             url_img:res.data[0][i].url_img,
@@ -123,8 +118,10 @@ function App() {
             setStop(1);
         }
     });
-}
+    
+  },[]);
 
+ 
   return (
     <BrowserRouter>
       <HeaderUser/>
@@ -143,6 +140,7 @@ function App() {
             <Route path="/administration/categorie/" component={AdminCategorie}  />
             <Route path="/administration/reseaux-affiliation" component={AdminReseauxAffiliation}  />
             <Route path="/administration/histori_cashback/" component={AdminhistoriCashack}  />
+            <Route path="/administration/UpdateRgpd/" component={AdminRGPD}  />
 
             <Route path="/administration/payment" component={AdminReseauxPayement}  />
             <Route path="/administration/payment-comfirmation/:id" component={AdminReseauxPayementComfirmation}  />
@@ -166,6 +164,7 @@ function App() {
             <Route path="/administration/ViewMembre/:id" component={AdminViewMembre} />
             
             <Route path="/cashback" component={cashback} />
+            <Route path="/Gagnants" component={Gagnants} />
             <Route path="/casbackCategorie/:app/:id" component={cashbackSouscategorie} />
             <Route path="/findCashback/:id" component={Findcashback} />
 
@@ -186,6 +185,9 @@ function App() {
             <Route path="/Mission" component={Mission} />
             <Route path="/Click" component={Click} />
             <Route path="/Boutique" component={Boutique} />
+
+            <Route path="/Contact" component={Contact} />
+            <Route path="/politique-de-confidentialiter" component={RGPD} />
 
 
             <MessengerCustomerChat

@@ -5,8 +5,7 @@ import MetaTags from 'react-meta-tags';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import localhost from '../../../_config';
-import Moment from 'react-moment';
-import 'moment/locale/fr';
+
 
 const Click=()=>{
 

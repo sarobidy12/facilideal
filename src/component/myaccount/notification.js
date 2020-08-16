@@ -7,6 +7,7 @@ import 'moment/locale/fr';
 import localhost from '../../_config'
 import Empiler from "../cashback/loader/empiler";
 import Menu from './menu';
+import Footer from '../footer/index';
 
 const AddSousC=(data)=>{
 
@@ -125,10 +126,13 @@ const [notification, setNotification] = useState([]);
 
         if(stop === 1){
             return  <div className="container-view-all">
-                        <div className="inline-block img-view">
+                      <div className="row">
+
+                        <div className="col-md-4 img-view">
                             <Menu />
                         </div>
-                        <div className="inline-block contennt-titre-view-users">
+                        
+                        <div className="col-md-8 contennt-titre-view-users">
                             <h1>
                                 Notification
                             </h1>
@@ -138,18 +142,22 @@ const [notification, setNotification] = useState([]);
                             </div>
 
                         </div>
-                    </div>
+                     </div>
+                </div>
+
         }else{
 
             return  <div className="container-view-all">
-                        <div className="inline-block img-view">
-                            <Menu />
-                        </div>
-                        <div className="inline-block contennt-titre-view">
-                            <Empiler />
-                            <Empiler />
-                            <Empiler />
-                        </div>
+                        <div className="row">
+                            <div className="col-md-4 img-view">
+                                <Menu />
+                            </div>
+                            <div className="col-md-8 contennt-titre-view">
+                                <Empiler />
+                                <Empiler />
+                                <Empiler />
+                            </div>
+                        </div> 
                     </div> 
         }
         
@@ -163,6 +171,7 @@ const [notification, setNotification] = useState([]);
                 </MetaTags>   
                 <div id='acount'>
                    {element()}
+                    <Footer/>
                 </div>
 
             </div>  

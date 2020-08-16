@@ -8,6 +8,7 @@ import Long from "../cashback/loader/long";
 import Empiler from "../cashback/loader/empiler";
 import All_data from "../cashback/loader/all_data";
 import { useCookies } from "react-cookie";
+import Footer from "../footer/index";
 
 const Boutique=()=>{
 
@@ -70,7 +71,6 @@ const Boutique=()=>{
         for(var a=0;a < amazone.length;a++){
             dataAmozone.push(
             <div className='boutique-content'>
-                <ul>
                     <center>
                         <img src={'/img/'+amazone[a].id_type+'.png'}/>
                     </center>
@@ -81,7 +81,6 @@ const Boutique=()=>{
                             Commander
                         </button>
                      
-                </ul>
             </div>)
         }
 
@@ -91,7 +90,6 @@ const Boutique=()=>{
         for(var a=0;a < virement.length;a++){
             dataVirement.push(
             <div className='boutique-content'>
-                <ul>
                     <center>
                         <img src={'/img/'+virement[a].id_type+'.png'}/>
                     </center>
@@ -103,7 +101,6 @@ const Boutique=()=>{
                             Commander
                         </button>
 
-                </ul>
             </div>)
         }
 
@@ -112,7 +109,6 @@ const Boutique=()=>{
         for(var a=0;a < paypal.length;a++){
             dataPaypal.push(
             <div className='boutique-content'>
-                <ul>
                     <center>
                         <img src={'/img/'+paypal[a].id_type+'.png'}/>
                     </center>
@@ -122,7 +118,6 @@ const Boutique=()=>{
                     <button onClick={buttonDelete.bind(this,paypal[a])}>
                             Commander
                         </button>
-                </ul>
             </div>)
         }
 
@@ -165,31 +160,35 @@ const Boutique=()=>{
     const loader= function loader(){
         if(stop3 === 1){
             return <div className="container-view-all">
-
-                        <div className="inline-block img-view">
-                            <div className='boutique-left'>
-                                <h1>Boutique </h1>
-                                <img src='/img/boutique.png'/>
-                         
+                        <div className='row'>
+                            <div className='col-md-4'>
+                                <div className='boutique-left'>
+                                    <h1>Boutique </h1>
+                                    <img src='/img/boutique.png'/>
+                                </div>
                             </div>
-                          
-                        </div>
-                        <div className="inline-block contennt-titre-view">
-                            {setData()}
-                        </div>
+                                <div className='col-md-8'>
+                                            {setData()}
+                                </div> 
                     </div> 
-        }else{
-            return  <div className="container-view-all">
-                        <div className="inline-block img-view">
-                            <Empiler />
-                        </div>
-                        <div className="inline-block contennt-titre-view">
-                            <Empiler />
-                            <Empiler />
-                            <Empiler />
-                        </div>
                     </div> 
-        }
+                }else{
+                    return  <div className="container-view-all">
+
+                            <div className="row">
+                                <div className="col-md-4">
+                                    <Empiler />
+                                </div>
+
+                                <div className="col-md-8">
+                                    <Empiler />
+                                    <Empiler />
+                                    <Empiler />
+                                </div>
+                            </div>
+                        
+                        </div> 
+                }
 
     }
 
@@ -474,8 +473,9 @@ const Boutique=()=>{
                 </MetaTags>
                 <div className='boutique-view'>
                     {loader()}
-                </div>
+                <Footer/>
 
+                </div>
                 <div id='backgrondcoupons' onClick={()=>{
                      close();
                 }} >

@@ -150,10 +150,9 @@ const AddClick=()=>{
 
                   <div class='form-group'>
                       <label for="url">Rémunération aux membres :</label>
-                      <input type="number" min="0" step="1" id='renumeration' name="renumeration"  />
+                      <input type="text"  id='renumeration' name="renumeration"  />
                   </div>
 
-                  
                   <div class='form-group'>
                       <label for="url">pays acceptés :</label>
                       <select id="pays" style={{width:'20vh'}} name="pays">

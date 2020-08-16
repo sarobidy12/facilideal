@@ -19,25 +19,21 @@ const Click=()=>{
         if(findTrue === 0){
             getFindData(window.location.pathname.split('/')[3]);
         }
-     })
+    })
 
     const getFindData = function getFindData(id){
 
-        
         document.getElementById('loader').style.display='block';
-
         let formData= new FormData();
         formData.append("text",id);
         const url= localhost+'/controleur.php?p=souscategorie'; 
         axios.post(url,formData)
         .then((res)=>{
-
              if(findTrue === 0){
                 setDatares(res.data);
                     setfindTrue(1);
                         document.getElementById('loader').style.display='none';
              }
-
         });
 
     } 
@@ -90,7 +86,6 @@ const Click=()=>{
         setTchek(element5.sort((a,b)=>a-b));
 
         document.getElementById('del-'+id).style.backgroundColor='transparent';
-
 
         }
         
@@ -165,10 +160,10 @@ const Click=()=>{
         document.getElementById('btn-loader').innerHTML='chargement...';
         SetDisabled(false);
 
-            if(document.getElementById('categorie').value != ''){
+            if(document.getElementById('Souscategorie').value != ''){
 
                   let formData= new FormData();
-                  formData.append("text", JSON.stringify([document.getElementById('categorie').value,window.location.pathname.split('/')[3]]));
+                  formData.append("text", JSON.stringify([document.getElementById('Souscategorie').value.trim(),window.location.pathname.split('/')[3]]));
                   const url= localhost+'/controleur.php?p=addSousCategorie';
                   axios.post(url,formData)
                   .then((res)=>{
@@ -262,7 +257,7 @@ const Click=()=>{
                                 <form method="post" onSubmit={(e)=>submit(e)}>
                                     <div class='form-group'>                           
                                         <label for="type" >Nom du sous categorie</label>
-                                        <input type="text" id="categorie" name="nom"   />
+                                        <input type="text" id="Souscategorie" name="Souscategorie"   />
                                     </div>
 
                                     <div class='from-group'> 

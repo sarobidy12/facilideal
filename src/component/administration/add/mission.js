@@ -179,7 +179,7 @@ const AddMission=()=>{
 
                             <div class='form-group'>
                                 <label for="url">Rémunération aux membres :</label>
-                                <input type="number" min="0" step="1"  style={{width:'90%'}} id='renumeration' name="renumeration"  />
+                                <input type="text" style={{width:'90%'}} id='renumeration' name="renumeration"  />
                             </div>
 
                             <div class='form-group'>

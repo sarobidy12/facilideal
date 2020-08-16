@@ -25,12 +25,18 @@ const CashBack=()=>{
                 document.getElementById('message-admin-login').style='opacity:1;background:rgba(0, 191, 255, 0.5)';
                 document.getElementById('message-admin-login').innerHTML='Connection au serveur ... ';
                     let formData= new FormData();
-                    formData.append("text",[email,password]);
+                    formData.append("text",JSON.stringify([
+                        document.getElementById('nom').value,
+                        document.getElementById('pasword').value
+                    ]))
 
                     const url= localhost+'/controleur.php?p=loginAdmin'; 
                     axios.post(url,formData)
 
+
                     .then((res)=>{
+
+                            console.log(res.data);
 
                         if(res.data == 'success-log-admin'){
                             window.location.replace('/administration/');
@@ -70,11 +76,11 @@ const CashBack=()=>{
                         <form onSubmit={(e)=>{ handSubmit(e)}}>
                             <div class="form-group">
                             <label for="exampleInputEmail1">Indentifiant</label>
-                             <input type="text" name='email'  onChange={inputChange} id="nom"/>
+                             <input type="text" name='email'   id="nom"/>
                             </div>
                             <label for="exampleInputPassword1">Mot de passe</label>
                             <div class="form-group">
-                                <input type="password" name='password'  onChange={inputChange} id="pasword" />
+                                <input type="password" name='password' id="pasword" />
                             </div>
 
                             <button class="btn btn-login-admin">Se connecter</button>

@@ -9,6 +9,7 @@ import { useCookies } from "react-cookie";
 const Coupons=()=>{
 
     const [count, setCount] = useState(1);
+    const [countAuto, setCountAuto] = useState(1);
     const [coupon, setCoupon] = useState([])
     const [id, setId] = useState(null);
     const [redirect,setredirect]=useState(false);
@@ -17,6 +18,10 @@ const Coupons=()=>{
   
     useEffect(()=>{
          getData();
+
+         setTimeout(()=>{
+            setCountAuto(countAuto + 1);
+         },3000);
     })
 
     const getData= function getData(){
@@ -26,9 +31,9 @@ const Coupons=()=>{
         const url= localhost+'/controleur.php?p=GETCouponsHome';
         axios.post(url,formData)
         .then((res)=>{
-            setStopSend(1);
             if(stopSend == 0){
                 setCoupon(res.data);
+                setStopSend(1)
             }
         })
     }
@@ -37,15 +42,17 @@ const Coupons=()=>{
 
         if(count == 0){
             setCount(3);
+            setCountAuto(3)
             document.getElementById(3).style.backgroundColor='rgb(7, 249, 178)';
-        }else if(count == 1){
+        }else if(count == 1 || countAuto == 1){
             document.getElementById('All-carousel').scrollTo(0,0);
-        }else if(count == 2){
+        }else if(count == 2 || countAuto == 2){
             document.getElementById('All-carousel').scrollTo(1000,0);
-        }else if(count == 3){
+        }else if(count == 3 || countAuto == 3){
             document.getElementById('All-carousel').scrollTo(1800,0);
-        }else if(count == 4){
+        }else if(count == 4 || countAuto == 4){
             setCount(1);
+            setCountAuto(1)
             document.getElementById(1).style.backgroundColor='rgb(7, 249, 178)';
 
         }
@@ -80,59 +87,46 @@ const Coupons=()=>{
 
         var data = [];
 
-        for(var i =0; i< coupon.length;i++){
-            data.push(
-                <div id='coupons-content' data-aos='fade-up'>
-                        <center>
-                            <img src='/img/coupons/1.png' alt="Acheter "/>
-                            </center>
-                            <h2>
-                                {coupon[i].title}
-                                {this}
-                            </h2>
-                            
-                            <p>Economise  {coupon[i].somme} % <span className="glyphicon glyphicon-upload" aria-hidden="true"></span></p>
-                            <div className='code-coupons'>
-                                <div id={'coupons-'+coupon[i].id} className='btn-coupons up' onClick={ openCoupons.bind(this,coupon[i].id) }>
-                                        Code coupons
-                                </div>
-                                <div className='btn-coupons down'>
-                                    {coupon[i].code}
-                                </div>
-                            </div>
-                            <b>
-                                {date(coupon[i].end_date)}
-                            </b> 
-                            <br/>
-                            <br/>
-                            <img src='/img/loader1.gif'/>
-                       
-                </div>
-            )
-        }
+        if(stopSend === 1){
 
-        return data;
+            for(var i =0; i< coupon.length;i++){
+                
+                data.push(
+                    <div id='coupons-content' data-aos='fade-up'>
+                            <center>
+                                <img src= {coupon[i].link_img} alt="Acheter "/>
+                                </center>
+                                <h2>
+                                    {coupon[i].title}
+                                </h2>
+                                
+                                <p>Economise  {coupon[i].somme} <span className="glyphicon glyphicon-upload" aria-hidden="true"></span></p>
+                                <div className='code-coupons'>
+                                    <div id={'coupons-'+coupon[i].id} className='btn-coupons up' onClick={ openCoupons.bind(this,coupon[i].id) }>
+                                            Code coupons
+                                    </div>
+                                    <div className='btn-coupons down'>
+                                        {coupon[i].code}
+                                    </div>
+                                </div>
+                    </div>
+                )
+            }
+      
+            return data;
+
+        }else{
+
+            return <div className='loader-gif'>
+                        <center>
+                            <img src='/img/loader1.gif'/>
+                        </center>
+                   </div>;
+
+        }
     }
 
     
-    const date=(e)=>{
-        var now=new Date(); // date actuelle
-        var later=new Date(e); // premier janvier 2013
-        var result=later.getTime()-now.getTime(); // différence en millisecondes depuis le premier janvier 1970 (voir getTime() pour mieux comprendre)
-        var jours=parseInt(result/86400000);
-    
-        if(jours < 10){
-            return <div style={{color:'red'}}>
-                        <i class="glyphicon glyphicon-time" aria-hidden="true"></i>Expire <Moment fromNow>{' '+e}</Moment>
-                    </div>
-        }else{
-            return <div style={{color:'green'}}>
-                        <i class="glyphicon glyphicon-time" aria-hidden="true"></i>Expire <Moment fromNow>{' '+e}</Moment>
-                   </div>
-        }
-      }
-    
-
     return (
             <div>
                 {redirectConexion()}

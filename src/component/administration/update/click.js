@@ -140,7 +140,7 @@ const UpdateClick=()=>{
 
             <div class='form-group'>
                 <label for="url">Rémunération aux membres :</label>
-                <input type="number" defaultValue={datares.remuneration} min="0" step="1" id='renumeration' name="renumeration"  />
+                <input type="text" defaultValue={datares.remuneration}  id='renumeration' name="renumeration"  />
             </div>
 
             <div class='form-group'>

@@ -99,6 +99,12 @@ const NavAdmin=()=>{
                           </li>
 
                           <li id='validation' className='onglet'>
+                              <Link to="/administration/UpdateRgpd/">
+                                  <span className="glyphicon glyphicon-book" ></span><b>RGPD</b>
+                              </Link>
+                          </li>
+
+                          <li id='validation' className='onglet'>
                               <Link to="/administration/deconnexion/" 
                                 onClick={()=>{
                                     sessionStorage.removeItem('Admin-login')

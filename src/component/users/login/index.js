@@ -1,8 +1,12 @@
 import React , {  useEffect ,useState }from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
+import { useCookies } from 'react-cookie'; 
+
 import localhost from '../../../_config'
+import Footer from '../../footer/index';
+import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
 
 const Login=()=>{
 
@@ -10,8 +14,20 @@ const Login=()=>{
     const [disabled,Setdisabled] =useState(0);
     const [redirect,Setdredirect] =useState(0);
     const [cookies, setCookie] = useCookies(null);
+
+    const [nom,setNom] =useState(null);
+    const [prenom,setPrenom] =useState(null);
+    const [mail,setMail] =useState(null);
     
+    useEffect(()=>{
+        
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    })
     const Login = function Login(e){
+        
         e.preventDefault();
 
         Setdisabled(1);
@@ -60,10 +76,12 @@ const Login=()=>{
                             SetMessage('Le address email n\'existe pas ');
                             Setdisabled(0);
                         }else{
-                            window.location.replace('/MyaccountInfo/tableau-de-bord')
+                            
                             setCookie('_lo', res.data);
                             sessionStorage.setItem('_lo',res.data.id)
                             Setdisabled(0);
+                            window.location.replace('/MyaccountInfo/tableau-de-bord')
+
                         }
                     });
 
@@ -98,6 +116,97 @@ const Login=()=>{
        
     }
 
+    const responseFacebook = response=>{
+ 
+
+        if(response.email != null){
+            Setdisabled(1);
+
+            var name = response.name;
+            var apt = name.split(' ');
+
+
+                if(sessionStorage.getItem('id-paraign') != null){
+                    var id_parraign=sessionStorage.getItem('id-paraign')
+                }else{
+                    var id_parraign=0   
+                }
+        
+                    var data = [
+                        response.email,
+                        apt[0],
+                        apt[1],
+                        id_parraign
+                    ]
+
+                        let formData= new FormData();
+                        formData.append("text",JSON.stringify(data));
+                        const url= localhost+'/controleur.php?p=registerSocial';
+                        axios.post(url,formData)
+                            .then((res)=>{
+                                
+                                 setCookie('_lo', res.data);
+                                 sessionStorage.setItem('_lo',res.data.id)
+                                 Setdisabled(0);
+                                 window.location.replace('/MyaccountInfo/tableau-de-bord')
+                            
+                            })
+        }
+        
+          
+     
+    }
+     const  componentClicked= ()=>{
+     
+        console.log('click'); 
+     }
+
+    const  responseGoogle = (response) => {
+ 
+    
+       var name = response.profileObj.name;
+       var apt = name.split(' ');
+    
+        if(sessionStorage.getItem('id-paraign') != null){
+            var id_parraign=sessionStorage.getItem('id-paraign')
+        }else{
+            var id_parraign=0   
+        }
+
+            var data = [
+                response.profileObj.email,
+                apt[0],
+                apt[1],
+                id_parraign
+            ]
+
+                let formData= new FormData();
+                formData.append("text",JSON.stringify(data));
+                const url= localhost+'/controleur.php?p=registerSocial';
+                axios.post(url,formData)
+                    .then((res)=>{
+                        
+                        setCookie('_lo', res.data);
+                        sessionStorage.setItem('_lo',res.data.id)
+                        Setdisabled(0);
+                        window.location.replace('/MyaccountInfo/tableau-de-bord')
+                    
+                    })
+
+    }
+    
+    let fbContent;
+        fbContent=(
+            <FacebookLogin
+                appId="854916238331262"
+                fields="name,email,picture"
+                onClick={componentClicked}
+                callback={responseFacebook}
+                cssClass="btn_facebook"
+                textButton="connexion via Facebook"
+                icon="fa fa-facebook-square"
+             />
+        )
     
     return (
             <div> 
@@ -116,7 +225,15 @@ const Login=()=>{
                                     <h1>
                                         Se connecter
                                     </h1>
-
+                                   {fbContent}
+                                   <GoogleLogin
+                                        clientId="799924690004-3n6l4rkr2j0kg4k4ktkg96fphgtcvocj.apps.googleusercontent.com"
+                                        buttonText='connexion via Google'
+                                        onSuccess={responseGoogle}
+                                        onFailure={responseGoogle}
+                                        cookiePolicy={'single_host_origin'}
+                                        className='btn_login'
+                                    />
                                     <form method="POST" onSubmit={e=>Login(e)}>
 
                                         <label>Addres mail</label>
@@ -141,6 +258,8 @@ const Login=()=>{
                             </div>
                         </div>
                     </div>
+                <Footer />
+
                 </div>
             </div>
         ); 

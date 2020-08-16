@@ -98,7 +98,6 @@ const Cashback=()=>{
                 <div className='inline-table'>expirer</div>
                 <div className='inline-table'>status</div>
                 <div className='inline-table'>acceuil</div>
-                <div className='inline-table' style={{width:'10vh'}}>premium</div>
                 <div className='inline-table'>action</div>
             </div>
         )
@@ -117,8 +116,7 @@ const Cashback=()=>{
                             <div className='inline-table'><b><Moment fromNow>{resData[i].end_date}</Moment></b></div>
                             <div className='inline-table'><b>{gliphicon(resData[i].actif)}</b></div>
                             <div className='inline-table'><b>{gliphicon(resData[i].add_home)}</b></div>
-                            <div className='inline-table' style={{width:'7vh',textAlign:'start'}}><b>{gliphicon(resData[i].premium)}</b></div>
-                            <div className='inline-table'>{btnActive(resData[i].actif,resData[i].id)}{btnValider(resData[i].premium,resData[i].id)}<Link to={'/administration/cashback-update/'+resData[i].id} className='btf btn-success'>Modifier</Link></div>
+                            <div className='inline-table'>{btnActive(resData[i].actif,resData[i].id)}<Link to={'/administration/cashback-update/'+resData[i].id} className='btf btn-success'>Modifier</Link></div>
                     </div>
                  )
              }       

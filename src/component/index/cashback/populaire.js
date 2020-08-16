@@ -57,12 +57,9 @@ const Recent=()=>{
                     WatsUrl(dataR[i].nom)
                   }
                 >
-                    <div className='view-cashback-acceuille'>
+                    <div className='view-cashback-acceuille' data-aos='fade-up'>
                         <center>
                             <img src={dataR[i].url_img}/>
-                            <h3>
-                                {dataR[i].nom}
-                            </h3>
                             <div className='view-link-suggestion'>
                                 <strike>
                                     {dataR[i].Ancien+''}
@@ -71,7 +68,6 @@ const Recent=()=>{
                                     {dataR[i].Nouveaux+''}
                                     <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>
                                 </b>
-                                {date(dataR[i].end_date)}
                             </div>
                         </center>
     
@@ -89,24 +85,6 @@ const Recent=()=>{
           return <h2>Aucune Magasin pour le moment</h2>;
         }
       };
-
-    const date=(e)=>{
-        var now=new Date(); // date actuelle
-        var later=new Date(e); // premier janvier 2013
-        var result=later.getTime()-now.getTime(); // différence en millisecondes depuis le premier janvier 1970 (voir getTime() pour mieux comprendre)
-        var jours=parseInt(result/86400000);
-    
-        if(jours < 10){
-            return <div  style={{color:'red'}}>
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>Expire <Moment fromNow>{' '+e}</Moment>
-                    </div>
-        }else{
-            return <div style={{color:'green'}}>
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>Expire <Moment fromNow>{' '+e}</Moment>
-                   </div>
-        }
-      }
-    
 
     const result=()=>{
 

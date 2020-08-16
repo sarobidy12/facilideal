@@ -7,6 +7,8 @@ import Parraignage from './parraignage';
 import Temoignage from './temoignage';
 import CashbackPromo from './cashbackPromo';
 import MetaTags from 'react-meta-tags';
+import Footer from '../footer/index';
+ 
 
 class Index extends Component{
   componentDidMount=()=>{
@@ -29,6 +31,7 @@ class Index extends Component{
                 <Parraignage />
                 <CashbackPromo />
                 <Temoignage />
+                <Footer />
             </div>          
         ); 
   }

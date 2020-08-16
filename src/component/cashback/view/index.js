@@ -11,7 +11,8 @@ import { Link ,Redirect } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment/locale/fr';
 import parse from 'html-react-parser';
-import Avis from './avis'
+import Avis from './avis';
+import Footer from '../../footer/index'
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -171,9 +172,8 @@ class Index extends Component {
                 <div className='link-btn-suggestion'>
                     <center>
                         <img src={this.state.Boutique[i].url_img}/>
-                        <h3>
-                            {this.state.Boutique[i].nom}
-                        </h3>
+                       
+
                         <div className='view-link-suggestion'>
                             <strike>
                                 {this.state.Boutique[i].Ancien+''}
@@ -239,9 +239,13 @@ class Index extends Component {
             }
           });
     }else{
+      
+      document.getElementById('resCoupns').style.display='block';
+      document.getElementById('backgrondcoupons').style.display='block';
       this.setState({
-        redirect:true
+        stop3:2,
       })
+       
     }
 
   }
@@ -291,9 +295,11 @@ class Index extends Component {
         <div>
           <div id="hero-cashack">
             <div id="row-hero">
+
               <div className="inline-block img-view">
                 <img src={this.state.result.url_img} />
               </div>
+              
               <div className="inline-block contennt-titre-view">
                 <div className="cashback-add-historique">
                   <h1>{this.state.result.nom}</h1>
@@ -316,14 +322,16 @@ class Index extends Component {
           </div>
 
           <div className="container-view-all">
-            <div className="inline-block img-view">
+            <div className='row'>
+
+            <div className="col-md-4 img-view">
               <div className="Condition-cashback">
                 <h1>Condition D'utilisation</h1>
                 {parse(this.state.result.Condition_c)}
               </div>
             </div>
 
-            <div className="inline-block contennt-titre-view">
+            <div className="col-md-8 contennt-titre-view">
                   <h1 style={{ fontSize:' 3vh',color: 'rgb(2, 109, 242)',fontFamily : 'Fredoka One'}}>
                     Les Coupons Disponible
                 </h1>
@@ -344,32 +352,38 @@ class Index extends Component {
 
               </div>
             </div>
+           </div>
           </div>
         </div>
+
       );
     } else {
       return (
         <div>
           <div id="hero-cashack">
             <div id="row-hero">
-              <div className="inline-block img-view">
+
+              <div className="col-md-4 img-view">
                 <Carre />
               </div>
-              <div className="inline-block contennt-titre-view">
+              <div className="col-md-8 contennt-titre-view">
                 <Long />
               </div>
             </div>
           </div>
 
           <div className="container-view-all">
-            <div className="inline-block img-view">
+            <div className='row'>
+            <div className="col-md-4 img-view">
               <Empiler />
             </div>
-            <div className="inline-block contennt-titre-view">
+            <div className="col-md-8 contennt-titre-view">
              <All_data />
             </div>
           </div>
         </div>
+        </div>
+
       );
     }
   };
@@ -409,12 +423,14 @@ class Index extends Component {
 
         if(data.length > 0){
             for(var i=0;i< data.length;i++){
-                element.push(
+
+              if(data[i].code === ''){
+   element.push(
                     <div className='allCoupons'>
     
                                 <div className='inline-block-id'>
                                     <h1>
-                                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>{data[i].somme}
+                                     <img src= {data[i].link_img} alt="Acheter "/>
                                     </h1>
                                 </div>
     
@@ -427,19 +443,54 @@ class Index extends Component {
                                         </Link>
                                     </h3>
                                     <p>
-                                        Gagner  {data[i].somme} sur votre achats
+                                        Gagner {data[i].somme} sur votre achats
                                     </p>
-                                    {this.date(data[i].end_date)}
                                 </div>
     
                                 <div className='inline-block-id'>
-                                    <div className='code-view' onClick={this.viewCode.bind(this,data[i].id) }>
-                                        Voir le code
+                                    <div className='code-view'  
+                                      onClick={ 
+                                        this.openLink.bind(this,data[i].link)
+                                   }>
+                                        Voir l'offre
                                     </div>
                                 </div>
                         
                     </div>
                 )
+              }else{
+                element.push(
+                  <div className='allCoupons'>
+  
+                              <div className='inline-block-id'>
+                                  <h1>
+                                   <img src= {data[i].link_img} alt="Acheter "/>
+                                  </h1>
+                              </div>
+  
+                              <div className='inline-block-id'>
+                                  <h3>
+                                      <Link to='#' onClick={
+                                         this.openLink.bind(this,data[i].link)
+                                      }>
+                                          {data[i].title}
+                                      </Link>
+                                  </h3>
+                                  <p>
+                                      Gagner {data[i].somme} sur votre achats
+                                  </p>
+                              </div>
+  
+                              <div className='inline-block-id'>
+                                  <div className='code-view' onClick={this.viewCode.bind(this,data[i].id) }>
+                                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>   Voir le code
+                                  </div>
+                              </div>
+                      
+                  </div>
+              )
+              }
+             
             }
             return element;
 
@@ -507,6 +558,24 @@ class Index extends Component {
             <h1>Condition d'utilisation</h1>
               {parse(this.state.idViewCoupons.description)}
             </div>
+      }else  if(this.state.stop3 === 2){
+        return <div className='view-coupons-get-code'>
+                    <div className='modal-reso'>
+                      <center>
+                        <img  src='/img/Ok.png'/>
+                        <p>
+                        Connecter / inscription pour utiliser active se service
+                      </p>
+                      </center>
+                     
+                      <Link to='/inscription'>
+                                  inscription
+                      </Link>
+                      <Link to='/connexion'>
+                                  connexion
+                      </Link>
+                    </div>
+                </div>
       }else{
         return <Empiler />
       }
@@ -555,6 +624,9 @@ class Index extends Component {
         <div id='resCoupns'>
                 {this.datModalCoupons()}
         </div>
+
+      <Footer />
+
       </div>
     );
   }

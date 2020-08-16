@@ -58,7 +58,7 @@ const Nav=()=>{
                             <Link id='Boutique' onClick={()=>{ onglet('Boutique') }} className='link_header' to='/Boutique'>Boutique</Link>
                         </li>
                         <li>
-                            <Link id="link_Login" className='link_Login' to='/MyaccountInfo/tableau-de-bord'><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{cookies._lo.prenom}</Link>
+                            <Link id="link_Login" className='link_Login_c' to='/MyaccountInfo/tableau-de-bord'><span class="glyphicon glyphicon-user" aria-hidden="true"></span>{cookies._lo.prenom}</Link>
                             <div id='link_hover_block' className="link_hover_block">
                                 <ul>
                                     <li>

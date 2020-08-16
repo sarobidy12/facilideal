@@ -65,6 +65,7 @@ const AddCoupons=()=>{
                 document.getElementById('Somme').value,
                 document.getElementById('cashbackio').value,
                 document.getElementById('url').value,
+                document.getElementById('url_img').value,
                 document.getElementById('date').value
  
             ];
@@ -113,8 +114,8 @@ const AddCoupons=()=>{
         if(
             document.getElementById('nom').value  != '' &&
             document.getElementById('url').value  != '' &&
+            document.getElementById('url_img').value  != '' &&
             document.getElementById('Somme').value  != '' &&
-            document.getElementById('code').value  != '' &&
             document.getElementById('description').value  != '' &&
             document.getElementById('date').value != ''
         ){
@@ -160,11 +161,11 @@ const AddCoupons=()=>{
                                 <form method="post" onSubmit={(e)=>submit(e)} >
                                     <div className='row'>
                                         <div className='col-md-6'>
+                                            
                                             <div className='form-group'>
                                                 <label htmlFor="type" >Nom de coupon</label>
                                                 <input type="text" id="nom" style={{width:'100%'}}  name="nom"/>
                                             </div>
-
 
                                             <div className='form-group'>
                                                 <label>Le cashback</label>
@@ -179,13 +180,18 @@ const AddCoupons=()=>{
                                             </div>
 
                                             <div className='form-group'>
+                                                <label htmlFor="url" >Url img</label>
+                                                <input type="text" id="url_img"  style={{width:'100%'}} name="url_img" />
+                                            </div>
+
+                                            <div className='form-group'>
                                                 <label htmlFor="url" >Somme</label>
-                                                <input type="number" min="0"   placeholder='euro'  step="1"  id="Somme" style={{width:'100%'}} name="url_image" />
+                                                <input type="text"  placeholder='euro'  step="1"  id="Somme" style={{width:'100%'}} name="url_image" />
                                             </div>
                                                 
                                             <div className='form-group'>         
                                                 <label htmlFor="code">Code du coupon</label>
-                                                <input type="number" min="0"   placeholder='###'  step="1"  id="code" style={{width:'100%'}} name="code"/>
+                                                <input type="text" placeholder='###' step="1" id="code" style={{width:'100%'}} name="code"/>
                                             </div>
 
                                             {button()}

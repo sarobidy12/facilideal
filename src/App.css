@@ -273,11 +273,14 @@
 
 #coupons-content img{
   width: 20vh;
+  height: 20vh;
 }
 
 #coupons-content h2{
   color: rgb(2, 109, 242);
   font-family: Fredoka One;
+  font-size: 2.5vh;
+  text-align: center;
 }
 
 #coupons-content p{
@@ -456,7 +459,7 @@
 
 #cashbackPromo{
   width: 100%;
-  height: 50vh;
+  height: 60vh;
 }
 #cashbackPromo h1{
   text-align: center;
@@ -721,7 +724,7 @@ nav{
   margin: 0;
   padding: 0; 
   width: 100%;
-  height: 7vh;
+  height: 6vh;
 }
 
 #nav-admin ul li span{
@@ -1306,16 +1309,41 @@ header{
 
 }
 
+.link_Login_c{
+  display: block;
+  width: auto;
+  padding: 0.5vh;
+  height: 5vh;
+  position: relative;
+  line-height: 4vh;
+  text-align: center;
+  font-family: Fredoka One;
+  text-decoration: none;
+  background-color: transparent ;
+  color: white;
+  border-radius: 0.5vh;
+  border: 0.5vh solid white;
+  transition: 500ms;
+}
+
+.link_Login_c:hover{
+  text-decoration: none;
+  background-color: white;
+  color: rgb(2, 109, 242);
+
+}
+
 .link_Login:focus{
   text-decoration: none;
 }
 
 
 #login_register{
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   position: relative;
   top: 15vh;
+  height: 100%;
 }
 
 
@@ -1324,7 +1352,7 @@ header{
 }
 .login{
   width: 50%;
-  margin: 10vh auto;
+  margin: 5vh auto;
 }
 
 .login h1{
@@ -1347,7 +1375,14 @@ header{
   height: 3vh;
   margin: 0 1vh;
 }
-
+.btn_login{
+  width: 98%;
+  height: 6vh;
+  text-align: center;
+  color:red;
+  line-height: 0;
+  font-family: 'Baloo Bhaina';
+}
 #login_register input:focus{
   outline: none;
 }
@@ -1358,6 +1393,15 @@ header{
   background-color: rgb(2, 109, 242);
   border: none;
   color: white;
+  font-family: Fredoka One;
+ }
+
+ .btn_newLetter{
+  width: 100%;
+  height: 4vh;
+  background-color: white;
+  border: none;
+  color: black;
   font-family: Fredoka One;
  }
 #loader{
@@ -1476,8 +1520,10 @@ header{
 
 
 #hero-cashack img{
-  width: 30vh;
+  width: 35vh;
+  height: 30vh;
   border: 1vh solid #aaa;
+  border-radius: 1vh;
 }
 .form-input-seach{
   width: 100%;
@@ -1565,7 +1611,7 @@ header{
 #cashback-all-io{
   width: 70%;
   height: auto;
-  margin: -12vh auto;
+  margin: 0 auto;
   background-color: white;
   box-sizing: 1vh 1vh 8vh #aaa;
   padding: 3vh 1.5vh;
@@ -1587,7 +1633,8 @@ header{
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
-  height: 25  vh;
+  margin-top: 2vh;
+  height: 25vh;
 }
 @media(max-width:768px){
 
@@ -1598,12 +1645,12 @@ header{
   }
 
   .cashback-all-content{
-    display: inline-table;
+    display: inline-block;
     width: 95%;
-    height: 50vh;
-    box-shadow: 1px 1px 8px #aaa;
+    height: auto;
+    box-shadow: 1vh 1vh 8vh #aaa;
     padding: 1vh 2vh;
-    margin: 0 1.5vh;
+    margin: 10vh 1.5vh;
   }
 
   }
@@ -1819,15 +1866,15 @@ header{
 
 .inline-block{
   height: 100%;
-  float: left;
   margin: 0 1vh;
+  float: left;
   top: 0;
 }
 
 
 .container-view-all{
   width: 80%;
-  height: 80vh;
+  height: auto;
   margin: 0 auto;
   padding: 1vh;
 }
@@ -1903,7 +1950,7 @@ header{
 }
 
 .Condition-cashback{
-  margin: 0;
+  margin: 8vh 0;
   padding: 0;
 }
 
@@ -2065,14 +2112,17 @@ strike{
   margin: 2vh 0;
 }
 
-.allCoupons h1{
-  text-align: center;
+.allCoupons img{
+  width: 20vh;
+  height: 15vh;
+}
+
+.allCoupons h3{
   color: rgb(2, 109, 242);
   font-family: Fredoka One;
-  line-height: 15vh;
-  font-size: 7vh;
+  font-size: 3vh;
 }
-.allCoupons h1 span{
+.allCoupons h1 {
   font-size: 3vh;
   position: relative;
   top: -0.5vh;
@@ -2407,7 +2457,7 @@ strike{
 }
 
 .all-mission-title ul li{
-  display: inline-block;
+  display: inline-table;
   padding: 1vh;
 }
 
@@ -2659,6 +2709,9 @@ strike{
   margin: 0 0.5vh;
   cursor: pointer;
   transition: 600ms;
+  padding: 2vh;
+  font-family: Fredoka One;
+  color: #aaa;
 }
 .boutique-content:hover{
   transform: translateY(-1vh);
@@ -2988,6 +3041,8 @@ strike{
   padding: 0;
   list-style-type: none;
 }
+ 
+
 .only-cashback h2{
   font-family: Fredoka One;
 
@@ -3001,24 +3056,30 @@ strike{
 }
 
 .only-cashback li:nth-of-type(1){
-  width: 7vh;
+  width: 19vh;
   padding: 1vh;
 }
 .only-cashback li i{
   margin: 0 0.5vh;
 }
 .only-cashback li:nth-of-type(2){
-  width: 7vh;
+  width: 10vh;
   padding: 1vh;
-  text-align: start;
+  text-align: center;
   font-family: Fredoka One;
   color: green;
-  padding: 0 4vh;
+  padding: 0 0;
 }
 
 .only-cashback li:nth-of-type(3){
-  width: 17vh;
+  width: 15vh;
   color: #aaa;
+  font-size: 2vh;
+}
+
+.only-cashback li:nth-of-type(4){
+  color: #aaa;
+  font-size: 2vh;
 }
 
 .cashbackPromo-content h5{
@@ -3096,16 +3157,18 @@ strike{
   padding: 1vh;
   display: inline-table;
   border: 1px solid;
-  margin: 0 0.5vh;
-  color: #aaa;
+  margin: 0.5vh 0.5vh;
   border-radius: 1vh;
+  background-color: rgb(2, 109, 242);
+  color: white;
+  font-family: Fredoka One;
+
 }
 
 .cashback-all-content ul li a{
   display: block;
   text-decoration: none;
-  color: #aaa;
-
+  color: white;
 }
 .btn-fb{
   background-color: blue;
@@ -3182,6 +3245,7 @@ strike{
 footer{
   width: 100%;
   height: 50vh;
+  padding: 3vh;
   background-color: black;
   position: absolute;
 }
@@ -3200,13 +3264,14 @@ footer{
 .view-cashback-acceuille img{
   width: 10vh;
   height: 10vh;
+  margin: 1.5vh 0;
 }
 .view-cashback-acceuille{
   width: 21vh;
-  margin: 0 1vh;
+  margin: 1vh 1vh;
   padding: 1vh;
   box-shadow: 1vh 1vh 8vh #aaa;
-  height: 30vh;
+  height: 20vh;
   display: inline-table;
   border-radius: 1vh;
 }
@@ -3244,3 +3309,241 @@ footer{
 .admin-view-cintent img{
   width: 100%;
 }
+
+.loader-gif{
+  width: 38%;
+  height: 100%;
+  padding: 17vh;
+}
+
+.loader-gif img{
+  margin: 30vh auto;
+}
+
+.titre-gangnat{
+  width: 90%;  
+  height: 15vh;
+}
+
+.titre-gangnat img{
+  width: 13vh;
+  float: left;
+  margin: 0 3vh;
+}
+
+.titre-gangnat h1{
+  font-family: Fredoka One;
+  color: rgb(2, 109, 242);
+  border-radius: 1vh;
+  font-family: Fredoka One;
+  font-size: 8vh;
+}
+
+@media(max-width:768px){
+  
+.titre-gangnat img{
+  width: 7vh;
+  float: left;
+  margin: 0 3vh;
+}
+
+.titre-gangnat h1{
+  font-family: Fredoka One;
+  color: rgb(2, 109, 242);
+  border-radius: 1vh;
+  font-family: Fredoka One;
+  font-size: 5vh;
+}
+}
+
+.row-gagnant{
+  font-family: 'Questrial', sans-serif;
+  width: 90%;
+}
+
+.row-gagnant .inline-table{
+  display: inline-block;
+}
+ 
+.row-gagnant .inline-table:nth-child(2){
+  border: solid;
+  background-color: rgb(2, 109, 242);
+  color: white;
+  width: 25vh;
+  text-align: center;
+}
+
+.row-gagnant .inline-table:nth-child(3){
+  color: #aaa;
+  width: 50vh;
+  font-size: 3vh;
+  margin: 0;
+}
+
+.row-gagnant .inline-table:nth-child(4){
+  color: #aaa;
+}
+
+.contact h1{
+  font-family: Fredoka One;
+  color: rgb(2, 109, 242);
+  border-radius: 1vh;
+  font-family: Fredoka One;
+  font-size: 5vh;
+}
+
+.contact label{
+  width: 100%;
+  font-family: 'Questrial', sans-serif;
+
+}
+
+.contact input{
+  border: 1px solid black;
+}
+
+.contact textarea{
+  width: 100%;
+  border: 1px solid black;
+  height: 30vh;
+}
+
+.btn_facebook{
+  width: 98%;
+  height: 6vh;
+  color: white;
+  background-color: rgb(59, 91, 152);
+  border: none;
+  margin: 1vh 0;
+  font-size: 2vh;
+}
+
+.btn_facebook i{
+  margin: 0 1vh;
+  font-size: 3vh;
+  float: left;
+}
+
+.newLetter{
+  width: 100%;
+  height: 40vh;
+  border-radius: 1vh;
+  background-color: rgba(0, 0, 0, 0.541);
+}
+ 
+.newLetter h1{
+  font-family: Fredoka One;
+  color: white;
+  border-radius: 1vh;
+  font-family: Fredoka One;
+  font-size: 3vh;
+}
+
+.newLetter label{
+  width: 100%;
+  font-family: 'Questrial', sans-serif;
+  color: white;
+}
+
+.newLetter input{
+  width: 100%;
+  background-color: black;
+  border: 1px solid white;
+  border-bottom: 1px solid white;
+  height: 4vh;
+  margin:  0.5vh 0;
+  display: block;
+}
+.newLetter p{
+  color: white;
+}
+
+.response-new-letter{
+  background-color: white;
+  padding: 1vh;
+  color: green;
+  border-radius: 1vh;
+  text-align: center;
+ }
+
+.logo h1{
+  font-family: Fredoka One;
+  color: white;
+  border-radius: 1vh;
+  font-family: Fredoka One;
+  font-size: 3vh;
+  color: white;
+ }
+
+ footer h2{
+  font-family: Fredoka One;
+  color: white;
+  border-radius: 1vh;
+  font-family: Fredoka One;
+  font-size: 2vh;
+  margin: 3vh 0 0 0   ;
+  padding: 0 1vh;
+ }
+
+ footer ul{
+   margin: 0;
+   padding: 0;
+   list-style-type: none;
+}
+
+@media(max-width:768px){
+  footer{
+    height: auto;
+  }
+}
+footer ul li a{
+  display: block;
+  width: 100%;
+  height: 5vh;
+  line-height: 3vh;
+  color: white;
+  padding: 1vh;
+  text-decoration: none;
+  transition: 500ms;
+
+}
+
+footer ul li a:hover{
+  text-decoration:none;
+  border-left: 0.5vh solid deepskyblue;
+}
+.modal-reso {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.modal-reso img{
+  width: 40vh;
+}
+
+.modal-reso a{
+    display: inline-block;
+    width: 45%;
+    text-align: center;
+    padding: 1vh;
+    border-radius: 1vh;
+    margin: 0 1vh;
+    background-color: rgb(2, 109, 242);
+    font-family: Fredoka One;
+    color: white;
+    border-radius: 1vh;
+    border: 1px solid rgb(2, 109, 242);
+
+}
+
+.modal-reso a:nth-last-of-type(1){
+  background-color: white;
+  border: 1px solid rgb(2, 109, 242);
+  color: rgb(2, 109, 242);
+}
+
+.modal-reso a:hover{
+  text-decoration:none;
+}
+
+ 

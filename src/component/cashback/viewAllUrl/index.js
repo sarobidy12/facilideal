@@ -10,6 +10,8 @@ import Carre from "../loader/rarre";
 import Long from "../loader/long";
 import Empiler from "../loader/empiler";
 
+import Footer from '../../footer/index'
+
 const ViewAllCahsback = () => {
   const [idca, setidca] = useState(null);
   const [nameca, setnameca] = useState(null);
@@ -23,10 +25,10 @@ const ViewAllCahsback = () => {
       top: 0,
       behavior: "smooth",
     });
+
     setTimeout(() => {
       getCategorie();
     }, 500);
-
 
   });
 
@@ -42,20 +44,23 @@ const ViewAllCahsback = () => {
     }
 
     return text;
+
   };
 
   const generateUrl = function generateUrl(e) {
+    
     var text = "";
 
-    for (var i = 0; i < e.split(" ").length; i++) {
-      if (i === e.split(" ").length - 1) {
-        text = text + e.split(" ")[i];
-      } else {
-        text = text + e.split(" ")[i] + "-";
+      for (var i = 0; i < e.split(" ").length; i++) {
+        if (i === e.split(" ").length - 1) {
+          text = text + e.split(" ")[i];
+        } else {
+          text = text + e.split(" ")[i] + "-";
+        }
       }
-    }
 
-    return text;
+        return text;
+
   };
 
   const getCategorie = function getCategorie() {
@@ -71,6 +76,7 @@ const ViewAllCahsback = () => {
     }
 
     setStop2(1);
+
   };
 
   const heroData = function stop() {
@@ -157,12 +163,18 @@ const ViewAllCahsback = () => {
       <div id="hero-cashack">{heroData()}</div>
 
       <div className="container-view-all">
-        <div className="inline-block img-view">{NavLien()}</div>
+        <div className='row'>
+          <div className='col-md-4'>
+              {NavLien()}
+          </div>
 
-        <div className="inline-block contennt-titre-view">
-          <Data />
+          <div className='col-md-8'>
+              <Data />
+          </div>
         </div>
-      </div>
+        </div>
+
+      <Footer/>
     </div>
   );
 };

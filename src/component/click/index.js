@@ -6,7 +6,6 @@ import localhost from '../../_config'
 import Empiler from "../cashback/loader/empiler";
 import MetaTags from 'react-meta-tags';
 import Footer from '../footer/index'
-
 const Mission=()=>{
         
     const [stop,setStop] = useState(0);
@@ -95,7 +94,7 @@ const Mission=()=>{
                                
                               </li>
                               <li>
-                                  {responseData[i].remuneration}
+                                 {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format( responseData[i].remuneration)} 
                               </li>
                               <li>
                               </li>
@@ -161,34 +160,41 @@ const Mission=()=>{
                         </div>
 
                             <div className="container-view-all">
-                            <div className="inline-block img-view"  data-aos='fade-in'>
-                                    <div className="description-content-mission" >
-                                        Effectuez des clics sur les offres présentes ci-dessous et gagnez des euros.
-                                    </div>
-                            </div>
-                            <div className="inline-block contennt-titre-view">
-                                        <div className='all-mission-title'>
-                                            <ul>
-                                                <li>
-                                                    Nom
-                                                </li>
-                                                <li>
 
-                                                </li>
-                                                <li>
-                                                    Renumeration
-                                                </li>
-                                                <li>
-                                                    
-                                                </li>
-                                                <li>
-                                                    
-                                                </li>
-                                            </ul>
+                            <div className="row">
+
+                                <div className="col-md-4 img-view"  data-aos='fade-in'>
+                                        <div className="description-content-mission" >
+                                            Effectuez des clics sur les offres présentes ci-dessous et gagnez des euros.
                                         </div>
-                                        {data()}
+                                </div>
+                                
+                                <div className="col-md-8 contennt-titre-view">
+                                            <div className='all-mission-title'>
+                                                <ul>
+                                                    <li>
+                                                        Nom
+                                                    </li>
+                                                    <li>
+
+                                                    </li>
+                                                    <li>
+                                                        Renumeration
+                                                    </li>
+                                                    <li>
+                                                        
+                                                    </li>
+                                                    <li>
+                                                        
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            {data()}
+                                </div>
                             </div>
-                    </div>
+                            </div>
+<Footer />
+                    
                 </div>
             </div>
         </div>

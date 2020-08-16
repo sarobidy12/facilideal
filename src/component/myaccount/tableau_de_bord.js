@@ -10,6 +10,9 @@ import localhost from '../../_config'
 import Empiler from "../cashback/loader/empiler";
 import { Link, Redirect } from 'react-router-dom';
 import Menu from './menu';
+
+import Footer from '../footer/index';
+
 const AddSousC=(data)=>{
 
 const [stop,setStop] = useState(0);
@@ -126,18 +129,30 @@ const [cashback,setcashback] = useState([]);
 
     }
 
+    const WatsUrl = (e) => {
+        var text = "";
+        for (var i = 0; i < e.split(" ").length; i++) {
+          if (i === e.split(" ").length - 1) {
+            text = text + e.split(" ")[i];
+          } else {
+            text = text + e.split(" ")[i] + "-";
+          }
+        }
+        return text;
+    };
     
     const Datacashback= function Datacashback(){
 
         var data=[];
 
         if(cashback.length > 0){
+
             for(var i=0;i < cashback.length;i++){
 
                 data.push(
                     <ul className='only-cashback' style={{margin: '0 auto',width:'80%'}}>
                         <li>
-                            <Link to={'/cashbackAndCoupons/'+cashback[i].cashback_name} >
+                            <Link to={'/cashbackAndCoupons/'+WatsUrl(cashback[i].cashback_name)} >
                            <b>
                                {cashback[i].cashback_name}
                             </b>
@@ -160,8 +175,11 @@ const [cashback,setcashback] = useState([]);
             }
     
             return data;
+
         }else{
+
             return <h5>vous n'avez activer cashback pour le moment </h5>
+
         }
         
       
@@ -272,10 +290,13 @@ const [cashback,setcashback] = useState([]);
 
         if(stop === 1){
             return  <div className="container-view-all">
-                         <div className="inline-block img-view">
+                        <div className="row">
+
+                         <div className="col-md-4 img-view">
                             <Menu />
                         </div>
-                        <div className="inline-block contennt-titre-view">
+
+                        <div className="col-md-8 contennt-titre-view">
                                 <div className='money'>
                                    <h1>
                                        {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(cookies._lo.argent*1)}
@@ -297,28 +318,33 @@ const [cashback,setcashback] = useState([]);
                                             </ul>
                                         </div>
 
-                                   
                                         <div id='mission'  className='cashbackPromo-content'  >
                                             {loaderMission()}
                                         </div>
+
                                         <div id='click' className='cashbackPromo-content'  >
                                             {loaderClick()}
                                         </div>
+
                                         <div id='cashback_v' className='cashbackPromo-content cashbackPromo-content-block'  >
                                             {loaderCashback()}
                                         </div>
+
+                            </div>
                         </div>
                     </div>
         }else{
             return  <div className="container-view-all">
-                        <div className="inline-block img-view">
-                            <Menu />
-                        </div>
-                        <div className="inline-block contennt-titre-view">
-                            <Empiler />
-                            <Empiler />
-                            <Empiler />
-                        </div>
+                        <div className="row"> 
+                                    <div className="col-md-4 img-view">
+                                        <Menu />
+                                    </div>
+                                    <div className="col-md-8 contennt-titre-view">
+                                        <Empiler />
+                                        <Empiler />
+                                        <Empiler />
+                                    </div>
+                        </div> 
                     </div> 
         }
         
@@ -332,6 +358,7 @@ const [cashback,setcashback] = useState([]);
                 </MetaTags>   
                 <div id='acount'>
                    {element()}
+                    <Footer />
                 </div>
 
             </div>  

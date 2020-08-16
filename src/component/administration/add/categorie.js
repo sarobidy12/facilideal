@@ -28,10 +28,10 @@ const AddSousC=()=>{
         document.getElementById('btn-loader').innerHTML='chargement...';
         SetDisabled(false);
 
-            if(document.getElementById('categorie').value != ''){
+            if(document.getElementById('categorie_').value != ''){
 
                   let formData= new FormData();
-                  formData.append("text", JSON.stringify([document.getElementById('categorie').value,document.getElementById('Img').value]));
+                  formData.append("text", JSON.stringify([document.getElementById('categorie_').value.trim(),document.getElementById('Img').value.trim()]));
                   const url= localhost+'/controleur.php?p=addCategorie';
                   axios.post(url,formData)
                   .then((res)=>{
@@ -44,11 +44,20 @@ const AddSousC=()=>{
                               document.getElementById('response-message').style.display='block';
                               document.getElementById('response-message').style.backgroundColor='green';
                               document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>Le Categorie a bien ete ajouter";
-                         } else{
+                  
+                         }else if(res.data === 'add-categorie-faild'){
+ 
+                            document.getElementById('response-message').style.display='block';
+                            document.getElementById('response-message').style.backgroundColor='red';
+                            document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>utilise un autre nom";
+                    
+                         }else{
+
                               document.getElementById('response-message').style.display='block';
                               document.getElementById('response-message').style.backgroundColor='red';
                               document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>une erreur est survenu";
-                         }
+                      
+                        }
                          document.getElementById('loader').style.display='none';
                   });
 
@@ -96,7 +105,7 @@ const AddSousC=()=>{
                 <form method="post" onSubmit={(e)=>submit(e)}>
                     <div class='form-group'>                           
                         <label for="type" >Nom de categorie</label>
-                        <input type="text" id="categorie" name="nom"   />
+                        <input type="text" id="categorie_" name="categorie_"   />
                     </div>
 
                     <div class='form-group'>                           
