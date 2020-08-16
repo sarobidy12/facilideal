@@ -18,47 +18,19 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
             echo json_encode('erreur_new_letter_email');
         }
 
-}else if(htmlspecialchars($_GET['p']) == 'populaire'){
-
-    $data = 
-        [
-            [
-                'id'=>'1',
-                'nom'=>'io',
-                'renumeration'=>'10%',
-                'data_expiration'=>'2010'
-            ],
-            [
-                'id'=>'1',
-                'nom'=>'io',
-                'renumeration'=>'10%',
-                'data_expiration'=>'2010'
-            ],
-            [
-                'id'=>'1',
-                'nom'=>'io',
-                'renumeration'=>'10%',
-                'data_expiration'=>'2010'
-            ]
-        ];
-
-    echo json_encode($data);
-
 }else if(htmlspecialchars($_GET['p']) == 'loginAdmin'){
- 
-    $tar = explode(',',$_POST['text']);
-    $email =  htmlspecialchars($tar[0]);    
-    $passeword =  sha1(md5(($tar[1]))); 
 
-    $a=UseDatabase::ifNull('admin','a_name="'.$email.'"');
 
-        if($a){
+        if(!UseDatabase::exist('admin','a_name="'.json_decode($_POST['text'])[0].'"')){
 
-            if($a->a_passord == $passeword){
-                echo json_encode('success-log-admin');
-            }else{
-                echo json_encode('error-mdp-admin');
-            }
+            $a=UseDatabase::prepare('admin','a_name="'.json_decode($_POST['text'])[0].'"')[0];
+
+             if($a->a_passord == sha1(md5(json_decode($_POST['text'])[1]))){
+                 echo json_encode('success-log-admin');
+             }else{
+                 echo json_encode('error-mdp-admin');
+             }
+
 
         }else{
             echo json_encode('error-log-admin');
@@ -81,6 +53,7 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
                                 somme,
                                 cashback,
                                 link,
+                                link_img,
                                 start_date,
                                 end_date
                             )',"
@@ -91,8 +64,9 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
                                 '".json_decode($_POST['text'])[3]."',
                                 '".json_decode($_POST['text'])[4]."',
                                 '".json_decode($_POST['text'])[5]."',
+                                '".json_decode($_POST['text'])[6]."',
                                 NOW(),
-                                '".json_decode($_POST['text'])[6]."'
+                                '".json_decode($_POST['text'])[7]."'
                         )");
  
                         UseDatabase::updateW("cashback","nbr_coupons = nbr_coupons+1",'id = '.json_decode($_POST['text'])[4]);
@@ -153,12 +127,13 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
     UseDatabase::update('coupons','
                                 title = "'.json_decode($_POST['text'])[0].'",
-                                description = "'.json_decode($_POST['text'])[1].'",
+                                description = "'.addslashes(json_decode($_POST['text'])[1]).'",
                                 code = "'.json_decode($_POST['text'])[2].'",
                                 somme = "'.json_decode($_POST['text'])[3].'",
                                 link = "'.json_decode($_POST['text'])[4].'",
-                                end_date = "'.json_decode($_POST['text'])[5].'"
-                            ',json_decode($_POST['text'])[6]);
+                                link_img = "'.json_decode($_POST['text'])[5].'",
+                                end_date = "'.json_decode($_POST['text'])[6].'"
+                            ',json_decode($_POST['text'])[7]);
 
     echo json_encode('update-success-coupons');  
     
@@ -266,8 +241,8 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
                 link  ='".json_decode($_POST['text'])[2]."',
                 url_img  ='".json_decode($_POST['text'])[3]."',
                 nom  ='".json_decode($_POST['text'])[4]."',
-                description  ='".json_decode($_POST['text'])[5]."',
-                Condition_c  ='".json_decode($_POST['text'])[6]."',
+                description  ='".addslashes(json_decode($_POST['text'])[5])."',
+                Condition_c  ='".addslashes(json_decode($_POST['text'])[6])."',
                 end_date ='".json_decode($_POST['text'])[7]."'         
             ", json_decode($_POST['text'])[8]); 
 
@@ -402,6 +377,15 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
         if(UseDatabase::exist('users','email = "'.json_decode($_POST['text'])[0].'"')){
 
+            UseDatabase::insert('new_letter(
+                prenom,
+                email 
+            )',"
+            VALUE(
+                '".json_decode($_POST['text'])[3]."',
+                '".json_decode($_POST['text'])[0]."'
+            )");
+
             UseDatabase::insert('users(
                 email,
                 mdp,
@@ -470,14 +454,24 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
         for($i=0;$i < count($tar);$i++){
             UseDatabase::delete('categorie',$tar[$i]);
             UseDatabase::deleteAll('sous_categorie','id_categorie='.$tar[$i].'+0');
+            UseDatabase::deleteAll('cashback','categorie='.$tar[$i].'+0');
         }
 
             echo json_encode('categorie-delete-success');  
 
 }else if(htmlspecialchars($_GET['p']) == 'addCategorie'){
 
-        UseDatabase::insert('categorie(nom_categorie,url_img)','VALUE("'.json_decode($_POST['text'])[0].'","'.json_decode($_POST['text'])[1].'")');
-        echo json_encode('add-categorie-success');  
+    if(UseDatabase::exist('categorie','nom_categorie="'.json_decode($_POST['text'])[0].'"')){
+
+        UseDatabase::insert('categorie(nom_categorie,url_img)','VALUE("'.addslashes(json_decode($_POST['text'])[0]).'","'.addslashes(json_decode($_POST['text'])[1]).'")');
+        echo json_encode('add-categorie-success'); 
+       
+    }else{
+
+        echo json_encode('add-categorie-faild'); 
+
+    }
+ 
     
 }else if(htmlspecialchars($_GET['p']) == 'getCAtegorieId'){
 
@@ -486,11 +480,9 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 }else if(htmlspecialchars($_GET['p']) == 'UpdateCategorie'){
  
     UseDatabase::update('categorie',
-
-            'nom_categorie="'.json_decode($_POST['text'])[0].'",
-        url_img="'.json_decode($_POST['text'])[1].'"',
-    
-    json_decode($_POST['text'])[2]); 
+            'nom_categorie="'.addslashes(json_decode($_POST['text'])[0]).'",
+            url_img="'.addslashes(json_decode($_POST['text'])[1]).'"',
+            json_decode($_POST['text'])[2]); 
 
         echo json_encode('update-success-categorie');  
 
@@ -1068,7 +1060,7 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
 }else if(htmlspecialchars($_GET['p']) == 'ViewCashbackSousCategorieComfirme'){
 
-    $id= UseDatabase::prepare('sous_categorie','nom_sous_categorie="'.json_decode($_POST['text']).'"')[0]->id;
+    $id= UseDatabase::prepare('sous_categorie','nom_sous_categorie="'.urldecode(addslashes(json_decode($_POST['text']))).'"')[0]->id;
     echo json_encode(UseDatabase::query('cashback','sous_categorie="'.$id.'" AND actif=1'));  
 
 }else if(htmlspecialchars($_GET['p']) == 'findCachbackName'){
@@ -1163,16 +1155,78 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
 }else if(htmlspecialchars($_GET['p']) == 'GetRecent'){
 
-    echo json_encode(UseDatabase::query('cashback','add_home = 1 ORDER BY rand() LIMIT 5'));
+    echo json_encode(UseDatabase::query('cashback','add_home = 1 ORDER BY rand() DESC LIMIT 10'));
 
 }else if(htmlspecialchars($_GET['p']) == 'GetPopulaire'){
 
-    echo json_encode(UseDatabase::query('cashback','add_home = 1 ORDER BY visit DESC LIMIT 5'));
+    echo json_encode(UseDatabase::query('cashback','add_home = 1 ORDER BY visit DESC LIMIT 10'));
 
 }else if(htmlspecialchars($_GET['p']) == 'GETCouponsHome'){
 
     echo json_encode(UseDatabase::query('coupons','add_home = 1 ORDER BY visits DESC LIMIT 10'));
 
-}
+}else if(htmlspecialchars($_GET['p']) == 'AllGagnant'){
 
+    echo json_encode(UseDatabase::query('histo_boutique','etat = 1 ORDER BY id'));
+
+}else if(htmlspecialchars($_GET['p']) == 'addNewLetter'){
+
+    if(UseDatabase::exist('new_letter','email="'.json_decode($_POST['text'])[1].'"')){
+
+        UseDatabase::insert('new_letter(
+            prenom,
+            email 
+        )',"
+        VALUE(
+            '".json_decode($_POST['text'])[0]."',
+            '".json_decode($_POST['text'])[1]."'
+        )");
+
+        echo json_encode('add-new-letter-success');   
+
+    } 
+
+}
+else if(htmlspecialchars($_GET['p']) == 'GetRgpd'){
+
+    echo json_encode(UseDatabase::query('politique_de_comfidentialide')[0]);
+
+}else if(htmlspecialchars($_GET['p']) == 'Updatergpd'){
+
+    UseDatabase::update('politique_de_comfidentialide',"
+       text  ='".addslashes(json_decode($_POST['text']))."'
+    ", 1); 
+
+        echo json_encode('update-rgdp-users');  
+
+}else if(htmlspecialchars($_GET['p']) == 'registerSocial'){
+
+            UseDatabase::insert('new_letter(
+                prenom,
+                email 
+            )',"
+            VALUE(
+                '".json_decode($_POST['text'])[1]."',
+                '".json_decode($_POST['text'])[0]."'
+            )");
+
+            UseDatabase::insert('users(
+                email,
+                nom,
+                prenom,
+                idParrain,
+                date_Inscription,
+                comfirm
+            )','VALUE(
+                "'.json_decode($_POST['text'])[0].'",
+                "'.json_decode($_POST['text'])[1].'",
+                "'.json_decode($_POST['text'])[2].'",
+                "'.json_decode($_POST['text'])[3].'",
+                NOW(),
+                1
+            )');
+
+            echo json_encode(UseDatabase::prepare('users','email = "'.json_decode($_POST['text'])[0].'"')[0]);  
+  
+}
 ?>

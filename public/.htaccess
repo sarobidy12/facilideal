@@ -1,5 +1,8 @@
-# ADD IN .HTACCESS FILE 
-Options -MultiViews 
-RewriteEngine On 
-RewriteCond% {REQUEST_FILENAME}! -F 
-RewriteRule ^ index.html [QSA, L]
+# ADD IN .HTACCESS FILE
+Options -MultiViews
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]

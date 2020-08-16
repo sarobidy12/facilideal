@@ -197,6 +197,10 @@ const [cashback,setcashback] = useState([]);
             return <div style={{color:'#aaa',textAlign:'center'}} >
                        <span className="glyphicon glyphicon-time" aria-hidden="true"></span>En attente
                    </div> 
+        }else if (e == 3) {
+            return <div style={{color:'red',textAlign:'center'}} >
+                    <span className="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>Refuse
+                </div> 
         }
     }
 

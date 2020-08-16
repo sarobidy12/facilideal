@@ -203,7 +203,7 @@ const SignUp=()=>{
     let fbContent;
     fbContent=(
         <FacebookLogin
-            appId="3321703071194475"
+            appId="854916238331262"
             fields="name,email,picture"
             onClick={componentClicked}
             callback={responseFacebook}
