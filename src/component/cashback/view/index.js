@@ -12,7 +12,10 @@ import Moment from 'react-moment';
 import 'moment/locale/fr';
 import parse from 'html-react-parser';
 import Avis from './avis';
-import Footer from '../../footer/index'
+import Footer from '../../footer/index';
+import { findDOMNode } from 'react-dom';
+import $ from 'jquery';
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -27,9 +30,15 @@ class Index extends Component {
       stop3:0,
       idViewCoupons:null,
       resHisto:[],
-      redirect:false
+      redirect:false,
+      gliphicon:false,
+      gliphiconaApropos:true
     };
   }
+
+  componentWillReceiveProps=()=>{
+  }
+
   componentWillMount = () => {
     
     window.scrollTo({
@@ -41,7 +50,6 @@ class Index extends Component {
       this.getFindData();
     }
 
-
     this.setState({
       url: window.location.pathname.split("/")[2],
       ckeck: 1,
@@ -52,11 +60,12 @@ class Index extends Component {
         copyText.select();
         document.execCommand("copy");
       }
+
         if( document.querySelector("#copy")){
             document.querySelector("#copy").addEventListener("click", copy);
         }
+        
   };
-
 
   redirect=()=>{
     if(this.state.redirect === true){
@@ -74,6 +83,24 @@ class Index extends Component {
               behavior: "smooth",
           });
 
+            if(document.getElementById('hero-cashback-scroll') && 
+            document.getElementById('img-cashback') && 
+            document.getElementById('hero-cashback-scroll') &&
+            document.getElementById('container-view-all')  &&
+            document.getElementById('active-cashback')  &&
+            document.getElementById('hero-cashack-view')  
+              ){
+            
+                document.getElementById('hero-cashback-scroll').style.position='relative';
+                document.getElementById('hero-cashback-scroll').style.height='35vh';
+                document.getElementById('container-view-all').style.top='0';
+                document.getElementById('img-cashback').style='width:25vh;height= 25vh';
+                document.getElementById('active-cashback').style.padding='2vh 4vh';
+                document.getElementById('hero-cashack-view').style.margin='0 0 2vh 0';  
+                document.getElementById('hero-cashack-view').style.height='70%';  
+                
+            }
+
             this.setState({
               stop: 0,
               result: [],
@@ -89,11 +116,82 @@ class Index extends Component {
       this.getFindData();
     }
 
+    window.addEventListener('scroll',function(){
+
+      if(document.getElementById('hero-cashback-scroll') && 
+          document.getElementById('img-cashback') && 
+          document.getElementById('hero-cashback-scroll') &&
+          document.getElementById('container-view-all')  &&
+          document.getElementById('active-cashback')  &&
+          document.getElementById('hero-cashack-view')  
+        ){
+
+        if(window.screen.width <= 414){
+
+              if(window.pageYOffset > 100){
+
+                document.getElementById('hero-cashback-scroll').style.height= '31vh';
+                document.getElementById('img-cashback').style.width='10vh';
+                document.getElementById('hero-cashback-scroll').style.position='fixed';
+                document.getElementById('container-view-all').style.top='50vh';
+                document.getElementById('active-cashback').style.padding='0.5vh 1vh';
+                document.getElementById('hero-cashack-view').style.margin='0 0 0.25vh 0'; 
+                document.getElementById('hero-cashack-view').style.height='75%';  
+      
+              }else{  
+
+                document.getElementById('hero-cashback-scroll').style.position='relative';
+                document.getElementById('hero-cashback-scroll').style.height='50vh';
+                document.getElementById('container-view-all').style.top='0';
+                document.getElementById('img-cashback').style='width:15vh;height= 15vh';
+                document.getElementById('active-cashback').style.padding='2vh 4vh';
+                document.getElementById('hero-cashack-view').style.margin='0 0 2vh 0';  
+                document.getElementById('hero-cashack-view').style.height='70%';
+                
+              }
+       }else{
+
+        if(window.pageYOffset > 100){
+
+          document.getElementById('hero-cashback-scroll').style.height= '23vh';
+          document.getElementById('img-cashback').style.width='15vh';
+          document.getElementById('hero-cashback-scroll').style.position='fixed';
+          document.getElementById('container-view-all').style.top='50vh';
+          document.getElementById('active-cashback').style.padding='0.75vh 2vh';
+          document.getElementById('hero-cashack-view').style.margin='0 0 0.25vh 0'; 
+          document.getElementById('hero-cashack-view').style.height='75%';  
+
+        }else{  
+
+          document.getElementById('hero-cashback-scroll').style.position='relative';
+          document.getElementById('hero-cashback-scroll').style.height='35vh';
+          document.getElementById('container-view-all').style.top='0';
+          document.getElementById('img-cashback').style='width:25vh;height= 25vh';
+          document.getElementById('active-cashback').style.padding='2vh 4vh';
+          document.getElementById('active-cashback').style.padding='2vh 4vh';
+
+          document.getElementById('hero-cashack-view').style.margin='0 0 2vh 0';  
+          document.getElementById('hero-cashack-view').style.height='70%';
+          
+        }
+
+       }
+      }
+    })
+
   };
+
+  start=()=>{
+
+    if(this.state.gliphicon === false){
+      const el= findDOMNode(this.refs.toggle);   
+      $(el).slideUp(1);
+    }
+
+  }
 
   getFindData=(id)=>{
 
-    
     const { cookies } = this.props;
 
     if( cookies.get('_lo') != null){
@@ -162,12 +260,19 @@ class Index extends Component {
     if (0 < this.state.Boutique.length) {
       for (var i = 0; i < this.state.Boutique.length; i++) {
         BoutiqueAll.push(
-          <li>
+          <li data-aos='fade-in'>
             <Link
               to={
                 "/cashbackAndCoupons/" +
                 this.WatsUrl(this.state.Boutique[i].nom)
               }
+
+              onClick={()=>{
+                window.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+              });
+              }}
             >
                 <div className='link-btn-suggestion'>
                     <center>
@@ -276,81 +381,198 @@ class Index extends Component {
 
   button=()=>{
 
-    
-
     if(this.state.resHisto.length > 0){
-      return  <button onClick={()=>{
+      return  <button id='active-cashback' className='active-cashback act-d' onClick={()=>{
               this.desactivecashback()
               }} >desactive le cashback</button>
     }else{
-      return  <button onClick={()=>{
+      return  <button id='active-cashback' className='active-cashback act-c' onClick={()=>{
                 this.activecahback()
               }} >Active le cashback</button>
     }
 
   }
+
+  handletoggle=()=>{
+    const el= findDOMNode(this.refs.toggle);  
+    this.setState({
+      gliphicon:!this.state.gliphicon
+    }) 
+    $(el).slideToggle();
+
+  }
+
+  handletoggleapropos=()=>{
+
+    const el= findDOMNode(this.refs.apropos);  
+    this.setState({
+      gliphiconaApropos:!this.state.gliphiconaApropos
+    }) 
+    $(el).slideToggle();
+
+  }
+
+  gliphicon=(a)=>{
+
+    if(this.state.gliphicon === false){
+        return <span class="glyphicon glyphicon-chevron-down" id='gliphicon' aria-hidden="true"></span>
+    }else{
+        return <span class="glyphicon glyphicon-chevron-up" id='gliphicon' aria-hidden="true"></span>
+    }
+  }
+
+  gliphiconAppros=(a)=>{
+
+    if(this.state.gliphiconaApropos === false){
+        return <span class="glyphicon glyphicon-chevron-down" id='gliphicon' aria-hidden="true"></span>
+    }else{
+        return <span class="glyphicon glyphicon-chevron-up" id='gliphicon' aria-hidden="true"></span>
+    }
+  }
+
+  trike=()=>{
+
+    if(this.state.result.Ancien != ''){
+
+      return <strike> {this.state.result.Ancien}</strike>
+
+    }
+
+  }
+
+  viewStart=(e)=>{
+
+    var  element=[];
+    
+      for(var i=0;i < 6;i++){
+
+          if(i <= e){
+            
+            element.push(
+                <li style={{color:'white'}}>
+                <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+                </li>
+            )
+    
+          }else{
+
+            element.push(
+                <li style={{color:'white'}}>
+                <span className="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </li>
+            )
+    
+          }
+
+      }
+
+        return element;
+  
+  }
+
+
   data = () => {
+    
     if (this.state.stop === 1) {
       return (
-        <div>
-          <div id="hero-cashack">
-            <div id="row-hero">
+        <div style={{width:'100%',overflowX:'hidden',overflowY:'hidden'}}>
+          <div id='hero-cashback-scroll'>
+            <div id='hero-cashack-view'>
+              <div className='hero-row-container'>
+                  <div id="row">
+                      <div className="col-md-4">
+                          <div id='img-cashback'>
+                            <img src={this.state.result.url_img} />
+                          </div>
+                      </div>
 
-              <div className="inline-block img-view">
-                <img src={this.state.result.url_img} />
-              </div>
-              
-              <div className="inline-block contennt-titre-view">
-                <div className="cashback-add-historique">
-                  <h1>{this.state.result.nom}</h1>
-                  <strike> {this.state.result.Ancien}</strike>
-                  <b className="opati">
+                      <div className="col-md-8">
+                          <h1>{this.state.result.nom}</h1>
+                          <div className='cashback-view-explication'>
+                               <p>
+                                   {this.state.result.nbr_coupons+' réductions disponibles'}
+                               </p>
+                               <ul>
+                                  {this.viewStart(this.state.result.nbr_total_star/this.state.result.total_avis)}
+                               </ul>
+                               <b>{this.state.result.total_avis+' avis'}</b>
+                          </div>
+                      </div>
 
-                    {this.state.result.Nouveaux}
-                    <span
-                      class="glyphicon glyphicon-circle-arrow-up"
-                      aria-hidden="true"
-                    ></span>
-                    <h2>remboursés sur vos achats</h2>
-                  </b>
-                  <br />
-                 {this.button()}
-                </div>
-                 
+                  </div>
               </div>
             </div>
+            <div className="cashback-add-historique">
+                <div className='row'>
+                  <div className="col-md-4">
+                  </div>
+                  
+                  <div className="col-md-8">
+                          <b >
+                            {this.trike()}
+                          </b>
+                          <p>
+                            {this.state.result.Nouveaux}
+                            <span class="glyphicon glyphicon-circle-arrow-up" naria-hidden="true"></span>
+                            <strong style={{fontSize:'2vh'}}>
+                              remboursés sur vos achats
+                            </strong>
+                          </p>
+
+                            {this.button()}
+                  </div>
+                </div>
+                </div>
           </div>
 
-          <div className="container-view-all">
-            <div className='row'>
+          <div id="container-view-all">
 
-            <div className="col-md-4 img-view">
-              <div className="Condition-cashback">
-                <h1>Condition D'utilisation</h1>
-                {parse(this.state.result.Condition_c)}
+            <div className='row'>
+              <div className="col-md-4">
+              </div>
+              <div className="col-md-8">
+                <div className="Condition-cashback" >
+                  <div className='btn-condition' onClick={()=>{
+                    this.handletoggle()
+                  }}>Condition D'utilisation {this.gliphicon()}</div>
+                    <div id='condition' ref='toggle'>
+                      {parse(this.state.result.Condition_c)}
+                    </div>
+                </div>
               </div>
             </div>
 
-            <div className="col-md-8 contennt-titre-view">
+            <div className='row'>
+              
+              <div className="col-md-4">
+                <div className="apropos-cashback">
+                <div className='btn-condition' onClick={()=>{
+                    this.handletoggleapropos()
+                  }}>à propos {this.gliphiconAppros()}</div>
+                  <div id='apropos' ref='apropos'>
+                    {parse(this.state.result.apropos)}
+                  </div>
+                </div>
+                <Avis data={this.state.result.id} text={[this.state.result.nom,this.state.result.total_avis,(this.state.result.nbr_total_star/this.state.result.total_avis)]} />
+              </div>
+         
+              <div className="col-md-8">
                   <h1 style={{ fontSize:' 3vh',color: 'rgb(2, 109, 242)',fontFamily : 'Fredoka One'}}>
-                    Les Coupons Disponible
-                </h1>
-              {this.viewCouponsResult()}
-
-              {this.BoutiqueView()}
-             
-              <div id='description' className='view-active' >
-
-                  <h1 style={{ fontSize:' 3vh',color: 'rgb(2, 109, 242)',fontFamily : 'Fredoka One'}}>
-                      Description
+                      Les meilleurs codes promo <b>{this.state.result.nom}</b>
                   </h1>
 
-                  <div id='description-content'>
-                     {parse(this.state.result.description)}
-                  </div>
-                  <Avis data={this.state.result.id}/>
+                  {this.viewCouponsResult()}
 
-              </div>
+                  {this.BoutiqueView()}
+             
+                  <div id='description' className='view-active' >
+                    <h1 style={{ fontSize:' 3vh',color: 'rgb(2, 109, 242)',fontFamily : 'Fredoka One'}}>
+                        Description
+                    </h1>
+                    <div id='description-content' data-aos='fade-in'>
+                      {parse(this.state.result.description)}
+                    </div>
+                </div>
             </div>
            </div>
           </div>
@@ -360,26 +582,29 @@ class Index extends Component {
     } else {
       return (
         <div>
-          <div id="hero-cashack">
-            <div id="row-hero">
+           <div id='hero-cashback-scroll'>
+            <div id='hero-cashack-view'>
+              <div className='hero-row-container'>
+                  <div id="row">
+                      <div className="col-md-4">
+                         <Carre />
+                      </div>
 
+                      <div className="col-md-8">
+                        <Long />
+                      </div>
+                  </div>
+                  </div>
+                  </div>
+              </div>
+            <div className="container-view-all">
+              <div className='row'>
               <div className="col-md-4 img-view">
-                <Carre />
+                <Empiler />
               </div>
               <div className="col-md-8 contennt-titre-view">
-                <Long />
+                <All_data />
               </div>
-            </div>
-          </div>
-
-          <div className="container-view-all">
-            <div className='row'>
-            <div className="col-md-4 img-view">
-              <Empiler />
-            </div>
-            <div className="col-md-8 contennt-titre-view">
-             <All_data />
-            </div>
           </div>
         </div>
         </div>
@@ -397,6 +622,7 @@ class Index extends Component {
     );
 
     const url = localhost + "/controleur.php?p=ViewCoupons";
+
     axios.post(url, formData).then((res) => {
                 this.setState({
                     resultCoupons: res.data,
@@ -425,93 +651,191 @@ class Index extends Component {
             for(var i=0;i< data.length;i++){
 
               if(data[i].code === ''){
-   element.push(
-                    <div className='allCoupons'>
+                
+                element.push(
+
+                    <div className='allCoupons'  >
+                      <div className='row'>
     
-                                <div className='inline-block-id'>
+                                <div className='inline-block-id-2'>
                                     <h1>
-                                     <img src= {data[i].link_img} alt="Acheter "/>
+                                      {data[i].somme}
                                     </h1>
                                 </div>
     
-                                <div className='inline-block-id'>
+                                <div className='inline-block-id-6'>
                                     <h3>
                                         <Link to='#' onClick={
                                            this.openLink.bind(this,data[i].link)
                                         }>
-                                            {data[i].title}
+                                            {parse(data[i].title)}
                                         </Link>
                                     </h3>
-                                    <p>
-                                        Gagner {data[i].somme} sur votre achats
-                                    </p>
                                 </div>
-    
-                                <div className='inline-block-id'>
-                                    <div className='code-view'  
-                                      onClick={ 
-                                        this.openLink.bind(this,data[i].link)
-                                   }>
+
+                                <div className='inline-block-id-4'>
+                                    <div className='btn-coupons' style={{backgroundColor:'royalblue',color:'white',lineHeight:'6vh'}}
+                                      onClick={this.openLink.bind(this,data[i].link)}>
                                         Voir l'offre
                                     </div>
                                 </div>
+
+                              </div>
+
+                              <div className='row'>
+
+                                  <div className='inline-block-id-2'>
+
+                                  </div>
+
+                                  <div className='inline-block-id-6'>
+                                     <i class="glyphicon glyphicon-ok-sign" aria-hidden="true"></i><b>Vérifié</b>
+                                  </div>
+
+                                  <div className='inline-block-id-4'>
+                                    <center>
+                                        <button onClick={this.slideFind.bind(this,data[i].id)}>
+                                            Voir les conditions
+                                          </button>
+                                      </center>
+                                  </div>
+
+                              </div>
+                              <div className='row'>
+                                <div className='inline-block-id-2'>
+
+                                </div>
+                                <div className='inline-block-id-10'>
+                                  <div id={'coupons_'+data[i].id} ref={'coupons_'+data[i].id} className='coupons-condition'>
+                                      {parse(data[i].description)}
+                                  </div>
+                                </div>
+                              </div>
+
                         
                     </div>
                 )
               }else{
                 element.push(
                   <div className='allCoupons'>
-  
-                              <div className='inline-block-id'>
+                    <div className='row'>
+
+                              <div className='inline-block-id-2'>
                                   <h1>
-                                   <img src= {data[i].link_img} alt="Acheter "/>
+                                    {data[i].somme}
                                   </h1>
                               </div>
-  
-                              <div className='inline-block-id'>
+
+                              <div className='inline-block-id-6'>
                                   <h3>
                                       <Link to='#' onClick={
                                          this.openLink.bind(this,data[i].link)
                                       }>
-                                          {data[i].title}
+                                          {parse(data[i].title)}
                                       </Link>
                                   </h3>
-                                  <p>
-                                      Gagner {data[i].somme} sur votre achats
-                                  </p>
+                                  
                               </div>
-  
-                              <div className='inline-block-id'>
-                                  <div className='code-view' onClick={this.viewCode.bind(this,data[i].id) }>
-                                  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>   Voir le code
+
+                              <div className='inline-block-id-4'>
+                                
+                                <div className='code-coupons-hidden'>
+                                    <div className='code-coupons'>
+
+                                        <div id={'coupons-'+data[i].id} className='btn-coupons up' onClick={ this.openCoupons.bind(this,data[i].id) }>
+                                        Code coupons <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                        </div>
+                                        <div className='btn-coupons down'>
+                                          <div id={'coupons-down-'+data[i].id} className='coupons-down' >
+                                            <input id={"input-code-"+data[i].id} className='text-copie-code' value={data[i].code}  type="text"/>
+                                              <button id={"copy-"+data[i].id} onClick={this.copy.bind(this,data[i].id)}><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </div>
+
+                              <div className='row'>
+                                  <div className='inline-block-id-2'>
+
+                                  </div>
+                                  <div className='inline-block-id-6'>
+                                  <i class="glyphicon glyphicon-ok-sign" aria-hidden="true"></i><b>Vérifié</b>
+                                  </div>
+                                  <div className='inline-block-id-4'>
+                                    <center>
+                                      <button  onClick={this.slideFind.bind(this,data[i].id)}>
+                                          Voir les conditions
+                                        </button>
+                                    </center>
+                                      
                                   </div>
                               </div>
-                      
+
+                              <div className='row'>
+
+                                <div className='inline-block-id-2'>
+
+                                </div>
+
+                                <div className='inline-block-id-10'>
+                                  <div id={'coupons_'+data[i].id} ref={'coupons_'+data[i].id} className='coupons-condition'>
+                                      {parse(data[i].description)}
+                                  </div>
+                                </div>
+
+                              </div>
                   </div>
               )
+
               }
              
             }
+
             return element;
 
         }else{
             return <p>
                 Aucune Coupons Disponible pour le moment.
             </p>;
-
         }
-        
+  }
+
+  copy=(e,id)=>{
+    id.preventDefault()
+    document.getElementById('input-code-'+e).select();
+    document.getElementById('copy-'+e).innerHTML='<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'
+    document.execCommand('copy')
+  }
+
+   openCoupons= function openCoupons(i,id){
+    id.preventDefault();
+    const { cookies } = this.props;
+
+    if(cookies.get('_lo') != null){
+      
+        document.getElementById('coupons-'+i).style='left:-2vh';
+        document.getElementById('coupons-down-'+i).style='left:3px';
+
+    } 
+}
+
+  slideFind=(e,id)=>{
+    id.preventDefault();
+
+    const el= findDOMNode(document.getElementById('coupons_'+e));    
+      $(el).slideToggle();
 
   }
 
   openLink=(e,id)=>{
     id.preventDefault();
     window.open(e)
-    
   }
 
   viewCode=(e,id)=>{
-
     id.preventDefault();
     document.getElementById('resCoupns').style.display='block';
     document.getElementById('backgrondcoupons').style.display='block';
@@ -581,6 +905,7 @@ class Index extends Component {
       }
   }
   date=(e)=>{
+
     var now=new Date(); // date actuelle
     var later=new Date(e); // premier janvier 2013
     var result=later.getTime()-now.getTime(); // différence en millisecondes depuis le premier janvier 1970 (voir getTime() pour mieux comprendre)
@@ -611,6 +936,7 @@ class Index extends Component {
   render() {
     return (
       <div>
+       {this.start()}
         {this.redirect()}
         <MetaTags>
           <title> cashback</title>

@@ -49,6 +49,8 @@ const AddSousC=(data)=>{
         if(stop === 0){
             FindData();
         }
+
+        console.log(data);
     })
 
     const FindData = function FindData(){
@@ -176,7 +178,7 @@ const AddSousC=(data)=>{
     const viewStart=function viewStart(e){
 
      var  element=[];
-     for(var i=0;i <= 6;i++){
+     for(var i=0;i < 6;i++){
          if(i <= e){
             element.push(
                 <li style={{color:'yellow'}}>
@@ -203,6 +205,10 @@ const AddSousC=(data)=>{
                 <div id='add'>
 
                 </div>
+
+                <h2>
+                    {data.text[1]} avis  <b>{data.text[0]}</b>
+                </h2>
                 {viewAvisAll()}
             </div>  
         ); 

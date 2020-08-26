@@ -1,19 +1,19 @@
 import React , {useEffect,useState} from 'react';
 import MetaTags from 'react-meta-tags';
 import axios from 'axios';
-import { useCookies } from "react-cookie";
 import localhost from '../../_config'
 import Empiler from "../cashback/loader/empiler";
 import Menu from './menu';
 import Moment from 'react-moment';
 import 'moment/locale/fr';
 import Footer from '../footer/index';
+import { useCookies } from "react-cookie"; 
 
 const AddSousC=(data)=>{
 
 const [stop,setStop] = useState(0);
-const [cookies, setCookie] = useCookies(null);
 const [historique, sethistorique] = useState([]);
+const [cookies,Setcookie,removeCookie]=useCookies([]);
 
     useEffect(()=>{
 
@@ -164,8 +164,7 @@ const [historique, sethistorique] = useState([]);
         }
         
     }
-
-   
+  
     return (
             <div> 
                 <MetaTags>

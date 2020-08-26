@@ -3,22 +3,19 @@ import { Link,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import localhost from '../../../_config'
 import Footer from '../../footer/index';
-import { useCookies } from 'react-cookie';
 import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
-
+import Cookies from 'universal-cookie';
 const SignUp=()=>{
 
     const [stop,SetStop] =useState(0);
     const [disabled,Setdisabled] =useState(0);
     const [redirect,Setdredirect] =useState(0);
     const [message,SetMessage] =useState(null);
-    const [cookies, setCookie] = useCookies(null);
+    const [redirectC,setredirectC] =useState(0);
 
-    const [nom,setNom] =useState(null);
-    const [prenom,setPrenom] =useState(null);
-    const [mail,setMail] =useState(null);
-        
+    const cookies = new Cookies();
+
     useEffect(()=>{
         
         window.scrollTo({
@@ -121,8 +118,16 @@ const SignUp=()=>{
             return <Redirect to='/comfirmation-users'/>
         }
     }
+    
+    const redirectCount = function redirectCount(){
+        if(redirectC === 1){
+            return <Redirect to='/MyaccountInfo/tableau-de-bord'/>
+        }
+    }
+
     const responseFacebook = response=>{
  
+        Setdisabled(1);
 
         if(response.email != null){
             Setdisabled(1);
@@ -150,10 +155,12 @@ const SignUp=()=>{
                         axios.post(url,formData)
                             .then((res)=>{
                                 
-                                 setCookie('_lo', res.data);
+                                 cookies.set('_lo',res.data)
                                  sessionStorage.setItem('_lo',res.data.id)
-                                 Setdisabled(0);
-                                 window.location.replace('/MyaccountInfo/tableau-de-bord')
+                             
+                                    setTimeout(()=>{
+                                        setredirectC(1);
+                                    },600)
                             
                             })
         }
@@ -162,12 +169,12 @@ const SignUp=()=>{
      
     }
      const  componentClicked= ()=>{
-     
         console.log('click'); 
      }
 
     const  responseGoogle = (response) => {
- 
+       
+       Setdisabled(1);
     
        var name = response.profileObj.name;
        var apt = name.split(' ');
@@ -190,12 +197,12 @@ const SignUp=()=>{
                 const url= localhost+'/controleur.php?p=registerSocial';
                 axios.post(url,formData)
                     .then((res)=>{
-                        
-                        setCookie('_lo', res.data);
+                        cookies.set('_lo',res.data)
                         sessionStorage.setItem('_lo',res.data.id)
-                        Setdisabled(0);
-                        window.location.replace('/MyaccountInfo/tableau-de-bord')
-                    
+                        
+                            setTimeout(()=>{
+                                setredirectC(1);
+                            },600)
                     })
 
     }
@@ -215,6 +222,7 @@ const SignUp=()=>{
     return (
             <div> 
                 {redirectLink()}
+                {redirectCount()}
                 <div id='login_register'>
                     <div className='container'>
                

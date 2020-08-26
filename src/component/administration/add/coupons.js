@@ -10,6 +10,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 const AddCoupons=()=>{
      
     const [description,setDescription]=useState(null);
+    const [nom,setNom]=useState(null);
     const [stop3,setStop3]=useState(0);
     const [disabled,SetDisabled]=useState(true);
     const [affiliation,setgetaffiliation]=useState([]);
@@ -66,8 +67,8 @@ const AddCoupons=()=>{
                 document.getElementById('cashbackio').value,
                 document.getElementById('url').value,
                 document.getElementById('url_img').value,
+                document.getElementById('url_img_fond').value,
                 document.getElementById('date').value
- 
             ];
 
             if(verfie()){
@@ -108,9 +109,11 @@ const AddCoupons=()=>{
                     document.getElementById('response-message').style.display='none';
                 }
             },2000)
+            
     }
 
     const verfie = function verfie (){
+
         if(
             document.getElementById('nom').value  != '' &&
             document.getElementById('url').value  != '' &&
@@ -127,11 +130,13 @@ const AddCoupons=()=>{
     }
 
     const button = function button(){
+
         if(disabled){
             return <button type="submit" id='btn-loader' name="submit_add" className="btn btn-primary" >Ajouter un coupons</button>
         }else{
             return <button type="submit" id='btn-loader' disabled name="submit_add" className="btn btn-primary" >Ajouter un coupons</button>
         }
+
     }
     
     return (
@@ -164,7 +169,14 @@ const AddCoupons=()=>{
                                             
                                             <div className='form-group'>
                                                 <label htmlFor="type" >Nom de coupon</label>
-                                                <input type="text" id="nom" style={{width:'100%'}}  name="nom"/>
+                                                <input type='hidden' id='nom' value={nom}/>
+                                                <CKEditor
+                                                        editor={ClassicEditor}
+                                                        data={nom}
+                                                        onChange={ ( event, editor ) => {
+                                                            setNom(editor.getData());
+                                                        }}
+                                                />
                                             </div>
 
                                             <div className='form-group'>
@@ -185,13 +197,8 @@ const AddCoupons=()=>{
                                             </div>
 
                                             <div className='form-group'>
-                                                <label htmlFor="url" >Somme</label>
-                                                <input type="text"  placeholder='euro'  step="1"  id="Somme" style={{width:'100%'}} name="url_image" />
-                                            </div>
-                                                
-                                            <div className='form-group'>         
-                                                <label htmlFor="code">Code du coupon</label>
-                                                <input type="text" placeholder='###' step="1" id="code" style={{width:'100%'}} name="code"/>
+                                                <label htmlFor="url" >Url img fond</label>
+                                                <input type="text" id="url_img_fond"  style={{width:'100%'}} name="url_img" />
                                             </div>
 
                                             {button()}
@@ -201,7 +208,7 @@ const AddCoupons=()=>{
                                         <div className='col-md-6'>
                                     
                                             <div className='form-group'>  
-                                                <label htmlFor="description">Description du coupon</label>
+                                                <label htmlFor="description">Condition du coupon</label>
                                                 <input type='hidden' id='description' value={description}/>
                                                 <CKEditor
                                                         editor={ ClassicEditor }
@@ -211,6 +218,17 @@ const AddCoupons=()=>{
                                                         }}
                                                 />
                                             </div>
+
+                                            <div className='form-group'>
+                                                <label htmlFor="url" >Somme</label>
+                                                <input type="text"  placeholder='euro' id="Somme" style={{width:'100%'}} name="url_image" />
+                                            </div>
+                                                
+                                            <div className='form-group'>         
+                                                <label htmlFor="code">Code du coupon</label>
+                                                <input type="text" placeholder='###' step="1" id="code" style={{width:'100%'}} name="code"/>
+                                            </div>
+
                                             <div className='form-group'>  
                                                     <label htmlFor="date1">Date d'expiration</label>
                                                     <input type="date" id="date"  style={{width:'100%'}} name="dateFin" min={Date('Y-m-d')} />

@@ -8,7 +8,7 @@ import IndexAdmin from './component/administration/view/index';
 import LoginAdmin from './component/administration/admin'; 
 import NotFound from './component/notFound/notFound'; 
 import LienParaignage from './component/users/sign/paraignage'
- 
+
 import Sign from './component/users/sign/index'; 
 import Login from './component/users/login/index'; 
 import cashback from './component/cashback/index'; 
@@ -80,6 +80,7 @@ import { useCookies } from 'react-cookie';
 
 function App() {
 
+  const [cookie,Setcookie,removecookie]=useCookies([]);
   const [cookies, setCookie,removeCookie] = useCookies(null);
   const [stop,setStop]=useState(0);
 
@@ -96,9 +97,7 @@ function App() {
     .then((res)=>{
 
         if(stop === 0){
-
           var data = [];
-
                 for(var i=0;i< res.data[0].length;i++){
                  var SousCategorie =[];
                    for(var b=0;b < res.data[1].length;b++){
@@ -113,7 +112,6 @@ function App() {
                             souscategorie:SousCategorie
                         })
                 }
-
             setCookie('_categorieAndSousCAtegorie',data);
             setStop(1);
         }
@@ -163,7 +161,7 @@ function App() {
             <Route path="/administration/validation-avis" component={AdminValidationAvis} />
             <Route path="/administration/ViewMembre/:id" component={AdminViewMembre} />
             
-            <Route path="/cashback" component={cashback} />
+            <Route path="/categorie" component={cashback} />
             <Route path="/Gagnants" component={Gagnants} />
             <Route path="/casbackCategorie/:app/:id" component={cashbackSouscategorie} />
             <Route path="/findCashback/:id" component={Findcashback} />

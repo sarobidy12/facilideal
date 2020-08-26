@@ -1,22 +1,13 @@
 import React , {useEffect,useState} from 'react';
-import MetaTags from 'react-meta-tags';
-import axios from 'axios';
-import { useCookies } from "react-cookie";
-import Moment from 'react-moment';
 import 'moment/locale/fr';
-import parse from 'html-react-parser';
-import localhost from '../../_config'
-import Carre from "../cashback/loader/rarre";
-import Long from "../cashback/loader/long";
-import Empiler from "../cashback/loader/empiler";
-import All_data from "../cashback/loader/all_data";
 import { Link, Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+ 
+const Menu=()=>{
+    const cookies = new Cookies();
 
-const Menu=(data)=>{
-
-    const [cookie,Setcookie,removeCookie]=useCookies(null);
     useEffect(()=>{
-        focusClick()
+        focusClick();
     })
 
     const focusClick= function focusClick(){
@@ -31,6 +22,11 @@ const Menu=(data)=>{
   
     }
 
+    const longout= function longout(){
+            cookies.remove('_lo', { path: '/' });
+            window.location.replace('/connexion');
+    }
+
     return (
             <div> 
                  <div className='menu-content-account'>
@@ -41,10 +37,8 @@ const Menu=(data)=>{
                                     <li onClick={()=>{ focusClick() }} id='Notification' className='menu-my' ><Link to='/MyaccountInfo/Notification'> <span class="glyphicon glyphicon-bell" aria-hidden="true"></span>Notification</Link></li>
                                     <li onClick={()=>{ focusClick() }} id='livre-or' className='menu-my' ><Link to='/MyaccountInfo/livre-or'> <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>Laisser un avis</Link></li>
                                     <li onClick={()=>{ focusClick() }} id='Parraignage'className='menu-my' ><Link  to='/MyaccountInfo/Parraignage'> <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Parraignage</Link></li>
-                                    <li onClick={()=>{ 
-                                        removeCookie('_lo');
-                                        window.location.replace('/connexion')
-                                     }}><Link><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Se deconnecter</Link></li>
+                                    <li onClick={()=>{ longout() }}>
+                                        <Link><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Se deconnecter</Link></li>
                                 </ul>
                 </div>
 

@@ -20,7 +20,7 @@ class Index extends Component{
   render(){
     
     return (
-            <div>
+            <div style={{width:'100%',overflowX:'hidden',overflowY:'hidden'}}>
                  <MetaTags>
                      <title>Bienvennu | accuille</title>
                 </MetaTags>

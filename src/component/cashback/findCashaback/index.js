@@ -5,23 +5,34 @@ import localhost from "../../../_config";
 import { useCookies } from "react-cookie";
 import MetaTags from "react-meta-tags";
 import Loader from '../loader/all_data';
-
-import Carre from "../loader/rarre";
-import Long from "../loader/long";
-import Empiler from "../loader/empiler";
+ 
+import Footer from '../../footer/index';
 
 const Hero=()=>{
 
     const [redirecturl,setRedirect]=useState(false);
+    const [url,setUrl]=useState(null);
     const [stop,setStop]= useState(0);
     const [result,SetResult]= useState([]);
 
     useEffect(()=>{
 
+        setUrl(window.location.pathname.split('/')[2]);
+
             if(stop === 0){
                 getCashbac();
             }
 
+            window.addEventListener('scroll',()=>{
+                if(document.getElementById('hero-search-cashack')){
+                    if(window.pageYOffset > 200){
+                        document.getElementById('hero-search-cashack').style.height='10vh';
+                    }else{
+                        document.getElementById('hero-search-cashack').style.height='35vh';
+                    }
+                }
+            })
+            
     })
     
     const redirect= function redirect(){
@@ -30,6 +41,13 @@ const Hero=()=>{
         }
     }
 
+    const urlChange=()=>{
+        if(url != window.location.pathname.split('/')[2]){
+            setStop(0);
+            find();
+            setUrl(window.location.pathname.split('/')[2])
+        }
+    }
     const getCashbac= function getCashbac(){
 
         let formData= new FormData();
@@ -38,19 +56,16 @@ const Hero=()=>{
         axios.post(url,formData)
         .then((res)=>{
             SetResult(res.data);
-
             setTimeout(()=>{
                 setStop(1);
                 setRedirect(false);
             },500)
-          
         });
 
     }
 
     const find= function find(e){
 
-        e.preventDefault();
         setStop(0);
         getCashbac();
         
@@ -83,6 +98,7 @@ const Hero=()=>{
         }
     
         return text;
+
       };
     
     const afficheData= function afficheData(){
@@ -93,7 +109,7 @@ const Hero=()=>{
             for(var i= 0;i< result.length;i++){
                 element.push(
                     <Link to={'/cashbackAndCoupons/'+generateUrl(result[i].nom)} >
-                        <div className='view-cashback'>
+                        <div className='view-cashback' data-aos='fade-up'>
     
                             <div className='inline-block-id'>
                                 <img src={result[i].url_img}/>
@@ -143,24 +159,24 @@ const Hero=()=>{
 
     return (
             <div> 
+                {urlChange()}
                 {redirect()}
-                <div id='hero-cashack'>
+
+                <div id='hero-search-cashack'>
                     <div className='cashback-seach'>
-                        <h1><span class=" glyphicon glyphicon-map-marker" aria-hidden="true"></span>Trouver un magasin</h1>
-                        <div className='form-input-seach'>
-                            <form method="POST" onSubmit={(e)=>{find(e)}}>
-                                    <input type='text' placeholder='chercher une boutique' defaultValue={window.location.pathname.split('/')[2]} id='search' name='search-cashback'/>
-                                    <button type="button"  onClick={(e)=>{find(e)}}  >
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                    </button>
-                            </form>
-                            </div>
-                        </div>
+                        <h1>
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            Resultat du recherche "{window.location.pathname.split('/')[2]}"
+                        </h1>
                     </div>
+                </div>
 
                     <div className='resultat-data-find'>
-                    {dataResult()}
-                </div>
+                        {dataResult()}
+                    </div>
+                        
+                        <Footer />
+
             </div>
         ); 
   }

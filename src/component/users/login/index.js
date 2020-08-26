@@ -1,23 +1,21 @@
 import React , {  useEffect ,useState }from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { useCookies } from 'react-cookie'; 
 
 import localhost from '../../../_config'
 import Footer from '../../footer/index';
 import FacebookLogin from 'react-facebook-login';
 import { GoogleLogin } from 'react-google-login';
+import Cookies from 'universal-cookie';
+ 
 
 const Login=()=>{
 
     const [message,SetMessage] =useState(null);
     const [disabled,Setdisabled] =useState(0);
     const [redirect,Setdredirect] =useState(0);
-    const [cookies, setCookie] = useCookies(null);
-
-    const [nom,setNom] =useState(null);
-    const [prenom,setPrenom] =useState(null);
-    const [mail,setMail] =useState(null);
+    const [redirectC,setredirectC] =useState(0);
+    const cookies = new Cookies();
     
     useEffect(()=>{
         
@@ -26,6 +24,7 @@ const Login=()=>{
             behavior: "smooth",
         });
     })
+
     const Login = function Login(e){
         
         e.preventDefault();
@@ -76,12 +75,9 @@ const Login=()=>{
                             SetMessage('Le address email n\'existe pas ');
                             Setdisabled(0);
                         }else{
-                            
-                            setCookie('_lo', res.data);
+                            cookies.set('_lo',res.data);
                             sessionStorage.setItem('_lo',res.data.id)
-                            Setdisabled(0);
-                            window.location.replace('/MyaccountInfo/tableau-de-bord')
-
+                            setredirectC(1);
                         }
                     });
 
@@ -97,6 +93,12 @@ const Login=()=>{
     const redirectLink = function redirectLink(){
         if(redirect === 1){
             return <Redirect to='/comfirmation-users'/>
+        }
+    }
+
+    const redirectCount = function redirectCount(){
+        if(redirectC === 1){
+            return <Redirect to='/MyaccountInfo/tableau-de-bord'/>
         }
     }
 
@@ -117,14 +119,13 @@ const Login=()=>{
     }
 
     const responseFacebook = response=>{
- 
 
+        Setdisabled(1);
         if(response.email != null){
             Setdisabled(1);
 
             var name = response.name;
             var apt = name.split(' ');
-
 
                 if(sessionStorage.getItem('id-paraign') != null){
                     var id_parraign=sessionStorage.getItem('id-paraign')
@@ -144,25 +145,23 @@ const Login=()=>{
                         const url= localhost+'/controleur.php?p=registerSocial';
                         axios.post(url,formData)
                             .then((res)=>{
-                                
-                                 setCookie('_lo', res.data);
-                                 sessionStorage.setItem('_lo',res.data.id)
-                                 Setdisabled(0);
-                                 window.location.replace('/MyaccountInfo/tableau-de-bord')
-                            
+                                 cookies.set('_lo',res.data);
+                                 sessionStorage.setItem('_lo',res.data.id);
+                                         setTimeout(()=>{
+                                            setredirectC(1);
+                                         },600)
                             })
         }
         
-          
-     
     }
-     const  componentClicked= ()=>{
-     
+    
+    const  componentClicked= ()=>{
         console.log('click'); 
-     }
+    }
 
     const  responseGoogle = (response) => {
- 
+
+       Setdisabled(1);
     
        var name = response.profileObj.name;
        var apt = name.split(' ');
@@ -185,12 +184,11 @@ const Login=()=>{
                 const url= localhost+'/controleur.php?p=registerSocial';
                 axios.post(url,formData)
                     .then((res)=>{
-                        
-                        setCookie('_lo', res.data);
+                        cookies.set('_lo',res.data)
                         sessionStorage.setItem('_lo',res.data.id)
-                        Setdisabled(0);
-                        window.location.replace('/MyaccountInfo/tableau-de-bord')
-                    
+                            setTimeout(()=>{
+                                setredirectC(1);
+                            },600)
                     })
 
     }
@@ -211,6 +209,7 @@ const Login=()=>{
     return (
             <div> 
                 {redirectLink()}
+                {redirectCount()}
                 <div id='login_register'>
                     <div className='container'>
                         <div className='row'>

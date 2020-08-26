@@ -3,6 +3,10 @@
    padding: 0;
   overflow-x: hidden;
  }
+
+ html{
+   width: 100%;
+ }
  #hero{
    width: 100%;
    height: 90vh;
@@ -294,17 +298,24 @@
   font-size: 2vh;
 }
 
+.code-coupons-hidden{
+  width: 110%;
+  overflow: hidden;
+  height: 7vh;
+  margin: 0;
+  padding: 0;
+}
+
 .code-coupons{
   width: 200%;
   position: relative;
-  left: -16vh;
+  left: -18vh;
 }
 
 .btn-coupons{
-  width: 18vh;
-  box-shadow: 1px 1px 5px #aaa;
-  border-radius: 2vh;
-  height: 4vh;
+  width: 20vh;
+  border-radius: 6vh;
+  height: 6vh;
   float: left;
   margin: 1vh 0;
   cursor: pointer;
@@ -313,21 +324,78 @@
   font-size: 2vh;
   line-height: 4vh;
   font-family: 'Questrial', sans-serif;
-  
 }
 
 .up{
-  left: 15vh;
+  left: 18vh;
   position: relative;
   background-color: royalblue;
   color: white;
   text-align: center;
   font-family: 'Questrial', sans-serif;
-  line-height: 4vh;
+  line-height: 6vh;
   z-index: 10;
   transition: 500ms;
-
 } 
+.up:hover{
+  left: 17vh;
+}
+
+.down{ 
+  overflow: hidden;
+  border: 2px solid royalblue;
+} 
+
+.coupons-down{
+  left: 15vh;
+  position: relative;
+  transition: 500ms;
+}
+.coupons-down button{
+  padding: 1vh 0.9vh;
+  border: none;
+  color: white;
+  margin: 0 0.02vh;
+  background-color: royalblue;
+}
+
+@media(max-width:768px){
+  
+  .code-coupons-hidden{
+    width: 130%;
+  }
+
+  .btn-coupons{
+    width: 23vh;
+  }
+
+  .code-coupons{
+    width: 200%;
+    position: relative;
+    left: -18vh;
+  }
+
+  .code-coupons-hidden{
+    width: 150%;
+  } 
+
+  .code-coupons-hidden{
+    width: 40vh;
+    position: relative;
+    left: -5vh;
+  }
+    
+  .up{
+    left: 18vh;
+  } 
+
+  .down{
+    position: relative;
+    width: 25vh;
+    left: -5vh;
+  }
+  
+}
 
 #cashback-home h1{
   color: rgb(2, 109, 242);
@@ -1192,17 +1260,105 @@ header{
   position: fixed;
   background-color:rgb(2, 109, 242);
   z-index: 15;
-  padding: 0.5vh 5vh;
-  font-family: Fredoka One;
-
+  padding: 0 2vh;
+  font-family: 'Questrial', sans-serif;
 }
 
-.Header_logo h1 a{
+.search_magasin{
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+  top: 2vh;
+  border-radius: 5vh;
+  height: 5vh;
+  padding: 0vh 2vh;
+  background-color: rgba(0, 0, 0, 0.267);
+}
+
+.search_magasin ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.search_magasin ul li{
+  display: inline-table;
+  margin: 0;
+}
+
+.search_magasin ul li input{
+  width: 45vh;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.search_magasin ul li input:focus{
+  background-color: transparent;
+}
+
+.search_magasin ul li input::placeholder{
   color: white;
-  font-family: Fredoka One;
-  font-size: 3vh;
-  float: left;
+}
+
+.search_magasin ul li input[placeholder]{
+  color: white;
+}
+
+.sugges{
+  position: fixed;
+  top: 8vh;
+  width: 50%;
+  margin-left: 25%;
+  margin-right: 25%;
+  background-color: white;
+  padding: 2vh;
+  z-index: 15;
+  border-radius: 1vh;
+}
+
+.search_magasin ul li button{
+  border: none;
+  color: white;
+  background-color: transparent;
+  line-height: 5vh;
+  outline: none;
+}
+
+.search_magasin ul li button:active{
+  transform: scale(0.95);
+}
+
+.search_magasin ul li i{
+  margin: 0 1vh;
+}
+
+.search_magasin ul li a{
+  display: block;
+  color: white;
+  margin: 0 1vh;
   text-decoration: none;
+  padding: 0.5vh 1vh;
+  transition: 800ms;
+  border-right: 1px solid white;
+}
+
+.search_magasin ul li a:hover{
+  color: black;
+}
+
+
+.Header_logo{
+  width: 10%;
+  float: left;
+  text-align: center;
+  position: relative;
+  top: -1vh;
+}
+
+.Header_logo img{
+  width: 20vh;
+ 
 }
 
 .header_rigth{
@@ -1227,57 +1383,33 @@ header{
     display: none;
   }
 }
+
 .lon{
   float: left;
 }
-
-.link_header{
-  display: block;
-  padding: 1vh;
-  color: white;
-  font-family: 'Questrial', sans-serif;
-  height: 5.2vh;
-  text-align: start;
-}
-
-.link_header:hover{
-  text-decoration: none;
-  color: white;
-  border-bottom: 0.5vh solid white;
-}
-
-.link_header:focus{
-  font-family: 'Questrial', sans-serif;
-  height: 5.2vh;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-}
-
-.active_link_header{
-  border-bottom: 0.5vh solid white;
-}
-
+ 
 .link_sign{
   display: block;
-  width: 12vh;
+  width: 90%;
   height: 5vh;
+  line-height: 2vh;
   position: relative;
-  line-height: 4vh;
+  right: 5%;
+  left: 5%;
   text-align: center;
   font-family: Fredoka One;
   text-decoration: none;
   background-color: white;
   color: rgb(2, 109, 242);
   border-radius: 0.5vh;
-  border: 0.5vh solid white;
+  border: 0.5vh solid rgb(2, 109, 242);
   transition: 500ms;
-  margin: 0 1vh;
+  margin: 0 auto;
 }
 
 .link_sign:hover{
   text-decoration: none;
-  background-color: transparent;
+  background-color: rgb(2, 109, 242);
   color: white;
 }
 
@@ -1285,21 +1417,22 @@ header{
   text-decoration: none;
 }
 
-
 .link_Login{
   display: block;
-  width: 15vh;
+  width: 90%;
   height: 5vh;
-  position: relative;
-  line-height: 4vh;
+  line-height: 2vh;
   text-align: center;
   font-family: Fredoka One;
   text-decoration: none;
-  background-color: transparent ;
+  background-color: rgb(2, 109, 242) ;
   color: white;
   border-radius: 0.5vh;
-  border: 0.5vh solid white;
+  border: 0.5vh solid rgb(2, 109, 242);
   transition: 500ms;
+  position: relative;
+  right: 5%;
+  left: 5%;
 }
 
 .link_Login:hover{
@@ -1314,16 +1447,19 @@ header{
   width: auto;
   padding: 0.5vh;
   height: 5vh;
+  width: 90%;
+  margin: 0 auto;
   position: relative;
   line-height: 4vh;
   text-align: center;
   font-family: Fredoka One;
   text-decoration: none;
   background-color: transparent ;
-  color: white;
+  color: #aaa;
   border-radius: 0.5vh;
-  border: 0.5vh solid white;
   transition: 500ms;
+  left: 5%;
+  right: 5%;
 }
 
 .link_Login_c:hover{
@@ -1486,9 +1622,11 @@ header{
 
 .cashback-seach{
   position: relative;
-  top: 3vh;
+  top: 15vh;
   width: 45%;
   margin: 0 auto;
+  font-family: 'Questrial', sans-serif;
+  color: white;
 }
 
 .cashback-seach h1{
@@ -1496,13 +1634,11 @@ header{
 }
 
 @media(max-width:768px){
+
   .cashback-seach{
     width: 90%;
   }
-  .cashback-seach h1{
-    color: white;
-    font-family: Fredoka One;
-  }
+  
 }
 
 #hero-cashack{
@@ -1517,14 +1653,7 @@ header{
   color: white;
   font-family: Fredoka One;
 }
-
-
-#hero-cashack img{
-  width: 35vh;
-  height: 30vh;
-  border: 1vh solid #aaa;
-  border-radius: 1vh;
-}
+ 
 .form-input-seach{
   width: 100%;
   border: 0.5vh solid white;
@@ -1538,23 +1667,64 @@ header{
     text-align: center;
   }
 
-  #hero-cashack img{
-    width: 40%;
-    border: 1vh solid #aaa;
-    position: relative;
-    left: 30%;
-    right: 30%;
-  }
-
 }
 
+#hero-cashback-scroll{
+  width:100%;
+  height: 35vh;
+  position: fixed;
+  transition: 600ms;
+  z-index: 14;
+  background-color: white;
+  overflow: hidden;
+}
+
+@media(max-width:768px){
+  #hero-cashback-scroll{
+    height: 50vh;   
+    width: 100%; 
+  }
+}
+#hero-cashack-view{
+  width:100%;
+  transition: 600ms;
+  height: 70%;
+  padding: 2vh;
+  background-color: rgb(2, 109, 242);
+  z-index: 12;
+  margin: 0 0 2vh 0;
+  overflow: hidden;
+}
+
+#img-cashback{
+  width: 25vh;
+  height: auto;
+  background-color: white;
+  box-shadow: 1px 1px 8px #aaa;
+  transition: 600ms;
+}
+
+@media(max-width:768px){
+  #img-cashback{
+    width: 15vh;
+    margin: 0 auto;
+  }
+}
+
+#img-cashback img{
+  width: 40%;
+  height: 40%;
+  margin-top: 30%;
+  margin-bottom: 30%;
+  margin-left: 30%;
+  margin-right: 30%;  
+}
 
 .form-input-seach input{
   border: none;
   background-color: transparent;
   width: 93%;
 }
-
 
 @media(max-width:768px){
  
@@ -1804,12 +1974,55 @@ header{
   font-family: 'Questrial', sans-serif;
   color: #aaa;
 }
+
 .inline-block-id{
   width: 31.5%;
   height: 20vh;
   float: left;
   padding: 1.5vh;
   margin: 0 0.5vh;
+}
+
+.inline-block-id-2{
+  height: auto;
+  width: 15%;
+  text-align: center;
+  margin: 0  2vh 0;
+
+}
+
+.inline-block-id-6{
+  height: auto;
+  width:45%;
+  text-align: start;
+  margin: 0;
+}
+
+@media(max-width:768px){
+  .inline-block-id-6{
+    width: 70%;
+  }
+}
+
+.inline-block-id-4{
+  height: auto;
+  width: 30%;
+  text-align: start;
+  margin: 0;
+}
+
+
+@media(max-width:768px){
+  .inline-block-id-4{
+    width: 50%;
+    margin: 0 15vh;
+  }
+}
+.inline-block-id-10{
+  height: auto;
+  width: 75%;
+  text-align: start;
+  margin: 0;
 }
 
 .view-cashback strike{
@@ -1871,13 +2084,44 @@ header{
   top: 0;
 }
 
-
-.container-view-all{
+#container-view-all{
+  position: relative;
   width: 80%;
   height: auto;
   margin: 0 auto;
   padding: 1vh;
+  top: 35vh;
 }
+
+@media(max-width:768px){
+  #container-view-all{
+    width: 95%;
+    top: 50vh;
+  }
+}
+#img-view{
+  transition: 600ms;
+}
+
+.hero-row-container{
+  position: fixed;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+}
+
+
+
+.hero-row-container h1{
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-family: Fredoka One;
+}
+
 
 @media(max-width:768px){
   .inline-block{
@@ -1892,7 +2136,6 @@ header{
     width: 100%;
     margin: 0 auto;
   }
-
   
   .contennt-titre-view{
     width: 100%;
@@ -1903,6 +2146,17 @@ header{
     height: auto;
     position: relative;
     top: 15vh;
+  }
+
+  .hero-row-container{
+    top: 8%;
+    width: 95%;
+    left: 2.5%;
+    right: 2.5%;
+  }
+
+  .hero-row-container h1{
+    text-align: center;
   }
 
 }
@@ -1950,7 +2204,7 @@ header{
 }
 
 .Condition-cashback{
-  margin: 8vh 0;
+  margin: 0 0;
   padding: 0;
 }
 
@@ -1969,17 +2223,66 @@ header{
 .cashback-add-historique strike{
   font-family: 'Questrial', sans-serif;
   color: #aaa;
+  float: left;
+}
+
+.cashback-add-historique p{
+  color: rgb(2, 109, 242);
+  font-family: Fredoka One;
+  font-size: 3vh;
+  float: left;
 }
 
 .cashback-add-historique button{
-  width: 50%;
-  height: 5vh;
-  border: none;
-  border-radius: 1vh;
-  background-color: deepskyblue;
-  font-family: Fredoka One;
-  color: white;
+  position: absolute;
+  right: 20%;
+  border-radius: 6vh;
+}
 
+@media(max-width:768px){
+  
+  .cashback-add-historique strike{
+    font-family: 'Questrial', sans-serif;
+    color: #aaa;
+    float: left;
+    font-size: 2vh;
+  }
+
+  .cashback-add-historique p{
+    color: rgb(2, 109, 242);
+    font-family: Fredoka One;
+    font-size: 2vh;
+    float: left;
+    text-align: ;
+  }
+
+  .cashback-add-historique button{
+    position: relative;
+    right: 20%;
+    width: 80%;
+    left: 10%;
+    border-radius: 6vh;
+  }
+}
+.active-cashback{
+  position: relative;
+  padding: 2vh 4vh;
+  border: none;
+  border-radius: 3vh;
+  color: white;
+  font-family: Fredoka One;
+  transition: 500ms;
+}
+.act-c{
+  background-color: rgb(2, 109, 242);
+}
+
+.act-d{
+  background-color: rgba(2, 110, 242, 0.363);
+}
+
+#active-cashback{
+  transition: 500ms;
 }
 
 .cashback-add-historique b{
@@ -2090,26 +2393,36 @@ strike{
   color: rgb(2, 109, 242);
   font-family: Fredoka One;
 }
+#apropos{
+  font-family: 'Questrial', sans-serif;
+}
 
 #description{
   width: 100%;
   height: auto;
   transition: 500ms;
+  font-family: 'Questrial', sans-serif;
+}
+
+#description img{
+  width: 100%;
 }
 
 .view-active button{
   float: right;
   right: 1vh;
   top: 0;
-
 }
 
 .allCoupons{
   width: 100%;
-  height: 20vh;
-  box-shadow: 1vh 1vh 8vh 0.5vh #aaa;
+  height: auto;
+  box-shadow: 1vh 1vh 1vh 5  #aaa;
   border-radius: 1vh;
   margin: 2vh 0;
+  overflow: hidden;
+  transition: 600ms;
+  padding: 2vh;
 }
 
 .allCoupons img{
@@ -2117,29 +2430,51 @@ strike{
   height: 15vh;
 }
 
-.allCoupons h3{
-  color: rgb(2, 109, 242);
-  font-family: Fredoka One;
-  font-size: 3vh;
-}
-.allCoupons h1 {
-  font-size: 3vh;
-  position: relative;
-  top: -0.5vh;
-}
-.code-view{
-  width: 70%;
-  margin: 5vh auto;
-  height: 5vh;
-  background-color: rgb(2, 109, 242);
-  text-align: center;
-  line-height: 5vh;
-  border-radius: 1vh;
-  font-family: Fredoka One;
-  color: white;
-  cursor: pointer;
+.allCoupons button{
+  border: none;
 }
 
+.allCoupons h3 a{
+  color: rgba(0, 0, 0, 0.582);
+  font-family: Fredoka One;
+  font-size: 2vh;
+  text-decoration: none;
+}
+.btn-condition{
+  font-family: Fredoka One;
+  color: rgb(2, 109, 242);
+}
+#condition{
+  font-family: 'Questrial', sans-serif;
+
+  
+}
+.btn-condition span{
+  font-size: 1.5vh;
+}
+
+@media(max-width:768px){
+.btn-condition{
+  font-size: 2vh;
+}
+}
+
+.allCoupons h1{
+  font-size: 3vh;
+  position: relative;
+  top: 20%;
+  font-family: Fredoka One;
+  color: rgb(2, 109, 242);
+}
+.allCoupons i{
+  color: green;
+  margin: 0 1vh;
+}
+.allCoupons b{
+  color: #aaa; 
+}
+
+ 
 .code-view:active{
   transform: scale(0.95);
 }
@@ -2215,20 +2550,21 @@ strike{
   }
 
   .text-copie-code{
-    width: 95.4%;
-    height: 5vh;
-    border: 1px dashed #aaa;
-    text-align: center;
+    width: 71.2%;
+    text-align: start;
     border-radius: 1vh 0 0 1vh;
-    font-size: 5vh;
+    font-size: 3vh;
     float: left;
     outline: none;
-
+    color: #aaa;
+    border: none;
+    padding: 1vh ;
   }
 
   @media(max-width:768px){
     .text-copie-code{
-      width: 85%;
+      width: 78%;
+      text-align: center;
     }
   }
  .view-coupons-get-code button{
@@ -2359,6 +2695,12 @@ strike{
 
 .active-myacount{
   border-left: 0.5vh solid rgb(2, 109, 242);
+
+}
+
+.active-myacount-add{
+  border-left: 0.5vh solid red;
+
 }
 
 .paraignage{
@@ -2587,7 +2929,6 @@ strike{
     text-align: center;
   }
 
-
   .all-mission ul li:nth-of-type(4){
     font-family: Fredoka One;
     width: 20%;
@@ -2595,6 +2936,7 @@ strike{
 
   }
 }
+
 .description-content-mission{
   width: 85%;
   position: relative;
@@ -3127,16 +3469,14 @@ strike{
 }
 
 .cashback-view-h1 img{
-  width: 50vh;
+  width: 60%;
 }
 
 .resultat-data-find{
-  background-color: white;
   padding: 2vh;
-  width: 60%;
-  margin: -15vh auto;
+  width: 55%;
+  margin: 0 auto;
   border-radius: 1vh;
-  box-shadow: 1vh 1vh 8vh #aaa;
 
 }
 
@@ -3366,7 +3706,6 @@ footer{
 }
  
 .row-gagnant .inline-table:nth-child(2){
-  border: solid;
   background-color: rgb(2, 109, 242);
   color: white;
   width: 25vh;
@@ -3470,13 +3809,11 @@ footer{
   font-family: Fredoka One;
   color: white;
   border-radius: 1vh;
-  font-family: Fredoka One;
   font-size: 3vh;
   color: white;
  }
 
  footer h2{
-  font-family: Fredoka One;
   color: white;
   border-radius: 1vh;
   font-family: Fredoka One;
@@ -3547,3 +3884,143 @@ footer ul li a:hover{
 }
 
  
+#hero-search-cashack{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 35vh;
+  background-color: rgb(2, 109, 242);
+  transition: 600ms;
+}
+
+#hero-search-cashack h1{
+  margin: 0;
+  padding: 0;
+}
+
+.span-humberger{
+  margin: 0;
+  padding: 0;
+  position: relative;
+  top: -3vh;
+  width: 5vh;
+  height: 6vh;
+  transition: 500ms;
+  cursor: pointer;
+}
+
+.span-humberger span{
+  display: block;
+  border: 0.35vh solid white;
+  margin: 0.6vh 0;
+  border-radius: 1vh;
+  background-color: white;
+}
+
+#sidebarHeader{
+  position: fixed;
+  width: 20%;
+  height: 100%;
+  background-color: white;
+  top: 0;
+  float: right;
+  right: -50vh;
+  z-index: 20;
+  transition: 500ms;
+}
+
+#backgrondNav{
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.349);
+  z-index: 15;
+  animation: block_view 800ms;
+  display: none;
+}
+
+#sidebarHeader ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#sidebarHeader ul li {
+  color: #aaa;
+  margin: 1vh 0;
+}
+
+#sidebarHeader ul li a{
+  margin: 0;
+  padding: 1vh;
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.active_link_header{
+  border-left: 0.5vh solid rgb(2, 109, 242);
+  color: black;
+}
+
+#link_view_btn{
+  margin: 0;
+  padding: 0;
+}
+
+#link_view_btn img{
+  width: 10vh;
+}
+
+#slideView{
+  width: 100%;
+  height: auto;
+  transition: 900ms;
+  overflow-y: hidden;
+  background-color: #aaa;
+  transition:flex 0.3s ease-out;
+} 
+ 
+
+.cashback-view-explication ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  float: left;
+}
+
+.cashback-view-explication ul li{
+  display: inline-block;
+  font-size: 3vh;
+}
+
+.cashback-view-explication b{
+  font-size: 3vh;
+  font-family: Fredoka One;
+  margin: 0 1vh;
+  color: white;
+}
+.cashback-view-explication p{
+  margin: 1.75vh 0 0 0;
+  font-family: 'Questrial', sans-serif;
+  color: white;
+}
+.coupons-condition{
+  width: 100%;
+  height: auto;
+  padding: 2vh;
+  font-family: 'Questrial', sans-serif;
+
+}
+
+.coupons-condition ul{
+  margin: 0;
+  padding: 0;
+}
+
+@media(max-width:768px){
+  .cashback-view-explication{
+    text-align: center;
+  }
+}

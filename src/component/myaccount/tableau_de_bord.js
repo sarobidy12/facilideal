@@ -85,7 +85,6 @@ const [cashback,setcashback] = useState([]);
         const url= localhost+'/controleur.php?p=getMyCashback'; 
         axios.post(url,formData)
         .then((res)=>{
-            console.log(res.data);
                 setcashback(res.data);
                     setTimeout(()=>{
                         setstopz(1);

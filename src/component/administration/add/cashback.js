@@ -19,6 +19,7 @@ const AddCashback=()=>{
 
     const [description,setDescription]=useState(null);
     const [Condition,setCondition]=useState(true);
+    const [apropos,setApropos]=useState(true);
 
     useEffect(()=>{
         getCategorie();
@@ -156,6 +157,7 @@ const AddCashback=()=>{
                 document.getElementById('url').value.trim(),
                 document.getElementById('url_img').value.trim(),
                 document.getElementById('nom').value.trim(),
+                apropos,
                 description,
                 Condition,
                 document.getElementById('dateFin').value
@@ -315,12 +317,28 @@ const AddCashback=()=>{
                   </div>
     </div>
     <div className='col-md-6'>
+                
+                 <div class='form-group'>
+                      <label for="description">A propos</label>
+                      <CKEditor
+                            editor={ ClassicEditor }
+                            data="<p>propos!</p>"
+                            onInit={ editor => {
+                        //       You can store the "editor" and use when it is needed.
+                                console.log( 'Editor is ready to use!', editor );
+                            }}
+
+                            onChange={ ( event, editor ) => {
+                                setApropos(editor.getData());
+                            }}
+                       />
+                  </div>
 
                   <div class='form-group'>
                       <label for="description">Description</label>
                       <CKEditor
                             editor={ ClassicEditor }
-                            data="<p>Hello from CKEditor 5!</p>"
+                            data="<p>Description</p>"
                             onInit={ editor => {
                         //       You can store the "editor" and use when it is needed.
                                 console.log( 'Editor is ready to use!', editor );
@@ -336,7 +354,7 @@ const AddCashback=()=>{
                       <label for="description">Condition</label>
                       <CKEditor
                             editor={ ClassicEditor }
-                            data="<p>Hello from CKEditor 5!</p>"
+                            data="<p>Condition</p>"
                             onInit={ editor => {
                                 // You can store the "editor" and use when it is needed.
                                 console.log( 'Editor is ready to use!', editor );

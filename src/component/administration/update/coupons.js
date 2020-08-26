@@ -15,6 +15,7 @@ const IndexAdmin=()=>{
     const [findTrue,setfindTrue]=useState(0);
     const [datares,setDatares]=useState(0);
     const [description,setDescription]=useState(null);
+    const [nom,setNom]=useState(null);
 
     useEffect(()=>{
         getCategorie();
@@ -50,8 +51,10 @@ const IndexAdmin=()=>{
             if(findTrue === 0){
                 setDatares(res.data[0]);
                 setDescription(res.data[0].description);
+                setNom(res.data[0].title);
                 setfindTrue(1);
             }
+
             document.getElementById('loader').style.display='none';
         });
     } 
@@ -76,6 +79,7 @@ const IndexAdmin=()=>{
             document.getElementById('Somme').value,
             document.getElementById('url').value,
             document.getElementById('url_img').value,
+            document.getElementById('url_img_fond').value,
             document.getElementById('date').value,
             window.location.pathname.split('/')[3]
         ];
@@ -159,12 +163,19 @@ const IndexAdmin=()=>{
                         <div className='row'>
 
                             <div className='col-md-6'>
-
+  
                                 <div className='form-group'>
                                     <label htmlFor="type" >Nom de coupon</label>
-                                    <input type="text" id="nom" defaultValue={datares.title} style={{width:'100%'}}  name="nom"/>
+                                    <input type='hidden' id='nom' value={nom}/>
+                                    <CKEditor
+                                        editor={ClassicEditor}
+                                        data={nom}
+                                        onChange={ ( event, editor ) => {
+                                            setNom(editor.getData());
+                                        }}
+                                    />
                                 </div>
-
+                               
                                 <div className='form-group'>
                                     <label htmlFor="url" >Url</label>
                                     <input type="text" id="url" defaultValue={datares.link} style={{width:'100%'}} name="url" />
@@ -173,6 +184,11 @@ const IndexAdmin=()=>{
                                 <div className='form-group'>
                                     <label htmlFor="url" >Url img</label>
                                     <input type="text" id="url_img" defaultValue={datares.link_img} style={{width:'100%'}} name="url" />
+                                </div>
+                                
+                                <div className='form-group'>
+                                    <label htmlFor="url" >Url img fond</label>
+                                    <input type="text" id="url_img_fond" defaultValue={datares.url_img_fond} style={{width:'100%'}} name="url" />
                                 </div>
 
                                 <div className='form-group'>

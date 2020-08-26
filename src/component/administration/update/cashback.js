@@ -15,6 +15,7 @@ const UdapdeCahback=()=>{
  
     const [description,setDescription]=useState(null);
     const [Condition,setCondition]=useState(true);
+    const [apropos,setApropos]=useState(true);
 
     useEffect(()=>{
         getCategorie();
@@ -49,6 +50,7 @@ const UdapdeCahback=()=>{
                  setDatares(res.data[0]);
                  setCondition(res.data[0].Condition_c);
                  setDescription(res.data[0].description);
+                 setApropos(res.data[0].apropos);
                  setfindTrue(1);
              }
 
@@ -85,6 +87,7 @@ const UdapdeCahback=()=>{
                 document.getElementById('url').value.trim(),
                 document.getElementById('url_img').value.trim(),
                 document.getElementById('nom').value.trim(),
+                document.getElementById('apropos').value.trim(),
                 document.getElementById('description').value.trim(),
                 document.getElementById('Condition').value.trim(),
                 document.getElementById('dateFin').value.trim(),
@@ -191,11 +194,26 @@ const UdapdeCahback=()=>{
                                   </div>
                     </div>
                     <div className='col-md-6'>
-                
-                                  <div class='form-group'>
+                                <div class='form-group'>
+                                        <label for="description">A propos</label>
+                                        <input type='hidden' id='apropos' value={apropos}/>
+                                        <CKEditor
+                                                editor={ ClassicEditor }
+                                                data={apropos}
+                                                onInit={ editor => {
+                                                    //  You can store the "editor" and use when it is needed.
+                                                    console.log( 'Editor is ready to use!', editor );
+                                                }}
+
+                                                onChange={ ( event, editor ) => {
+                                                    setApropos(editor.getData());
+                                                }}
+                                        />
+                                </div>
+
+                                <div class='form-group'>
                                       <label for="description">Description</label>
                                       <input type='hidden' id='description' value={description}/>
-                                   
                                       <CKEditor
                                             editor={ ClassicEditor }
                                             data={description}
@@ -203,9 +221,9 @@ const UdapdeCahback=()=>{
                                                 setDescription(editor.getData());
                                             }}
                                        />
-                                  </div>
+                                </div>
                 
-                                  <div class='form-group'>
+                                <div class='form-group'>
                                       <label for="Condition">Condition</label>
                                       <input type='hidden' id='Condition' value={Condition}/>
 z                                      <CKEditor
@@ -215,12 +233,12 @@ z                                      <CKEditor
                                                 setCondition(editor1.getData());
                                             }}
                                        />
-                                  </div>
+                                </div>
                                    
-                                  <div class='from-group'> 
+                                <div class='from-group'> 
                                       <label for="dateFin">Date d'expiration</label>
                                       <input type="date" style={{width:'100%'}} defaultValue={datares.end_date} id="dateFin" name="dateFin"/>
-                                  </div>
+                                </div>
                                 
                     </div>
                 

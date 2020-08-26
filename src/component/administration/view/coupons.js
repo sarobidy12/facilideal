@@ -6,6 +6,7 @@ import axios from 'axios';
 import localhost from '../../../_config';
 import Moment from 'react-moment';
 import 'moment/locale/fr';
+import parse from 'html-react-parser';
 
 const IndexAdmin=()=>{
 
@@ -48,7 +49,6 @@ const IndexAdmin=()=>{
         }
         return element;
     }
-
 
     const inputChange = function inputChange (event){
         
@@ -105,13 +105,12 @@ const IndexAdmin=()=>{
 
          if(resData.length == 0){
              return <center><h1>Aucune information</h1></center>;
-
          }else{
              for(var i=0;i<resData.length;i++ ){
                  element.push( 
                     <div id={'del-'+resData[i].id} className='content-view-table row'>
                             <div className='inline-table'><input type='checkbox'   onChange={checkio.bind(this,autoMat(resData[i].id,resData[i].add_home))} /></div>
-                            <div className='inline-table'><b>{resData[i].title}</b></div>
+                            <div className='inline-table'><b>{parse(resData[i].title)}</b></div>
                             <div className='inline-table'><b>{resData[i].code}</b></div>
                             <div className='inline-table'><b>{resData[i].visits}/{resData[i].visits_today}</b></div>
                             <div className='inline-table'><b><Moment fromNow>{resData[i].end_date}</Moment></b></div>
@@ -139,7 +138,6 @@ const IndexAdmin=()=>{
     const activer = function activer(id,e){
       
         e.preventDefault()
-
         document.getElementById('loader').style.display='block';
         document.getElementById('del-'+id).style.backgroundColor="#aaa";
         let formData= new FormData();
@@ -147,7 +145,9 @@ const IndexAdmin=()=>{
         const url= localhost+'/controleur.php?p=CouponsStatus'; 
         axios.post(url,formData)
         .then((res)=>{
+
                 if(res.data == 'coupons-status-home-success'){
+
                         setTchekremove([]);
                         setTchekaddHome([]);
                         setTchek([]);
@@ -156,9 +156,12 @@ const IndexAdmin=()=>{
                         }else{
                             setelement(cate);
                         }
+
                             document.getElementById('del-'+id).style.backgroundColor="transparent";
                             document.getElementById('loader').style.display='none';
+
                }
+               
          });
 
     }
