@@ -110,9 +110,9 @@ const Mission=()=>{
     const btnActive= function btnActive(e,id){
 
         if(e == 0){
-            return <button onClick={activer.bind(this,id)} className='btf btn-success'>Aciver </button>
+            return <button onClick={activer.bind(this,id)} style={{width:'9vh'}} className='btf btn-success'>Aciver </button>
         }else{
-            return <button onClick={activer.bind(this,id)} className='btf btn-warning'>Desactiver</button>
+            return <button onClick={activer.bind(this,id)} style={{width:'9vh'}}  className='btf btn-warning'>Desactiver</button>
         }
 
     }
@@ -120,9 +120,9 @@ const Mission=()=>{
     const PreniumBtn= function PreniumBtn(e,id){
 
         if(e == 0){
-            return <button onClick={PremiumAtive.bind(this,id)} className='btf btn-success'>Aciver P</button>
+            return <button onClick={PremiumAtive.bind(this,id)} style={{width:'10vh'}} className='btf btn-success'>Aciver Prenium</button>
         }else{
-            return <button onClick={PremiumAtive.bind(this,id)} className='btf btn-warning'>Desactiver P</button>
+            return <button onClick={PremiumAtive.bind(this,id)} style={{width:'15vh'}} className='btf btn-warning'>Desactiver Prenium</button>
         }
 
     }
@@ -274,7 +274,7 @@ const Mission=()=>{
     return (
             <div> 
                  <MetaTags>
-                    <title>Administration | click </title>
+                    <title>Administration | mission </title>
                 </MetaTags>
 
          
@@ -319,7 +319,7 @@ const Mission=()=>{
 
                         <div id='response' className='fade_up'>
                             {loader()}
-                        </div>
+                        </div>opti
 
                     </div> 
                     <div class="float-right" data-aos="zoom-in">

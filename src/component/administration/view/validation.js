@@ -92,36 +92,6 @@ const IndexAdmin=()=>{
                     <div className='row'>
                         
                         <div className='col-md-6'>
-                            <Link to='/administration/prevalidation/click'>
-                                <div className='btn-validation'>
-                                    <h1>
-                                        {resData[2].name}
-                                    </h1>
-                                    <p>
-                                        Pre-validation click
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
-
-                        <div className='col-md-6'>
-                            <Link to='/administration/comfirm-validation/click'>
-                                <div className='btn-validation'>
-                                    <h1>
-                                        {resData[3].name}
-                                    </h1>
-                                    <p>
-                                        validation click
-                                    </p>
-                                </div>
-                            </Link>
-                        </div>
-                        
-                    </div>
-
-                    <div className='row'>
-                        
-                        <div className='col-md-6'>
                             <Link to='/administration/validation-avis'>
                                 <div className='btn-validation'>
                                     <h1>

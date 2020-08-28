@@ -22,6 +22,53 @@ const Gagnant=()=>{
         if(stop3 === 0){
             setelement(0);
         }
+
+        window.addEventListener('scroll',function(){
+
+            if(document.getElementById('hero-all') && 
+                document.getElementById('all-container') &&
+                document.getElementById('hero-all-container') &&
+                document.getElementById('img-io')    
+
+              ){
+       
+              if(window.screen.width <= 414){
+       
+                    if(window.pageYOffset > 10){
+                      document.getElementById('hero-all').style.height= '10vh';
+                      document.getElementById('hero-all').style.position='fixed';
+                      document.getElementById('all-container').style.top='20vh';
+                      document.getElementById('hero-all-container').style.top='60%';
+                      document.getElementById('img-io').style.width='5vh'    
+
+                    }else{  
+                      document.getElementById('hero-all').style.position='relative';
+                      document.getElementById('hero-all').style.height='50vh';
+                      document.getElementById('all-container').style.top='0';
+                      document.getElementById('hero-all-container').style.top='30%';
+                      document.getElementById('img-io').style.width='13vh'    
+
+                    }
+ 
+             }else{
+       
+                    if(window.pageYOffset > 10){
+                        document.getElementById('hero-all').style.height= '20vh';
+                        document.getElementById('hero-all').style.position='fixed';
+                        document.getElementById('all-container').style.top='35vh'; 
+                        document.getElementById('hero-all-container').style.top='55%';
+                        document.getElementById('img-io').style.width='5vh';    
+                    }else{  
+                        document.getElementById('hero-all').style.position='relative';
+                        document.getElementById('hero-all').style.height='35vh';
+                        document.getElementById('all-container').style.top='0';
+                        document.getElementById('hero-all-container').style.top='30%';
+                        document.getElementById('img-io').style.width='13vh';    
+                    }
+       
+             }
+            }
+          })
     })
 
     const setelement= function setelement(e){
@@ -67,13 +114,7 @@ const Gagnant=()=>{
     const loader= function loader(){
         if(stop3 === 1){
             return <div className="container-view-all">
-                <div className='titre-gangnat'>
-                        <img src='/img/winner.png'/>       
-                        <h1>
-                            Les Gagnants    
-                        </h1>             
-                </div>
-                            {setData()}
+                        {setData()}
                     </div>
         }else{
             return  <div className="container-view-all">
@@ -86,16 +127,42 @@ const Gagnant=()=>{
     }
  
     return (
-            <div> 
+            <div style={{width:'100%',overflowX:'hidden',overflowY:'hidden'}}> 
 
                 <MetaTags>
                      <title>Gagnant</title>
+                    <meta property="og:type"          content="website" />
+                    <meta property="og:title"         content="Gagnant" />
+                    <meta property="og:description"   content="Les Gagnants qui on recu de l'argent comfirmer par l'admin." />
+                    <meta property="og:image"         content="http://facilodeal.com/img/winner.ng" />
+                    <meta property="og:image:width"         content="1200" />
+                    <meta property="og:image:height"         content="630" />
+                    <meta property="og:image:width"         content="1200" />
+                    <meta property="og:image:height"         content="630" />
                 </MetaTags>
                 
-                <div className='boutique-view'>
-                    {loader()}
-                    <Footer/>
+
+                <div id='hero-all'>
+                    <div id='hero-all-container'>
+                    <div className='titre-gangnat'>
+                        <img src='/img/winner.png' id='img-io' style={{transition:'600ms'}} />       
+                        <h1>
+                            Les Gagnants    
+                        </h1>             
+                        </div> 
+                    </div>
                 </div>
+                <div id='all-container'>
+
+                    <div className='mission-container'>
+                        
+                            <div>
+                                {loader()}
+                            </div>
+                    </div>
+              
+                </div>
+                <Footer/>
                 
 
             </div>

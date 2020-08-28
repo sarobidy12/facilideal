@@ -6,10 +6,12 @@ import { useCookies } from "react-cookie";
 import Moment from 'react-moment';
 import 'moment/locale/fr';
 import parse from 'html-react-parser';
+import Empiler from '../loader/empiler';
 
 const AddSousC=(data)=>{
 
     const [stop,setStop]=useState(0);
+    const [bool,setboll]=useState(true);
     const [cookies, setCookie] = useCookies(null);
     const [idNow] =useState(data.data);
     const [Add,setAdd]=useState([]);
@@ -50,21 +52,42 @@ const AddSousC=(data)=>{
             FindData();
         }
 
-        console.log(data);
     })
 
     const FindData = function FindData(){
 
-                  let formData= new FormData();
-                  formData.append("text", JSON.stringify(idNow));
-                  const url= localhost+'/controleur.php?p=ViewAvis';
-                  axios.post(url,formData)
-                  .then((res)=>{
-                            setAdd(res.data);
-                             setStop(1);
-                  })
+        if(bool === true){
+            let formData= new FormData();
+            formData.append("text", JSON.stringify(idNow));
+            const url= localhost+'/controleur.php?p=ViewAvisOne';
+            axios.post(url,formData)
+            .then((res)=>{
+                      setAdd(res.data);
+                      setTimeout(()=>{
+                            document.getElementById('view_all_avis').style.overflowY='hidden';
+                            document.getElementById('btn_avis').innerHTML='Voir tout les avis';
+
+                            setStop(1);
+                      },600);
+            })
+        }else{
+            let formData= new FormData();
+            formData.append("text", JSON.stringify(idNow));
+            const url= localhost+'/controleur.php?p=ViewAvisAll';
+            axios.post(url,formData)
+            .then((res)=>{
+                      setAdd(res.data);
+                      setTimeout(()=>{
+                        setStop(1);
+                            document.getElementById('view_all_avis').style.overflowY='scroll';
+                            document.getElementById('btn_avis').innerHTML='Reduire';
+                        },600);
+            })
+        }
+                
 
     }
+
     const submit = function submit (event){
 
         event.preventDefault();
@@ -122,9 +145,9 @@ const AddSousC=(data)=>{
                             <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
                         </li>
                     </ul>
-                    <form method='POST' onSubmit={(e)=>{submit(e)}}>
+                    <form method='POST' onSubmit={(e)=>{submit(e)}} style={{width:'100%'}}>
                         <textarea  placeholder =' laisser un avis' id='avis'></textarea>
-                        <input type='hidden' id='start' value='' />
+                        <input type='hidden' id='start' value='' style={{width:'100%'}} />
                         <button>Commenter</button>
                     </form>
                   
@@ -142,9 +165,11 @@ const AddSousC=(data)=>{
                     <ul>
                         {viewStart(Add[i].nbr_start)}
                     </ul>
+                    {date(Add[i].date_time)}
+
                     <h1>
                     {
-                        Add[i].user_name
+                        Add[i].user_name+':'
                     }
                     </h1>
                     <p>
@@ -152,7 +177,6 @@ const AddSousC=(data)=>{
                         Add[i].avis
                     }
                     </p>
-                    {date(Add[i].date_time)}
                 </div>
             )
         }
@@ -160,6 +184,16 @@ const AddSousC=(data)=>{
         return element;
     }
 
+    const dataLoader=()=>{
+        if(stop === 1){
+            return viewAvisAll();
+        }else{
+            return <div>
+                    <Empiler/>
+                    <Empiler/>
+                </div>
+        }
+    }
     const date=(e)=>{
         var now=new Date(); // date actuelle
         var later=new Date(e); // premier janvier 2013
@@ -168,17 +202,23 @@ const AddSousC=(data)=>{
     
         if(jours < 90){
             return <div >
-                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>Ecrit le <Moment fromNow>{' '+e}</Moment>
+                         avis publié <Moment fromNow>{' '+e}</Moment>
                     </div>
         }else{
-            return  <b> <span class="glyphicon glyphicon-time" aria-hidden="true"></span>Ecrit le{e}</b>
+            return  <b>avis publié le {e}</b>
         }
+    }
+    const viewAllavis=()=>{
+
+        setStop(0);
+        setboll(!bool);
+       
     }
 
     const viewStart=function viewStart(e){
 
      var  element=[];
-     for(var i=0;i < 6;i++){
+     for(var i=1;i <= 6;i++){
          if(i <= e){
             element.push(
                 <li style={{color:'yellow'}}>
@@ -188,8 +228,8 @@ const AddSousC=(data)=>{
     
          }else{
             element.push(
-                <li style={{color:'#aaa'}}>
-                <span className="glyphicon glyphicon-star" aria-hidden="true"></span>
+                <li style={{color:'yellow'}}>
+                <span className="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                 </li>
             )
     
@@ -205,11 +245,23 @@ const AddSousC=(data)=>{
                 <div id='add'>
 
                 </div>
+                        <div className='avis-all'>
+                        <h2>
+                                            {data.text[1]} avis sur <b>{data.text[0]}</b>
+                                        </h2>
+                                        <p>
+                                            <b>{data.text[0]}</b> a reçu {data.text[1]} évaluations et obtenu la note moyenne de {data.text[2]}/5.
+                                        </p>
+                        </div>
+                    <div id='view_all_avis'>
+                    {dataLoader()}
+                    </div>
 
-                <h2>
-                    {data.text[1]} avis  <b>{data.text[0]}</b>
-                </h2>
-                {viewAvisAll()}
+                <button id='btn_avis' onClick={()=>{
+                    viewAllavis()
+                }}>
+                    Voir touts les avis 
+                </button>
             </div>  
         ); 
   }

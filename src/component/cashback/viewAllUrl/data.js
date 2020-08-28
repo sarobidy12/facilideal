@@ -8,11 +8,12 @@ import { useCookies } from 'react-cookie';
 const Nav=()=>{
 
     const [stop,setStop]= useState(0);
+    const [stop1,setStop1]= useState(0);
     const [cookies, setCookie] = useCookies(null);
     const [result,SetResult]= useState([]);
 
     useEffect(()=>{
-        if(stop === 0){
+        if(stop === 0 && stop1 === 0){
             setTimeout(()=>{
                 getCashbac()
             },500)
@@ -28,6 +29,7 @@ const Nav=()=>{
         .then((res)=>{
             SetResult(res.data);
             setStop(1);
+            setStop1(1);
         });
     }
 
@@ -131,9 +133,67 @@ const Nav=()=>{
            return <Loader />
         }
     }
+
+    const filtre=(e)=>{
+
+        setStop(0);
+        SetResult([]);
+        if(e.target.value === 'populaire'){
+            let formData= new FormData();
+            formData.append("text",getCategorie());
+            const url= localhost+'/controleur.php?p=ViewCashbackPopulaire'; 
+            axios.post(url,formData)
+            .then((res)=>{
+                SetResult(res.data);
+                
+                 setTimeout(()=>{
+                     setStop(1);
+                 },500)
+
+            });
+        }else if(e.target.value === 'taux'){
+            let formData= new FormData();
+            formData.append("text",getCategorie());
+            const url= localhost+'/controleur.php?p=ViewCashbackTaux'; 
+            axios.post(url,formData)
+            .then((res)=>{
+                SetResult(res.data);
+
+                 setTimeout(()=>{
+                     setStop(1);
+                 },500)
+
+            });
+        }else if(e.target.value === 'alphabetique'){
+            let formData= new FormData();
+            formData.append("text",getCategorie());
+            const url= localhost+'/controleur.php?p=ViewCashbackAlphabetique'; 
+            axios.post(url,formData)
+            .then((res)=>{
+                SetResult(res.data);
+
+                 setTimeout(()=>{
+                     setStop(1);
+                 },500)
+                 
+            });
+        }
+       
+    }
     return (
             <div> 
-                    {dataResult()}
+                <select className='selection' onChange={filtre}>
+                    <option value='populaire'>
+                            Plus populaire
+                    </option>
+                    <option value='taux'>
+                            taux cashback
+                    </option>
+                    <option value='alphabetique'>
+                            ordre alphabetique
+                    </option>
+                </select>
+                {dataResult()}
             </div>
         ); 
 }

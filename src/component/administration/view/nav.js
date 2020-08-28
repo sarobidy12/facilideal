@@ -46,12 +46,6 @@ const NavAdmin=()=>{
                               </Link>
                           </li>
 
-                          <li id='click' className='onglet'>
-                              <Link to="/administration/click/">
-                                  <span className="glyphicon glyphicon-pushpin" > </span><b>Click</b>
-                              </Link>
-                          </li>
-
                           <li id='payment' className='onglet'>
                               <Link to="/administration/payment">
                                   <span className="glyphicon glyphicon-credit-card" > </span><b>payment</b>

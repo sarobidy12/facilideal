@@ -29,6 +29,54 @@ const Boutique=()=>{
         if(stop3 === 0){
             setelement(0);
         }
+
+        
+        window.addEventListener('scroll',function(){
+
+            if(document.getElementById('hero-all') && 
+                document.getElementById('all-container') &&
+                document.getElementById('hero-all-container') &&
+                document.getElementById('img-io')    
+
+              ){
+       
+              if(window.screen.width <= 414){
+       
+                    if(window.pageYOffset > 10){
+                      document.getElementById('hero-all').style.height= '10vh';
+                      document.getElementById('hero-all').style.position='fixed';
+                      document.getElementById('all-container').style.top='20vh';
+                      document.getElementById('hero-all-container').style.top='60%';
+                      document.getElementById('img-io').style.width='5vh'    
+
+                    }else{  
+                      document.getElementById('hero-all').style.position='relative';
+                      document.getElementById('hero-all').style.height='50vh';
+                      document.getElementById('all-container').style.top='0';
+                      document.getElementById('hero-all-container').style.top='30%';
+                      document.getElementById('img-io').style.width='13vh'    
+
+                    }
+ 
+             }else{
+       
+                    if(window.pageYOffset > 10){
+                        document.getElementById('hero-all').style.height= '20vh';
+                        document.getElementById('hero-all').style.position='fixed';
+                        document.getElementById('all-container').style.top='35vh'; 
+                        document.getElementById('hero-all-container').style.top='55%';
+                        document.getElementById('img-io').style.width='5vh';    
+                    }else{  
+                        document.getElementById('hero-all').style.position='relative';
+                        document.getElementById('hero-all').style.height='35vh';
+                        document.getElementById('all-container').style.top='0';
+                        document.getElementById('hero-all-container').style.top='30%';
+                        document.getElementById('img-io').style.width='13vh';    
+                    }
+       
+             }
+            }
+          })
     })
 
     const setelement= function setelement(e){
@@ -158,37 +206,18 @@ const Boutique=()=>{
     }
 
     const loader= function loader(){
+
         if(stop3 === 1){
             return <div className="container-view-all">
-                        <div className='row'>
-                            <div className='col-md-4'>
-                                <div className='boutique-left'>
-                                    <h1>Boutique </h1>
-                                    <img src='/img/boutique.png'/>
-                                </div>
-                            </div>
-                                <div className='col-md-8'>
-                                            {setData()}
-                                </div> 
+                        {setData()}
                     </div> 
-                    </div> 
-                }else{
-                    return  <div className="container-view-all">
-
-                            <div className="row">
-                                <div className="col-md-4">
-                                    <Empiler />
-                                </div>
-
-                                <div className="col-md-8">
-                                    <Empiler />
-                                    <Empiler />
-                                    <Empiler />
-                                </div>
-                            </div>
-                        
-                        </div> 
-                }
+        }else{
+            return  <div className="container-view-all">
+                        <Empiler />
+                        <Empiler />
+                        <Empiler />
+                    </div>
+        }
 
     }
 
@@ -470,12 +499,36 @@ const Boutique=()=>{
             <div> 
                  <MetaTags>
                      <title>Boutique</title>
+                    <meta property="og:type"          content="website" />
+                    <meta property="og:title"         content="Boutique" />
+                    <meta property="og:description"   content="Les Boutique reserver au membre qui souhaite faire des virements." />
+                    <meta property="og:image"         content="http://facilodeal.com/img/winner.ng" />
+                    <meta property="og:image:width"         content="1200" />
+                    <meta property="og:image:height"         content="630" />
+                    <meta property="og:image:width"         content="1200" />
+                    <meta property="og:image:height"         content="630" />
                 </MetaTags>
-                <div className='boutique-view'>
-                    {loader()}
+
+                <div id='hero-all'>
+                    <div id='hero-all-container'>
+                    <div className='titre-gangnat'>
+                                    <img src='/img/boutique.png' id='img-io'/>
+                                    <h1>Boutique </h1>
+                        </div> 
+                    </div>
+                </div>
+                <div id='all-container'>
+
+                    <div className='mission-container'>
+                            <div>
+                                {loader()}
+                            </div>
+                    </div>
+              
+                </div>
+
                 <Footer/>
 
-                </div>
                 <div id='backgrondcoupons' onClick={()=>{
                      close();
                 }} >

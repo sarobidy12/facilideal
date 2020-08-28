@@ -23,7 +23,6 @@ import Comfirm from './component/users/comfirm/index';
 
 import AdminBoutique from './component/administration/view/boutique';
 import Admincashback from './component/administration/view/cashback';
-import Adminclick from './component/administration/view/click';
 import Admincoupons from './component/administration/view/coupons';
 import Adminmembre from './component/administration/view/membre';
 import Adminmission from './component/administration/view/mission';
@@ -39,7 +38,6 @@ import AdminhistoriCashack from './component/administration/view/historique_cash
 
 import AdminAddBoutique from './component/administration/add/boutique';
 import AdminAddcashback from './component/administration/add/cashback';
-import AdminAddclick from './component/administration/add/click';
 import AdminAddcoupons from './component/administration/add/coupons';
 import AdminAddmission from './component/administration/add/mission';
 import AdminAddCategorie from './component/administration/add/categorie';
@@ -49,7 +47,6 @@ import AdminViewMembre from './component/administration/view/viewMembre';
 
 import AdminUpdatCoupons from './component/administration/update/coupons';
 import AdminUpdatCashback from './component/administration/update/cashback';
-import AdminUpdatClick from './component/administration/update/click';
 import AdminUpdatMission from './component/administration/update/mission';
 import AdminUpdatcategorie from './component/administration/update/categorie';
 import AdminVAlidationPrevalidation from './component/administration/view/validation_prevalidation';
@@ -66,12 +63,11 @@ import TableauBord from './component/myaccount/tableau_de_bord';
 import Avis from './component/myaccount/avis';
 
 import Mission from './component/mission/index';
-import Click from './component/click/index';
 import Boutique from './component/boutique/index';
 import Gagnants from './component/gagnant/index';
+import Offerwall from './component/offerwall/index';
 
 import RGPD from './component/RGPD/index';
-
 
 import Aos from 'aos';
 import "aos/dist/aos.css";
@@ -129,7 +125,6 @@ function App() {
 
             <Route path="/administration/boutique" component={AdminBoutique}  />
             <Route path="/administration/cashback" component={Admincashback}  />
-            <Route path="/administration/click" component={Adminclick}  />
             <Route path="/administration/coupons" component={Admincoupons}  />
             <Route path="/administration/membre" component={Adminmembre}  />
             <Route path="/administration/mission" component={Adminmission}  />
@@ -146,14 +141,12 @@ function App() {
             <Route path="/administration/reseaux-add" component={AdminAddREseaux}  />
             <Route path="/administration/boutique-add" component={AdminAddBoutique}  />
             <Route path="/administration/cashback-add" component={AdminAddcashback}  />
-            <Route path="/administration/click-add" component={AdminAddclick}  />
             <Route path="/administration/coupons-add" component={AdminAddcoupons}  />
             <Route path="/administration/mission-add" component={AdminAddmission}  />
             <Route path="/administration/categorie-add" component={AdminAddCategorie}  />
             <Route path="/administration/add-sous-categorie/:id" component={AdminAddSousCategorie}  />
             <Route path="/administration/coupons-update/:id" component={AdminUpdatCoupons}  />
             <Route path="/administration/cashback-update/:id" component={AdminUpdatCashback}  />
-            <Route path="/administration/click-update/:id" component={AdminUpdatClick}  />
             <Route path="/administration/mission-update/:id" component={AdminUpdatMission}  />
             <Route path="/administration/categorie-update/:id" component={AdminUpdatcategorie}  />
             <Route path="/administration/prevalidation/:id" component={AdminVAlidationPrevalidation} />
@@ -181,12 +174,11 @@ function App() {
             <Route path="/MyaccountInfo/livre-or" component={Avis} />
 
             <Route path="/Mission" component={Mission} />
-            <Route path="/Click" component={Click} />
+            <Route path="/Offerwall" component={Offerwall} />
             <Route path="/Boutique" component={Boutique} />
-
             <Route path="/Contact" component={Contact} />
+            
             <Route path="/politique-de-confidentialiter" component={RGPD} />
-
 
             <MessengerCustomerChat
               pageId = "101168218368541"

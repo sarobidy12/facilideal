@@ -4,11 +4,15 @@ import axios from 'axios';
 import localhost from '../../../_config';
 import count from '../../../country';
 
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 const UpdateMission=()=>{
  
     const [findTrue,setfindTrue]=useState(0);
     const [datares,setDatares]=useState(0);
     const [disabled,SetDisabled]=useState(true);
+    const [description,setDescription]=useState(null);
     
     useEffect(()=>{
         getFindData(window.location.pathname.split('/')[3]);
@@ -17,9 +21,9 @@ const UpdateMission=()=>{
     const button = function button(){
 
         if(disabled){
-            return <button type="submit" id='btn-loader' name="submit_add" className="btn btn-primary" >Ajouter un mission</button>
+            return <button type="submit" id='btn-loader' name="submit_add" className="btn btn-primary" >modifier Mission</button>
         }else{
-            return <button type="submit" id='btn-loader' disabled name="submit_add" className="btn btn-primary" >Ajouter un mission</button>
+            return <button type="submit" id='btn-loader' disabled name="submit_add" className="btn btn-primary" >chargement ... </button>
         }
 
     }
@@ -38,25 +42,18 @@ const UpdateMission=()=>{
     }
 
     const Prenium = function Prenium(e){
-
-        var co= [];
-
-        for(var i=0; i < 1;i++){
-
-            if(i === 0 ){
-                if(e == 1){
-                    co.push(<option value={i} selected>Oui</option>)
-                }
-            }
-            if(e == 0){
-                co.push(<option value={i} selected>Non</option>)
-            }
-
-
+ 
+        if(e== 0){
+            return <>
+                    <option value={1} >Oui</option>
+                    <option value={0} selected>Non</option>
+                    </>
+        }else{
+            return <>
+            <option value={1} selected>Oui</option>
+            <option value={0} >Non</option>
+            </>
         }
-         
-        return co;
-
     }
 
     const submit = function submit (event){
@@ -72,53 +69,48 @@ const UpdateMission=()=>{
         document.getElementById('btn-loader').innerHTML='chargement ...';
         SetDisabled(false);
 
-          
-            if(verfie()){
+        var objet= [
+            document.getElementById('nom_mision').value ,
+            document.getElementById('url_mision').value ,
+            description.trim(),
+            document.getElementById('renumeration_mision').value,
+            document.getElementById('Remuneration_regie_mision').value,
+            document.getElementById('Regie_publiciter_mision').value ,
+            document.getElementById('Annonceur_mision').value,
+            document.getElementById('premium_mision').value,
+            window.location.pathname.split('/')[3]
+         ];
 
-                 var objet= [
-                    document.getElementById('nom').value ,
-                    document.getElementById('url').value ,
-                    document.getElementById('description').value ,
-                    document.getElementById('pays').value,
-                    document.getElementById('renumeration').value,
-                    document.getElementById('Remuneration_regie').value,
-                    document.getElementById('valid').value ,
-                    document.getElementById('Regie_publiciter').value ,
-                    document.getElementById('Annonceur').value,
-                    document.getElementById('Quota').value,
-                    document.getElementById('premium').value 
-                 ];
-    
-                 let formData= new FormData();
-                 formData.append("text", JSON.stringify(objet));
-                 const url= localhost+'/controleur.php?p=addMission';
-                 axios.post(url,formData)
-                 .then((res)=>{
-
-                console.log(res.data)
+             if(verfie()){
+              
+                  let formData= new FormData();
+                  formData.append("text", JSON.stringify(objet));
+                  const url= localhost+'/controleur.php?p=UpdateMission';
+                  axios.post(url,formData)
+                  .then((res)=>{
 
                          document.getElementById('btn-loader').innerHTML='Ajouter un mission';
                          SetDisabled(true);
 
-                                if(res.data === 'add-success-mission'){
-                                    document.getElementById('response-message').style.display='block';
-                                    document.getElementById('response-message').style.backgroundColor='green';
-                                    document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>Le Cashback a bien ete ajouter";
-                                } else{
-                                    document.getElementById('response-message').style.display='block';
-                                    document.getElementById('response-message').style.backgroundColor='red';
-                                    document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>une erreur est survenu";
-                                }
+                                 if(res.data === 'update-success-mission'){
+                                     document.getElementById('response-message').style.display='block';
+                                     document.getElementById('response-message').style.backgroundColor='green';
+                                     document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>Le Mission a bien ete modifier";
+                                 } else{
+                                     document.getElementById('response-message').style.display='block';
+                                     document.getElementById('response-message').style.backgroundColor='red';
+                                     document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>une erreur est survenu";
+                                 }
 
-                                    document.getElementById('loader').style.display='none';
-                 });
+                                     document.getElementById('loader').style.display='none';
+                  });
 
-            }else{
-                document.getElementById('loader').style.display='none';
-                document.getElementById('response-message').style.display='block';
-                document.getElementById('response-message').style.backgroundColor='red';
-                document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>Veuiller a remplir tout les champs erreur est survenu";
-            }
+             }else{
+                 document.getElementById('loader').style.display='none';
+                 document.getElementById('response-message').style.display='block';
+                 document.getElementById('response-message').style.backgroundColor='red';
+                 document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>Veuiller a remplir tout les champs erreur est survenu";
+             }
 
             setTimeout(()=>{
                 if(document.getElementById('btn-loader') && document.getElementById('response-message')){
@@ -132,21 +124,16 @@ const UpdateMission=()=>{
     const verfie = function verfie (){
 
         if( 
-            document.getElementById('nom').value !=  datares.nom ||
-            document.getElementById('url').value   !=  datares.url ||
-            document.getElementById('renumeration').value  !=  datares.remuneration ||
-            document.getElementById('description').value   !=  datares.description ||
-            document.getElementById('pays').value  !=  datares.pays ||
-            document.getElementById('Remuneration_regie').value  !=  datares.montant ||
-            document.getElementById('valid').value   !=  datares.valid ||
-            document.getElementById('Regie_publiciter').value   !=  datares.regie ||
-            document.getElementById('Annonceur').value  !=  datares.annonceur ||
-            document.getElementById('Quota').value  !=  datares.quota ||
-            document.getElementById('premium').value 
-
+            document.getElementById('nom_mision').value !=  datares.nom ||
+            document.getElementById('url_mision').value   !=  datares.url ||
+            document.getElementById('renumeration_mision').value  !=  datares.remuneration ||
+            description != datares.description ||
+            document.getElementById('Remuneration_regie_mision').value  !=  datares.montant ||
+            document.getElementById('Regie_publiciter_mision').value   !=  datares.regie ||
+            document.getElementById('premium_mision').value 
         )
         {
-           return true;
+            return true;
         }else{
             return false;
         }
@@ -164,6 +151,7 @@ const UpdateMission=()=>{
 
            if(findTrue === 0){
                setDatares(res.data[0]);
+               setDescription(res.data[0].description)
                setfindTrue(1);
            }
            document.getElementById('loader').style.display='none';
@@ -179,64 +167,65 @@ const UpdateMission=()=>{
                 <div className='col-md-6'>
                     <div class='form-group'>                           
                         <label for="type" >Nom de l'offre :</label>
-                            <input type="text" style={{width:'90%'}} defaultValue={datares.nom} id="nom" name="nom"   />
+                            <input type="text" style={{width:'90%'}} defaultValue={datares.nom} id="nom_mision"     />
                     </div>
 
                     <div class='form-group'>
                         <label for="url">URL de l'offre :</label>
-                        <input type="text" id="url"  style={{width:'90%'}}  defaultValue={datares.url} name="url" />
+                        <input type="text" id="url_mision"  style={{width:'90%'}}  defaultValue={datares.url} name="url_mision" />
                     </div>
 
                     <div class='form-group'>
                         <label for="description">description de l'offre :</label>
-                        <input type="text" id="description" style={{width:'90%'}} name="description" defaultValue={datares.description} />
+                        <CKEditor
+                                        editor={ ClassicEditor }
+                                        data={datares.description}
+                                        onInit={ editor => {
+                                //          You can store the "editor" and use when it is needed.
+                                            console.log( 'Editor is ready to use!', editor );
+                                        }}
+
+                                        onChange={ ( event, editor ) => {
+                                            setDescription(editor.getData());
+                                        }}
+                                />
                     </div>
 
                     <div class='form-group'>
                         <label for="url">Rémunération aux membres :</label>
-                        <input type="text"  style={{width:'90%'}} id='renumeration' defaultValue={datares.remuneration} name="renumeration"  />
-                    </div>
-
-                    <div class='form-group'>
-                        <label for="url">pays acceptés :</label>
-                            <select id="pays"  style={{width:'90%'}} name="pays">
-                                {country(datares.pays)}
-                            </select>
-                    </div>
-
-                    <div class='form-group'>
-                        <label for="premium">premium :</label>
-                            <select id="premium"  style={{width:'90%'}} name="premium">
-                                {Prenium(datares.premium)}
-                            </select>
+                        <input  type="number" step="0.01" min="0.01" style={{width:'90%'}} id='renumeration_mision' defaultValue={datares.remuneration} name="renumeration"  />
                     </div>
 
                     <div class='from-group'> 
                         {button()}
                     </div>
+
                 </div>
                         
                 <div className='col-md-6'>
 
                     <div class='form-group'>                           
-                        <label for="type" >Quota quotidien (0 = illimité) :</label>
-                            <input  type="number" min="1" style={{width:'90%'}} defaultValue={datares.quota}  step="1" id='Quota' />
+                            <label for="type" >Rémunération sur régie :</label>
+                            <input type="number" step="0.01" min="0.01" style={{width:'90%'}} defaultValue={datares.montant} id='Remuneration_regie_mision' />
                     </div>
 
                     <div class='form-group'>                           
-                        <label for="type" >Rémunération sur régie :</label>
-                            <input  type="number" min="0"  style={{width:'90%'}} defaultValue={datares.montant} id='Remuneration_regie' />
+                            <label for="type" >Régie publicitaire :</label>
+                            <input  type="text" style={{width:'90%'}} defaultValue={datares.regie} id='Regie_publiciter_mision' />
                     </div>
 
                     <div class='form-group'>                           
-                        <label for="type" >Régie publicitaire :</label>
-                            <input  type="number" min="0"  style={{width:'90%'}}  defaultValue={datares.regie} id='Regie_publiciter' />
+                            <label for="type" >Annonceur :</label>
+                            <input  type="text"  defaultValue={datares.annonceur} style={{width:'90%'}} id='Annonceur_mision' />
                     </div>
 
-                    <div class='form-group'>                           
-                        <label for="type" >Annonceur :</label>
-                            <input  type="text"  defaultValue={datares.annonceur} style={{width:'90%'}} id='Annonceur' />
+                    <div class='form-group'>
+                            <label for="premium">premium :</label>
+                            <select id="premium_mision"  style={{width:'90%'}} name="premium">
+                                {Prenium(datares.premium)}
+                            </select>
                     </div>
+
                 </div>
             </div>
           

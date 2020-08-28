@@ -3,10 +3,13 @@ import MetaTags from 'react-meta-tags';
 import axios from 'axios';
 import localhost from '../../../_config';
 import count from '../../../country';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const AddMission=()=>{
  
     const [disabled,SetDisabled]=useState(true);
+    const [description,setDescription]=useState(null);
 
     const button = function button(){
 
@@ -60,48 +63,44 @@ const AddMission=()=>{
         document.getElementById('btn-loader').innerHTML='chargement ...';
         SetDisabled(false);
 
-          
+        var objet= [
+            document.getElementById('nom_mision').value ,
+            document.getElementById('url_mision').value ,
+            description.trim(),
+            document.getElementById('renumeration_mision').value,
+            document.getElementById('Remuneration_regie_mision').value,
+            document.getElementById('Regie_publiciter_mision').value ,
+            document.getElementById('Annonceur_mision').value,
+            document.getElementById('premium_mision').value 
+         ];
+
+         
             if(verfie()){
 
-                 var objet= [
-                    document.getElementById('nom').value ,
-                    document.getElementById('url').value ,
-                    document.getElementById('description').value ,
-                    document.getElementById('pays').value,
-                    document.getElementById('renumeration').value,
-                    document.getElementById('Remuneration_regie').value,
-                    document.getElementById('valid').value ,
-                    document.getElementById('Regie_publiciter').value ,
-                    document.getElementById('Annonceur').value,
-                    document.getElementById('Quota').value,
-                    document.getElementById('premium').value 
-                 ];
-    
+               let formData= new FormData();
+               formData.append("text", JSON.stringify(objet));
+               const url= localhost+'/controleur.php?p=addMission';
+               axios.post(url,formData)
+               .then((res)=>{
 
-                 let formData= new FormData();
-                 formData.append("text", JSON.stringify(objet));
-                 const url= localhost+'/controleur.php?p=addMission';
-                 axios.post(url,formData)
-                 .then((res)=>{
+                console.log(res.data);
 
-                console.log(res.data)
+                       document.getElementById('btn-loader').innerHTML='Ajouter un mission';
+                       SetDisabled(true);
 
-                         document.getElementById('btn-loader').innerHTML='Ajouter un mission';
-                         SetDisabled(true);
-
-                                if(res.data === 'add-success-mission'){
-                                    document.getElementById('response-message').style.display='block';
-                                    document.getElementById('response-message').style.backgroundColor='green';
-                                    document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>Le Cashback a bien ete ajouter";
-                                } else{
-                                    document.getElementById('response-message').style.display='block';
-                                    document.getElementById('response-message').style.backgroundColor='red';
-                                    document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>une erreur est survenu";
+                              if(res.data === 'add-success-mission'){
+                                  document.getElementById('response-message').style.display='block';
+                                  document.getElementById('response-message').style.backgroundColor='green';
+                                  document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>Le Cashback a bien ete ajouter";
+                              } else{
+                                  document.getElementById('response-message').style.display='block';
+                                  document.getElementById('response-message').style.backgroundColor='red';
+                                  document.getElementById('response-message').innerHTML=" <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>une erreur est survenu";
                              
-                                }
-                                document.getElementById('loader').style.display='none';
+                              }
+                              document.getElementById('loader').style.display='none';
 
-                 });
+               });
 
             }else{
                 document.getElementById('loader').style.display='none';
@@ -122,9 +121,9 @@ const AddMission=()=>{
     const verfie = function verfie (){
 
          if( 
-             document.getElementById('nom').value != '' &&
-             document.getElementById('url').value != '' &&
-             document.getElementById('renumeration').value != ''  
+             document.getElementById('nom_mision').value != '' &&
+             document.getElementById('url_mision').value != '' &&
+             document.getElementById('renumeration_mision').value != ''  
          )
          {
             return true;
@@ -164,68 +163,64 @@ const AddMission=()=>{
                         <div className='col-md-6'>
                             <div class='form-group'>                           
                                 <label for="type" >Nom de l'offre :</label>
-                                    <input type="text" style={{width:'90%'}} id="nom" name="nom"   />
+                                    <input type="text" style={{width:'90%'}} id="nom_mision" name="nom_mision"   />
                             </div>
 
                             <div class='form-group'>
-                                <label for="url">URL de l'offre :</label>
-                                <input type="text" id="url"  style={{width:'90%'}} name="url" />
+                                <label for="url_mision">URL de l'offre :</label>
+                                <input type="text" id="url_mision"  style={{width:'90%'}} name="url_mision" />
                             </div>
 
                             <div class='form-group'>
                                 <label for="description">description de l'offre :</label>
-                                <input type="text" id="description" style={{width:'90%'}} name="description" />
+                                <CKEditor
+                                        editor={ ClassicEditor }
+                                        data="<p>Description</p>"
+                                        onInit={ editor => {
+                                        //  You can store the "editor" and use when it is needed.
+                                            console.log( 'Editor is ready to use!', editor );
+                                        }}
+
+                                        onChange={ ( event, editor ) => {
+                                            setDescription(editor.getData());
+                                        }}
+                                />
                             </div>
 
                             <div class='form-group'>
-                                <label for="url">Rémunération aux membres :</label>
-                                <input type="text" style={{width:'90%'}} id='renumeration' name="renumeration"  />
-                            </div>
-
-                            <div class='form-group'>
-                                <label for="url">pays acceptés :</label>
-                                    <select id="pays"  style={{width:'90%'}} name="pays">
-                                        {country()}
-                                    </select>
-                            </div>
-
-                            <div class='form-group'>
-                                <label for="premium">premium :</label>
-                                    <select id="premium"  style={{width:'90%'}} name="premium">
-                                        {Prenium()}
-                                    </select>
+                                <label for="renumeration_mision">Rémunération aux membres :</label>
+                                <input type="number" step="0.01" min="0.01" style={{width:'90%'}} id='renumeration_mision' name="renumeration_mision"  />
                             </div>
 
                             <div class='from-group'> 
                                 {button()}
                             </div>
+
                         </div>
                                 
                         <div className='col-md-6'>
 
                             <div class='form-group'>                           
-                                <label for="type" >Validation directe (0 = non | 1 = oui) :</label>
-                                    <input  type="number" min="0" style={{width:'90%'}} step="1" id='valid' max='1'/>
+                                    <label for="type" >Rémunération sur régie :</label>
+                                    <input  type="number" step="0.01" min="0.01" style={{width:'90%'}} id='Remuneration_regie_mision' />
                             </div>
 
                             <div class='form-group'>                           
-                                <label for="type" >Quota quotidien (0 = illimité) :</label>
-                                    <input  type="number" min="1" defaultValue='1'  style={{width:'90%'}} step="1" id='Quota' />
+                                    <label for="type" >Régie publicitaire :</label>
+                                    <input type="text" style={{width:'90%'}} id='Regie_publiciter_mision' />
                             </div>
 
                             <div class='form-group'>                           
-                                <label for="type" >Rémunération sur régie :</label>
-                                    <input  type="number" min="1"  style={{width:'90%'}} id='Remuneration_regie' />
+                                    <label for="type" >Annonceur :</label>
+                                    <input type="text" style={{width:'90%'}} id='Annonceur_mision' />
                             </div>
 
                             <div class='form-group'>                           
-                                <label for="type" >Régie publicitaire :</label>
-                                    <input  type="number" min="0"  style={{width:'90%'}} id='Regie_publiciter' />
-                            </div>
-
-                            <div class='form-group'>                           
-                                <label for="type" >Annonceur :</label>
-                                    <input min="0"  style={{width:'90%'}} id='Annonceur' />
+                                    <label for="type" >Prenium:</label>
+                                    <select id='premium_mision' style={{width:'90%'}}>
+                                        <option value='0'>non</option>
+                                        <option value='1'>oui</option>
+                                    </select>
                             </div>
                         </div>
                     </div>

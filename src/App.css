@@ -4,6 +4,24 @@
   overflow-x: hidden;
  }
 
+ body::-webkit-scrollbar {
+  width: 10px;
+  outline: 1px solid slategrey;
+}
+
+body::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 5px;
+
+  }
+
+  body::-webkit-scrollbar-thumb{
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+  border-radius: 5px;
+
+  }
+
  html{
    width: 100%;
  }
@@ -1779,48 +1797,45 @@ header{
 }
 
 #cashback-all-io{
-  width: 70%;
+  width: 60%;
   height: auto;
-  margin: 0 auto;
-  background-color: white;
+  margin: -20vh auto;
   box-sizing: 1vh 1vh 8vh #aaa;
   padding: 3vh 1.5vh;
   border-radius: 1vh;
+  position: relative;
+  z-index: 14;
 }
 
 
 .cashback-all-content{
   display: inline-table;
-  width: 47%;
+  width: 46%;
   height: 50vh;
-  box-shadow: 1vh 1vh 8vh 2vh #aaa;
   padding: 1vh 2vh;
   margin: 1vh 1.5vh;
   border-radius: 1vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 10vh;
+  background-color: white;
+
 }
 
-.cashback-all-content img{
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top: 2vh;
-  height: 25vh;
-}
+ 
 @media(max-width:768px){
 
-  #cashback-all{
-    width: 70%;
-    margin: -0vh auto;
+  #cashback-all-io{
+    width: 95%;
+    margin: -20vh auto;
   
   }
 
   .cashback-all-content{
-    display: inline-block;
     width: 95%;
-    height: auto;
-    box-shadow: 1vh 1vh 8vh #aaa;
+    height: 50vh;
     padding: 1vh 2vh;
-    margin: 10vh 1.5vh;
+    margin: 2vh 1.5vh;
   }
 
   }
@@ -1941,7 +1956,7 @@ header{
 }
 
 .view-cashback{
-  width: 90%;
+  width: 70%;
   height: 20vh;
   box-shadow: 1vh 1vh 8vh #aaa;
   cursor: pointer;
@@ -2088,7 +2103,7 @@ header{
   position: relative;
   width: 80%;
   height: auto;
-  margin: 0 auto;
+  margin: 0 auto 35vh ;
   padding: 1vh;
   top: 35vh;
 }
@@ -2162,11 +2177,12 @@ header{
 }
  
 .menu_cashabck_sous{
-  margin: 8vh 0;
+  margin: 0 10vh;
   padding: 1vh;
-  box-shadow: 1vh 1vh 8vh 1vh #aaa;
   border-radius: 1vh;
+ 
 }
+
 .menu_cashabck_sous i{
   margin: 0 1vh 0 0;
   font-size: 3.5vh;
@@ -2253,7 +2269,7 @@ header{
     font-family: Fredoka One;
     font-size: 2vh;
     float: left;
-    text-align: ;
+    text-align: center ;
   }
 
   .cashback-add-historique button{
@@ -2338,18 +2354,22 @@ header{
   margin: 0;
   padding: 0;
   list-style-type: none;
-  width: 50%;
+  width: 30%;
   display: inline-table;
 }
 
 .boutique-categoie li a{
   display: block;
   padding: 1vh;
-  margin: 1vh 1vh;
+  margin: 1vh 0.5vh;
   border-radius: 0.5vh;
   color: #aaa;
 }
-
+@media(max-width:768px){
+.boutique-categoie li{
+  width: 50%;
+}
+}
 .boutique-categoie li a:hover{
   background-color: rgba(170, 170, 170, 0.36);
 }
@@ -2362,10 +2382,10 @@ header{
   text-decoration: none;
 }
 .link-btn-suggestion{
-  box-shadow: 1vh 1vh 8vh 1vh #aaa;
+  width: 100%;
   padding: 1vh;
   border-radius: 1vh;
-
+  border: 1px solid;
 }
 .link-btn-suggestion h1{
   color: rgb(2, 109, 242);
@@ -2382,7 +2402,7 @@ strike{
   margin: 0 0.5vh;
 }
 .link-btn-suggestion img{
-  width: 20vh;
+  width: 80%;
   margin-left: 10%;
   margin-right: 10%;
 }
@@ -2443,6 +2463,7 @@ strike{
 .btn-condition{
   font-family: Fredoka One;
   color: rgb(2, 109, 242);
+  cursor: pointer;
 }
 #condition{
   font-family: 'Questrial', sans-serif;
@@ -2626,37 +2647,47 @@ strike{
 }
 
 .content-start textarea{
-  height: 3vh;
-  width: 84.5%;
   height: 6vh;
+  width: 100%;
   border: none;
-  border-bottom: 0.5vh solid rgb(2, 109, 242);
   outline: none;
 }
 
 .content-start button{
-  height: 6vh;
+  height: 5vh;
   color: white;
   border: none;
+  width: 100%;
   background-color: rgb(2, 109, 242);
+  border-radius: 5vh;
 }
 .avis-content h1{
-  margin: 0 1vh;
+  margin: 0 0;
   padding: 0;
   font-size: 2vh;
-  
+  font-family: Fredoka One;
+  color: rgba(0, 0, 0, 0.5);
+
 }
 
+.avis-content p{
+  font-family: 'Questrial', sans-serif;
+  color: #aaa;
+}
 .avis-content ul{
-  margin: 0;
+  margin: 0 1vh 0 0;
   padding: 0;
   list-style-type: none;
+  float: left;
 }
 
 .avis-content ul li {
+  width: 2vh;
   display: inline-flex;
   font-size: 2vh;
   color: #aaa;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
 }
 
@@ -2792,149 +2823,50 @@ strike{
 
 .all-mission-title ul{
   margin: 0;
-  padding: 0;
+  padding: 0.5vh;
   list-style-type: none;
   background-color: rgb(2, 109, 242);
   color: white;
+  border-radius: 5vh;
+  font-family: Fredoka One;
 }
 
 .all-mission-title ul li{
   display: inline-table;
   padding: 1vh;
-}
-
-.all-mission-title ul li:nth-of-type(1){
-  font-family: Fredoka One;
-  width: 30%;
-}
-
-.all-mission-title ul li:nth-of-type(2){
-  font-family: Fredoka One;
-  width: 10%;
-  text-align: center;
-
-}
-
-.all-mission-title ul li:nth-of-type(3){
-  font-family: Fredoka One;
-  width: 20%;
-  text-align: center;
-
-}
-
-
-.all-mission-title ul li:nth-of-type(4){
-  font-family: Fredoka One;
-  width: 20%;
-  text-align: center;
-
-}
-
-.all-mission ul{
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.all-mission ul li{
-  padding: 1vh;
-  display: inline-block;
-}
-
-.all-mission ul li:nth-of-type(1){
-  color: rgb(2, 109, 242);
-  font-family: Fredoka One;
-  width: 20%;
-
-}
-
-.all-mission ul li:nth-of-type(1){
-  font-family: Fredoka One;
-  width: 30%;
-  overflow: hidden;
-}
-
-.all-mission ul li:nth-of-type(2){
-  font-family: Fredoka One;
-  width: 10%;
-}
-
-.all-mission ul li:nth-of-type(3){
-  font-family: Fredoka One;
-  width: 20%;
+  width: 25%;
   text-align: center;
 }
-
-
-.all-mission ul li:nth-of-type(4){
-  font-family: Fredoka One;
-  width: 20%;
-  text-align: center;
-
-}
-
+ 
+   
+ 
 @media(max-width:768px){
-    
- 
 
-.all-mission-title ul li:nth-of-type(1){
-  font-family: Fredoka One;
-  width: 30%;
-}
-
-.all-mission-title ul li:nth-of-type(2){
-  font-family: Fredoka One;
-  width: 8%;
-  text-align: center;
-
-}
-
-.all-mission-title ul li:nth-of-type(3){
-  font-family: Fredoka One;
-  width: 10%;
-  text-align: center;
-
-}
-
-
-.all-mission-title ul li:nth-of-type(4){
-  font-family: Fredoka One;
-  width: 20%;
-  text-align: center;
-
-}
- 
-
-  .all-mission ul li:nth-of-type(1){
-    color: rgb(2, 109, 242);
+  .all-mission-title ul li:nth-of-type(1){
     font-family: Fredoka One;
     width: 30%;
-
   }
 
-  .all-mission ul li:nth-of-type(1){
+  .all-mission-title ul li:nth-of-type(2){
     font-family: Fredoka One;
-    width: 25%;
-    overflow: hidden;
-  }
-
-  .all-mission ul li:nth-of-type(2){
-    font-family: Fredoka One;
-    width: 10%;
-  }
-
-  .all-mission ul li:nth-of-type(3){
-    font-family: Fredoka One;
-    width: 22%;
+    width: 8%;
     text-align: center;
   }
 
-  .all-mission ul li:nth-of-type(4){
+  .all-mission-title ul li:nth-of-type(3){
+    font-family: Fredoka One;
+    width: 10%;
+    text-align: center;
+  }
+
+
+  .all-mission-title ul li:nth-of-type(4){
     font-family: Fredoka One;
     width: 20%;
     text-align: center;
-
   }
+  
+
 }
 
 .description-content-mission{
@@ -2971,16 +2903,17 @@ strike{
 }
 
 .btn-click-mission{
-  background-color: rgb(2, 109, 242);
+    background-color: rgb(2, 109, 242);
     color: white;
     font-family: Fredoka One;
     width: 100%;
     text-align: center;
     padding: 1.5vh;
-    font-size: 1.5vh;
+    font-size: 2vh;
     border: none;
-  display: block;
-  cursor: pointer;
+    display: block;
+    cursor: pointer;
+    border-radius: 5vh;
 }
 
 
@@ -3083,8 +3016,7 @@ strike{
   padding: 1.5vh;
   border-radius: 1vh;
 }
-.popup-boutique{
-}
+ 
 .popup-boutique img{
   width: 10vh;
   height: 10vh;
@@ -3487,28 +3419,23 @@ strike{
 
 }
 
-.cashback-all-content ul{
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
+.cashback-all-content ul {
+  padding: 1vh;
 }
-
 .cashback-all-content ul li{
   padding: 1vh;
-  display: inline-table;
-  border: 1px solid;
   margin: 0.5vh 0.5vh;
   border-radius: 1vh;
-  background-color: rgb(2, 109, 242);
-  color: white;
-  font-family: Fredoka One;
+  color: #aaa;
 
 }
 
 .cashback-all-content ul li a{
   display: block;
   text-decoration: none;
-  color: white;
+  color: #aaa;
+  font-family: 'Questrial', sans-serif;
+
 }
 .btn-fb{
   background-color: blue;
@@ -3661,40 +3588,27 @@ footer{
 }
 
 .titre-gangnat{
-  width: 90%;  
+  width: 30%;  
   height: 15vh;
+  position: relative;
+  right: 35%;
+  left: 35%;
 }
 
 .titre-gangnat img{
   width: 13vh;
-  float: left;
   margin: 0 3vh;
 }
 
 .titre-gangnat h1{
   font-family: Fredoka One;
-  color: rgb(2, 109, 242);
+  color: white;
   border-radius: 1vh;
   font-family: Fredoka One;
-  font-size: 8vh;
+  font-size: 3vh;
 }
 
-@media(max-width:768px){
-  
-.titre-gangnat img{
-  width: 7vh;
-  float: left;
-  margin: 0 3vh;
-}
-
-.titre-gangnat h1{
-  font-family: Fredoka One;
-  color: rgb(2, 109, 242);
-  border-radius: 1vh;
-  font-family: Fredoka One;
-  font-size: 5vh;
-}
-}
+ 
 
 .row-gagnant{
   font-family: 'Questrial', sans-serif;
@@ -4023,4 +3937,287 @@ footer ul li a:hover{
   .cashback-view-explication{
     text-align: center;
   }
+}
+
+.avis-all{
+  margin: 0;
+  padding: 0;
+}
+
+.avis-all h2{
+  color: #aaa;
+  font-size: 2.5vh;
+  font-family: 'Questrial', sans-serif;
+}
+
+.avis-all p{
+  color: #aaa;
+  font-size: 2vh;
+  font-family: 'Questrial', sans-serif;
+}
+
+#view_all_avis{
+  width: 100%;
+  height: 45vh;
+}
+
+#view_all_avis::-webkit-scrollbar {
+  width: 8px;
+  outline: 1px solid slategrey;
+}
+
+  #view_all_avis::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 5px;
+  }
+
+  #view_all_avis::-webkit-scrollbar-thumb{
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
+    border-radius: 5px;
+  }
+
+  #btn_avis{
+    width: 100%;
+    text-align: center;
+    border: none;
+    color: #aaa;
+    background-color: transparent;
+  }
+
+  #hero-all{
+    width: 100%;
+    height: 35vh;
+    background-color: rgb(2, 109, 242);
+    transition: 600ms;
+    position: fixed;
+    z-index: 14;
+    overflow: hidden;
+  }
+
+  #hero-all-container{
+    position: relative;
+    top: 35%;
+    width: 80%;
+    left: 10%;
+    right: 10%;
+    text-align: center;
+    color: white;
+  }
+
+  #hero-all h1{
+    margin: 0 0 4vh 0;
+    padding: 0;
+    font-family: Fredoka One;
+  }
+
+  #hero-all p{
+    margin: 0;
+    padding: 0;
+    font-family: 'Questrial', sans-serif;
+  }
+
+  #all-container{
+    position: relative;
+    top: 35vh;
+    margin: 0 0 60vh 0;
+    padding: 2vh 0;
+  }
+
+  @media(max-width:768px){
+    #all-container{
+      position: relative;
+      top: 40vh;
+    }
+  }
+
+  .mission-container{
+    width: 80%;
+    margin: 0vh auto;
+  }
+
+  @media(max-width:768px){
+    .mission-container{
+      width: 95%;
+      margin: 0vh auto;
+    }
+  
+  }
+  .mission-null{
+    height: 100vh;
+    font-family: 'Questrial', sans-serif;
+    color: #aaa;
+    line-height: 50vh;
+    text-align: center;
+    font-size: 3vh;
+  }
+  
+  .all-mission-content{
+    margin: 1vh 0;
+  }
+
+  .all-mission-content-ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .all-mission-content-ul li{
+    text-align: center;
+    display: inline-table;
+    width: 25%;
+    font-family: 'Questrial', sans-serif;
+
+  }
+
+  .all-mission-content-ul li h1{
+    margin: 0;
+    padding: 0;
+    font-size: 2vh;
+    color: #aaa;
+  }
+
+  .mission-description{
+    width: 25%;
+    position: relative;
+    left: 75%;
+    margin: 1vh 0;
+  }
+
+  .description_mission{
+    width: 100%;
+  }
+
+  .description_mission ul{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  .mission-description button{
+    width: 100%;
+    position: relative;
+    left: auto;
+    border: none;
+    background-color: transparent;
+    color: #aaa;
+    outline: none;
+    font-size: 1.5vh;
+  }
+
+  .mission-description button .glyphicon{
+    font-size: 1.25vh;
+  }
+
+  @media(max-width:768px){
+    .mission-description{
+      width: 50%;
+      position: relative;
+      left: 40%;
+      margin: 1vh 0;
+    }
+  }
+
+  .glyphicon{
+    transition: 500ms;
+  }
+
+  .rotate{
+    transform: rotateZ(50deg);
+  }
+
+  .categorie-background{
+    width: 100%;
+    height: 50vh;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    margin: 0;
+    background-size: 30%;
+    background-attachment: fixed;
+    padding: 0;
+    transition: 600ms;
+  }
+
+  .categorie-background h1{
+    color: white;
+    line-height: 20vh;
+    text-align: center;
+    font-family: Fredoka One;
+  }
+
+  
+  .categorie-background h2{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: 'Questrial', sans-serif;
+    color: white;
+    font-size: 2vh;
+  }
+
+  @media(max-width:768px){
+    .categorie-background{
+      width: 100%;
+      height: 50vh;
+      background-repeat: no-repeat;
+      background-position-x: right;
+      margin: 0;
+      background-size: cover;
+      background-attachment: fixed;
+      padding: 0;
+      transition: 600ms;
+    }
+    .categorie-background{
+      height: 60vh;
+    }
+    .categorie-background h1{
+      margin: 0 1vh;
+      padding: 0;
+      color: white;
+      font-family: Fredoka One;
+      line-height: 15vh 0 0 0;
+    }
+  }
+
+  .selction-du-moment{
+    width: 70%;
+    height: auto;
+    margin: 0 auto;
+    overflow: hidden;
+    z-index: -5;
+  }
+ 
+  .selection-moment{
+    width: 24%;
+    height: 17vh;
+    float: left;
+    text-align: center;
+    padding: 2vh;
+    background-color: white;
+    border-radius: 1vh;
+    margin: 0.5vh 0.5vh;
+  }
+  .selection-moment img{
+    width: 50%;
+    height: 10vh;
+    position: relative;
+    top: 20%;
+    z-index: 0;
+    
+  }
+
+  @media(max-width:768px){
+    .selction-du-moment{
+      width: 90%;
+      margin: -5vh auto;
+    }
+    .selection-moment{
+      width: 47%;
+    }
+  }
+.selection{
+  width: 20vh;
+  height: 5vh;
+  margin: 4vh 0 2vh 0;
+  border: 1px solid rgb(2, 109, 242);
 }

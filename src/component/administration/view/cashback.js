@@ -73,15 +73,15 @@ const Cashback=()=>{
                         setResDate(res.data);
                         setStop2(1);
                         setStop3(1);
-                        document.getElementById('response').classList.replace('fade_down','fade_up');
-
-                        var inputs = document.getElementsByTagName("input");
-            
-                        for(var i = 0; i < inputs.length; i++) {
-                            if(inputs[i].type == "checkbox") {
-                                inputs[i].checked = false;
+                            if(document.getElementById('response')){
+                                document.getElementById('response').classList.replace('fade_down','fade_up');
                             }
-                        } 
+                                var inputs = document.getElementsByTagName("input");
+                                    for(var i = 0; i < inputs.length; i++) {
+                                        if(inputs[i].type == "checkbox") {
+                                            inputs[i].checked = false;
+                                        }
+                                    } 
                 });
 
     }
@@ -98,6 +98,7 @@ const Cashback=()=>{
                 <div className='inline-table'>expirer</div>
                 <div className='inline-table'>status</div>
                 <div className='inline-table'>acceuil</div>
+                <div className='inline-table'>moment</div>
                 <div className='inline-table'>action</div>
             </div>
         )
@@ -116,7 +117,8 @@ const Cashback=()=>{
                             <div className='inline-table'><b><Moment fromNow>{resData[i].end_date}</Moment></b></div>
                             <div className='inline-table'><b>{gliphicon(resData[i].actif)}</b></div>
                             <div className='inline-table'><b>{gliphicon(resData[i].add_home)}</b></div>
-                            <div className='inline-table'>{btnActive(resData[i].actif,resData[i].id)}<Link to={'/administration/cashback-update/'+resData[i].id} className='btf btn-success'>Modifier</Link></div>
+                            <div className='inline-table' style={{width:'7vh'}}><b>{gliphicon(resData[i].selection_du_moment)}</b></div>
+                            <div className='inline-table'>{btnActive(resData[i].actif,resData[i].id)}{btnActiveSelection(resData[i].selection_du_moment,resData[i].id)}<Link to={'/administration/cashback-update/'+resData[i].id} className='btf btn-success'>Modifier</Link></div>
                     </div>
                  )
              }       
@@ -135,15 +137,17 @@ const Cashback=()=>{
 
     }
 
-    const btnValider= function btnValider(e,id){
+    const btnActiveSelection= function btnActiveSelection(e,id){
 
         if(e == 0){
-            return <button onClick={Valider.bind(this,id)} className='btf btn-success'>valider</button>
+            return <button onClick={activerMoment.bind(this,id)} className='btf btn-success'>m+</button>
         }else{
-            return <button onClick={Valider.bind(this,id)} className='btf btn-warning'>non-valider</button>
+            return <button onClick={activerMoment.bind(this,id)} className='btf btn-warning'>m-</button>
         }
 
     }
+
+ 
 
     const activer = function activer(id,e){
       
@@ -174,18 +178,17 @@ const Cashback=()=>{
 
     }
 
-    const Valider = function Valider(id,e){
+    const activerMoment = function activerMoment(id,e){
       
         e.preventDefault()
-
         document.getElementById('loader').style.display='block';
         document.getElementById('del-'+id).style.backgroundColor="#aaa";
         let formData= new FormData();
         formData.append("text",id);
-        const url= localhost+'/controleur.php?p=cashbackPrenium'; 
+        const url= localhost+'/controleur.php?p=cashbackMoment'; 
         axios.post(url,formData)
         .then((res)=>{
-                if(res.data == 'cashback-prenium-success'){
+                if(res.data == 'cashback-status-selection-success'){
                         setTchekremove([]);
                         setTchekaddHome([]);
                         setTchek([]);
@@ -197,9 +200,8 @@ const Cashback=()=>{
                                 document.getElementById('del-'+id).style.backgroundColor="transparent";
                                 document.getElementById('loader').style.display='none';
                }
-
          });
-
+ 
     }
 
     const autoMat = function autoMat(id,e){

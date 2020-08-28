@@ -58,7 +58,6 @@ class Nav extends Component {
     navLog= function navLog(){
 
         const cookies = new Cookies();
-        console.log(cookies.get('_lo'));
         if(cookies.get('_lo')){
             return <ul>
                      <li>

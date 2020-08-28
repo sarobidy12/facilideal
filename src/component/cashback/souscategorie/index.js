@@ -16,9 +16,12 @@ const ViewAllCahsback = () => {
   const [nameca, setnameca] = useState(null);
   const [urlca, seturlca] = useState(null);
   const [stop2, setStop2] = useState(0);
+  const [stop3, setStop3] = useState(0);
+  const [stop4, setStop4] = useState(0);
   const [cookies, setCookie] = useCookies(null);
   const [result,SetResult]= useState([]);
   const [stop,setStop]= useState(0);
+  const [Boutique, setBoutique] = useState([]);
 
   useEffect(()=>{
 
@@ -27,7 +30,12 @@ const ViewAllCahsback = () => {
       behavior: "smooth",
     });
 
-        getCategorie();
+        setTimeout(() => {
+          getCategorie();
+            if(stop3 === 0 ){
+              getFindData();
+            }
+        },500);
 
         if(document.getElementsByClassName('casbackCategorieLi')){
             for(var i=0;i < document.getElementsByClassName('casbackCategorieLi').length;i++){
@@ -39,11 +47,23 @@ const ViewAllCahsback = () => {
            document.getElementById(window.location.pathname.split('/')[3]).classList.add('active-sous-categorie');
         }
 
-          if(stop === 0){
+          if(stop === 0 && stop4 === 0){
             getData(WatsCategorie(window.location.pathname.split('/')[3]));
           }
 
   });
+
+  const getFindData=(id)=>{
+
+    let formData = new FormData();
+    formData.append("text",JSON.stringify(idca));
+
+    const url = localhost + "/controleur.php?p=getCashbackSelection";
+        axios.post(url, formData).then((res)=>{
+          setBoutique(res.data)
+          setStop3(1);
+        });
+  };
 
   const getData= function getData(e,id){
 
@@ -57,6 +77,7 @@ const ViewAllCahsback = () => {
           SetResult(res.data);
             setTimeout(()=>{
               setStop(1);
+              setStop4(1);
             },700);
         });
   }
@@ -92,7 +113,73 @@ const ViewAllCahsback = () => {
 
   };
 
-  
+  const WatsUrl = (e) => {
+    var text = "";
+    for (var i = 0; i < e.split(" ").length; i++) {
+      if (i === e.split(" ").length - 1) {
+        text = text + e.split(" ")[i];
+      } else {
+        text = text + e.split(" ")[i] + "-";
+      }
+    }
+    return text;
+ };
+
+  const BoutiqueView=()=>{
+
+    var BoutiqueAll = [];
+
+     if (0 < Boutique.length) {
+       for (var i = 0; i < Boutique.length; i++) {
+         BoutiqueAll.push(
+             <Link
+               to={
+                 "/cashbackAndCoupons/" +
+                 WatsUrl(Boutique[i].nom)
+               }
+               onClick={()=>{
+                 window.scrollTo({
+                   top: 0,
+                   behavior: "smooth",
+                });
+               }}
+              
+               data-aos='fade-in'
+             >
+                 <div className='selection-moment'>
+                     <center>
+
+                         <img src={Boutique[i].url_img}/>
+
+                         <div className='view-link-suggestion'>
+                             <strike>
+                                 {Boutique[i].Ancien+''}
+                             </strike>
+                             <b>
+                                 {Boutique[i].Nouveaux+''}
+                                 <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>
+                             </b>
+                         </div>
+                     </center>
+
+                 </div>
+             </Link>
+         );
+       }
+
+       return <div>
+         <h2>
+           selection du moment
+         </h2>
+            {BoutiqueAll}
+       </div>
+       
+       
+     } else {
+       return <h2>Aucune selection du moment</h2>;
+     }
+
+  };
   
  
   const getCategorie = function getCategorie() {
@@ -110,6 +197,11 @@ const ViewAllCahsback = () => {
     setStop2(1);
   };
 
+  const selection=()=>{
+    if(stop3 === 1){
+      return BoutiqueView()
+    } 
+  }
   const afficheData= function afficheData(){
 
     var element =[];
@@ -174,27 +266,10 @@ const ViewAllCahsback = () => {
   
     const heroData = function stop() {
       if (idca != null) {
-        return (
-          <div id="row-hero">
-            <div className="inline-block img-view">
-              <img src={urlca} data-aos="fade-right" />
-            </div>
-            <div className="inline-block contennt-titre-view">
-              <h1>{nameca}</h1>
-            </div>
-          </div>
-        );
+        return nameca
       } else {
-        return (
-          <div id="row-hero">
-            <div className="inline-block img-view">
-              <Carre />
-            </div>
-            <div className="inline-block contennt-titre-view">
-              <Long />
-            </div>
-          </div>
-        );
+        return <Long />
+        
       }
     };
 
@@ -249,26 +324,95 @@ const ViewAllCahsback = () => {
       }
       return resultat;
     };
+    const filtre=(e)=>{
 
+      setStop(0);
+      SetResult([]);
+      if(e.target.value === 'populaire'){
+          let formData= new FormData();
+          formData.append("text",JSON.stringify(WatsCategorie(window.location.pathname.split('/')[3])));
+          const url= localhost+'/controleur.php?p=ViewCashbackSousCategorieComfirmePopulaire'; 
+          axios.post(url,formData)
+          .then((res)=>{
+              SetResult(res.data);
+              setTimeout(()=>{
+                  setStop(1);
+              },500)
+
+          });
+      }else if(e.target.value === 'taux'){
+          let formData= new FormData();
+          formData.append("text",JSON.stringify(WatsCategorie(window.location.pathname.split('/')[3])));
+          const url= localhost+'/controleur.php?p=ViewCashbackSousCategorieComfirmeTaux'; 
+          axios.post(url,formData)
+          .then((res)=>{
+              SetResult(res.data);
+            
+              setTimeout(()=>{
+                  setStop(1);
+              },500)
+
+          });
+      }else if(e.target.value === 'alphabetique'){
+          let formData= new FormData();
+          formData.append("text",JSON.stringify(WatsCategorie(window.location.pathname.split('/')[3])));
+          const url= localhost+'/controleur.php?p=ViewCashbackSousCategorieComfirmeAlphabetique'; 
+          axios.post(url,formData)
+          .then((res)=>{
+              SetResult(res.data);
+
+              setTimeout(()=>{
+                  setStop(1);
+              },500)
+               
+          });
+      }
+     
+  }
   return (
     <div>
       <MetaTags>
         <title> {WatsCategorie(window.location.pathname.split("/")[2])}</title>
       </MetaTags>
 
-      <div id="hero-cashack">{heroData()}</div>
+      <div id='scroll-home' style={{
+                      backgroundImage:'url('+urlca+')'
+                    }} className='categorie-background'>
+                      <div style={{
+                        backgroundColor:'rgba(0,0,0,0.5)',
+                        with:'100%',
+                        height:'100%'
+                      }}>
+                        <br/>
+                        <h1>
+                          {heroData()} 
+                         </h1> 
+                         <div className='selction-du-moment'>
+                           {selection()}
+                         </div>
+                      </div>
+     </div>
 
-      <div className="container-view-all">
-      <div className='row'>
-          <div className='col-md-4'>
-              {NavLien()}
-          </div>
-
-          <div className='col-md-8'>
-              {dataResult()}
-          </div>
-        </div>
-      </div>
+              <div className='row'>
+                    <div className='col-md-4'>
+                        {NavLien()}
+                    </div>
+                    <div className='col-md-8'>
+                      <select className='selection' onChange={filtre}>
+                          <option value='populaire'>
+                                  Plus populaire
+                          </option>
+                          <option value='taux'>
+                                  taux cashback
+                          </option>
+                          <option value='alphabetique'>
+                                  ordre alphabetique
+                          </option>
+                      </select>
+                          {dataResult()}
+                    </div>
+              </div>
+       
       <Footer />
     </div>
   );

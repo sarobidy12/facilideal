@@ -260,8 +260,9 @@ class Index extends Component {
     if (0 < this.state.Boutique.length) {
       for (var i = 0; i < this.state.Boutique.length; i++) {
         BoutiqueAll.push(
-          <li data-aos='fade-in'>
+          <li >
             <Link
+
               to={
                 "/cashbackAndCoupons/" +
                 this.WatsUrl(this.state.Boutique[i].nom)
@@ -271,13 +272,14 @@ class Index extends Component {
                 window.scrollTo({
                   top: 0,
                   behavior: "smooth",
-              });
+               });
               }}
+
             >
                 <div className='link-btn-suggestion'>
                     <center>
+
                         <img src={this.state.Boutique[i].url_img}/>
-                       
 
                         <div className='view-link-suggestion'>
                             <strike>
@@ -419,6 +421,7 @@ class Index extends Component {
     }else{
         return <span class="glyphicon glyphicon-chevron-up" id='gliphicon' aria-hidden="true"></span>
     }
+
   }
 
   gliphiconAppros=(a)=>{
@@ -428,23 +431,22 @@ class Index extends Component {
     }else{
         return <span class="glyphicon glyphicon-chevron-up" id='gliphicon' aria-hidden="true"></span>
     }
+
   }
 
   trike=()=>{
 
     if(this.state.result.Ancien != ''){
-
       return <strike> {this.state.result.Ancien}</strike>
-
     }
 
   }
 
   viewStart=(e)=>{
 
-    var  element=[];
+    var element=[];
     
-      for(var i=0;i < 6;i++){
+      for(var i=1;i <= 6;i++){
 
           if(i <= e){
             
@@ -475,11 +477,17 @@ class Index extends Component {
     
     if (this.state.stop === 1) {
       return (
+
         <div style={{width:'100%',overflowX:'hidden',overflowY:'hidden'}}>
+
           <div id='hero-cashback-scroll'>
+
             <div id='hero-cashack-view'>
+
               <div className='hero-row-container'>
+
                   <div id="row">
+
                       <div className="col-md-4">
                           <div id='img-cashback'>
                             <img src={this.state.result.url_img} />
@@ -487,24 +495,33 @@ class Index extends Component {
                       </div>
 
                       <div className="col-md-8">
+
                           <h1>{this.state.result.nom}</h1>
-                          <div className='cashback-view-explication'>
-                               <p>
-                                   {this.state.result.nbr_coupons+' réductions disponibles'}
-                               </p>
-                               <ul>
-                                  {this.viewStart(this.state.result.nbr_total_star/this.state.result.total_avis)}
-                               </ul>
-                               <b>{this.state.result.total_avis+' avis'}</b>
-                          </div>
+
+                            <div className='cashback-view-explication'>
+                                <p>
+                                    {this.state.result.nbr_coupons+' réductions disponibles'}
+                                </p>
+                                <ul>
+                                    {this.viewStart(this.state.result.nbr_total_star/this.state.result.total_avis)}
+                                </ul>
+                                <b>{this.state.result.total_avis+' avis'}</b>
+                            </div>
+
                       </div>
 
                   </div>
+
               </div>
+
             </div>
+
             <div className="cashback-add-historique">
+
                 <div className='row'>
+
                   <div className="col-md-4">
+                    
                   </div>
                   
                   <div className="col-md-8">
@@ -545,7 +562,9 @@ class Index extends Component {
             <div className='row'>
               
               <div className="col-md-4">
+
                 <div className="apropos-cashback">
+                
                 <div className='btn-condition' onClick={()=>{
                     this.handletoggleapropos()
                   }}>à propos {this.gliphiconAppros()}</div>
@@ -553,12 +572,14 @@ class Index extends Component {
                     {parse(this.state.result.apropos)}
                   </div>
                 </div>
-                <Avis data={this.state.result.id} text={[this.state.result.nom,this.state.result.total_avis,(this.state.result.nbr_total_star/this.state.result.total_avis)]} />
+
+                <Avis data={this.state.result.id} text={[this.state.result.nom,this.state.result.total_avis,Math.round(this.state.result.nbr_total_star/this.state.result.total_avis)]} />
+              
               </div>
          
               <div className="col-md-8">
                   <h1 style={{ fontSize:' 3vh',color: 'rgb(2, 109, 242)',fontFamily : 'Fredoka One'}}>
-                      Les meilleurs codes promo <b>{this.state.result.nom}</b>
+                      Les codes promo <b>{this.state.result.nom}</b>
                   </h1>
 
                   {this.viewCouponsResult()}
@@ -569,7 +590,7 @@ class Index extends Component {
                     <h1 style={{ fontSize:' 3vh',color: 'rgb(2, 109, 242)',fontFamily : 'Fredoka One'}}>
                         Description
                     </h1>
-                    <div id='description-content' data-aos='fade-in'>
+                    <div id='description-content'>
                       {parse(this.state.result.description)}
                     </div>
                 </div>
@@ -604,6 +625,9 @@ class Index extends Component {
               </div>
               <div className="col-md-8 contennt-titre-view">
                 <All_data />
+                <All_data />
+                <All_data />
+
               </div>
           </div>
         </div>
@@ -824,7 +848,6 @@ class Index extends Component {
 
   slideFind=(e,id)=>{
     id.preventDefault();
-
     const el= findDOMNode(document.getElementById('coupons_'+e));    
       $(el).slideToggle();
 
