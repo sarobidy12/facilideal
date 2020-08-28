@@ -18,10 +18,35 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
             echo json_encode('erreur_new_letter_email');
         }
 
+}else if(htmlspecialchars($_GET['p']) == 'populaire'){
+
+    $data = 
+        [
+            [
+                'id'=>'1',
+                'nom'=>'io',
+                'renumeration'=>'10%',
+                'data_expiration'=>'2010'
+            ],
+            [
+                'id'=>'1',
+                'nom'=>'io',
+                'renumeration'=>'10%',
+                'data_expiration'=>'2010'
+            ],
+            [
+                'id'=>'1',
+                'nom'=>'io',
+                'renumeration'=>'10%',
+                'data_expiration'=>'2010'
+            ]
+        ];
+
+    echo json_encode($data);
+
 }else if(htmlspecialchars($_GET['p']) == 'loginAdmin'){
 
-
-        if(!UseDatabase::exist('admin','a_name="'.json_decode($_POST['text'])[0].'"')){
+        if(UseDatabase::Ifexist('admin','a_name="'.json_decode($_POST['text'])[0].'"')){
 
             $a=UseDatabase::prepare('admin','a_name="'.json_decode($_POST['text'])[0].'"')[0];
 
@@ -30,7 +55,6 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
              }else{
                  echo json_encode('error-mdp-admin');
              }
-
 
         }else{
             echo json_encode('error-log-admin');
@@ -54,19 +78,21 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
                                 cashback,
                                 link,
                                 link_img,
+                                url_img_fond,
                                 start_date,
                                 end_date
                             )',"
                             VALUE(
-                                '".json_decode($_POST['text'])[0]."',
+                                '".addslashes(json_decode($_POST['text'])[0])."',
                                 '".addslashes(json_decode($_POST['text'])[1])."',
                                 '".json_decode($_POST['text'])[2]."',
                                 '".json_decode($_POST['text'])[3]."',
                                 '".json_decode($_POST['text'])[4]."',
                                 '".json_decode($_POST['text'])[5]."',
                                 '".json_decode($_POST['text'])[6]."',
+                                '".json_decode($_POST['text'])[7]."',
                                 NOW(),
-                                '".json_decode($_POST['text'])[7]."'
+                                '".json_decode($_POST['text'])[8]."'
                         )");
  
                         UseDatabase::updateW("cashback","nbr_coupons = nbr_coupons+1",'id = '.json_decode($_POST['text'])[4]);
@@ -87,11 +113,13 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
     $tar = explode(',',$_POST['text']); 
 
-    for($i=0;$i < count($tar);$i++){
-        UseDatabase::delete('coupons',$tar[$i]);
-    }
+        for($i=0;$i < count($tar);$i++){
+            UseDatabase::update('cashback','nbr_coupons= nbr_coupons - 1',
+            UseDatabase::prepare('coupons',"id=".$tar[$i]."")[0]->cashback);
+            UseDatabase::delete('coupons',$tar[$i]);
+        }
 
-    echo json_encode('delete-success');  
+            echo json_encode('delete-success');  
 
 }else if(htmlspecialchars($_GET['p']) == 'CouponsAddHome'){
 
@@ -126,16 +154,17 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 }else if(htmlspecialchars($_GET['p']) == 'UpdateCoupons'){
 
     UseDatabase::update('coupons','
-                                title = "'.json_decode($_POST['text'])[0].'",
+                                title = "'.addslashes(json_decode($_POST['text'])[0]).'",
                                 description = "'.addslashes(json_decode($_POST['text'])[1]).'",
                                 code = "'.json_decode($_POST['text'])[2].'",
                                 somme = "'.json_decode($_POST['text'])[3].'",
                                 link = "'.json_decode($_POST['text'])[4].'",
                                 link_img = "'.json_decode($_POST['text'])[5].'",
-                                end_date = "'.json_decode($_POST['text'])[6].'"
-                            ',json_decode($_POST['text'])[7]);
+                                url_img_fond = "'.json_decode($_POST['text'])[6].'",
+                                end_date = "'.json_decode($_POST['text'])[7].'"
+                            ',json_decode($_POST['text'])[8]);
 
-    echo json_encode('update-success-coupons');  
+        echo json_encode('update-success-coupons');  
     
 }else if(htmlspecialchars($_GET['p']) == 'addCashback'){
 
@@ -150,6 +179,7 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
                     link,
                     url_img,
                     nom,
+                    apropos,
                     description,
                     Condition_c,
                     start_date,
@@ -166,8 +196,9 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
                     '".json_decode($_POST['text'])[7]."',
                     '".addslashes(json_decode($_POST['text'])[8])."',
                     '".addslashes(json_decode($_POST['text'])[9])."',
+                    '".addslashes(json_decode($_POST['text'])[10])."',
                     NOW(),
-                    '".json_decode($_POST['text'])[10]."'
+                    '".json_decode($_POST['text'])[11]."'
                 )");  
 
                 echo json_encode('add-success-cashback');  
@@ -186,11 +217,29 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
     echo json_encode( $ViewCoupons);  
 
+}else if(htmlspecialchars($_GET['p']) == 'ViewCashbackPopulaire'){
+
+    echo json_encode(UseDatabase::query('cashback','categorie="'.json_decode($_POST['text']).'" ORDER BY visit DESC'));
+
+}else if(htmlspecialchars($_GET['p']) == 'ViewCashbackTaux'){
+  
+    echo json_encode(UseDatabase::query('cashback','categorie="'.json_decode($_POST['text']).'" ORDER BY Nouveaux DESC'));
+
+}else if(htmlspecialchars($_GET['p']) == 'ViewCashbackAlphabetique'){
+
+    echo json_encode(UseDatabase::query('cashback','categorie="'.json_decode($_POST['text']).'" ORDER BY nom '));
+ 
 }else if(htmlspecialchars($_GET['p']) == 'CashbackStatus'){
 
     UseDatabase::update('cashback','actif = !actif',$_POST['text']);
 
         echo json_encode('cashback-status-home-success');  
+
+}else if(htmlspecialchars($_GET['p']) == 'cashbackMoment'){
+
+    UseDatabase::update('cashback','selection_du_moment = !selection_du_moment',$_POST['text']);
+
+        echo json_encode('cashback-status-selection-success');  
 
 }else if(htmlspecialchars($_GET['p']) == 'CashbackAddHome'){
 
@@ -237,103 +286,59 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
             UseDatabase::update('cashback',"
                 Ancien ='".json_decode($_POST['text'])[0]."',
-                Nouveaux  ='".json_decode($_POST['text'])[1]."',
-                link  ='".json_decode($_POST['text'])[2]."',
-                url_img  ='".json_decode($_POST['text'])[3]."',
-                nom  ='".json_decode($_POST['text'])[4]."',
-                description  ='".addslashes(json_decode($_POST['text'])[5])."',
-                Condition_c  ='".addslashes(json_decode($_POST['text'])[6])."',
-                end_date ='".json_decode($_POST['text'])[7]."'         
-            ", json_decode($_POST['text'])[8]); 
+                Nouveaux ='".json_decode($_POST['text'])[1]."',
+                link ='".json_decode($_POST['text'])[2]."',
+                url_img ='".json_decode($_POST['text'])[3]."',
+                nom ='".json_decode($_POST['text'])[4]."',
+                apropos ='".addslashes(json_decode($_POST['text'])[5])."',
+                description  ='".addslashes(json_decode($_POST['text'])[6])."',
+                Condition_c  ='".addslashes(json_decode($_POST['text'])[7])."',
+                end_date ='".json_decode($_POST['text'])[8]."'         
+            ", json_decode($_POST['text'])[9]); 
 
                 echo json_encode('update-success-cashback');  
     
-}else if(htmlspecialchars($_GET['p']) == 'addClick'){
+}else if(htmlspecialchars($_GET['p']) == 'UpdateMission'){
  
-    UseDatabase::insert('clics(
-        nom,
-        url,
-        pays,
-        remuneration,
-        actif,
-        date
-    )',"
-    VALUE(
-        '".json_decode($_POST['text'])[0]."',
-        '".json_decode($_POST['text'])[1]."',
-        '".json_decode($_POST['text'])[2]."',
-        '".json_decode($_POST['text'])[3]."',
-        '1',
-        NOW()
-    )"); 
-    
-    echo json_encode('add-success-click');  
-
-}else if(htmlspecialchars($_GET['p']) == 'ViewClick'){
-
-    echo json_encode(UseDatabase::query('clics'));  
-
-}else if(htmlspecialchars($_GET['p']) == 'ClickStatus'){
-
-    UseDatabase::update('clics','actif = !actif',$_POST['text']);
-        echo json_encode('click-status-home-success');  
-
-}else if(htmlspecialchars($_GET['p']) == 'deleteClick'){
-
-    $tar = explode(',',$_POST['text']); 
-
-        for($i=0;$i < count($tar);$i++){
-            UseDatabase::delete('clics',$tar[$i]);
-        }
-
-            echo json_encode('cashback-delete-success');  
-
-}else if(htmlspecialchars($_GET['p']) == 'getClickId'){
-
-    echo json_encode(UseDatabase::prepare('clics','id ='.$_POST['text']));  
-
-}else if(htmlspecialchars($_GET['p']) == 'UpdateClick'){
- 
-    UseDatabase::update('clics','
+    UseDatabase::update('mission','
         nom =  "'.json_decode($_POST['text'])[0].'",
-        url ="'.json_decode($_POST['text'])[1].'",
-        pays ="'.json_decode($_POST['text'])[2].'",
-        remuneration="'.json_decode($_POST['text'])[3].'"
-    ',json_decode($_POST['text'])[4]); 
+        url =  "'.json_decode($_POST['text'])[1].'",
+        description =  "'.addslashes(json_decode($_POST['text'])[2]).'",
+        remuneration =  "'.json_decode($_POST['text'])[3].'",
+        montant =  "'.json_decode($_POST['text'])[4].'",
+        date =  NOW(),
+        regie =  "'.json_decode($_POST['text'])[5].'",
+        annonceur =  "'.json_decode($_POST['text'])[6].'",
+        premium =  "'.json_decode($_POST['text'])[7].'"
+    ',json_decode($_POST['text'])[8]);
     
-    echo json_encode('update-success-click');  
+    echo json_encode('update-success-mission');  
 
 }else if(htmlspecialchars($_GET['p']) == 'addMission'){
  
     UseDatabase::insert('mission(
-        nom,
+        nom ,
         url,
         description,
-        pays,
         remuneration,
         montant,
         date,
-        valid,
         regie,
         annonceur,
-        quota,
         premium
     )',"
     VALUE(
         '".json_decode($_POST['text'])[0]."',
         '".json_decode($_POST['text'])[1]."',
-        '".json_decode($_POST['text'])[2]."',
+        '".addslashes(json_decode($_POST['text'])[2])."',
         '".json_decode($_POST['text'])[3]."',
         '".json_decode($_POST['text'])[4]."',
-        '".json_decode($_POST['text'])[5]."',
         NOW(),
+        '".json_decode($_POST['text'])[5]."',
         '".json_decode($_POST['text'])[6]."',
-        '".json_decode($_POST['text'])[7]."',
-        '".json_decode($_POST['text'])[8]."',
-        '".json_decode($_POST['text'])[9]."',
-        '".json_decode($_POST['text'])[10]."'
+        '".json_decode($_POST['text'])[7]."'
     )"); 
-
+              
     echo json_encode('add-success-mission');    
 
 }else if(htmlspecialchars($_GET['p']) == 'ViewMission'){
@@ -563,9 +568,13 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
     echo json_encode(
         [
             UseDatabase::prepare('cashback','nom="'.json_decode($_POST['text'])[0].'"'),
-            UseDatabase::query('cashback','sous_categorie="'.UseDatabase::prepare('cashback','nom="'.json_decode($_POST['text'])[0].'"')[0]->sous_categorie.'" ORDER BY RAND() LIMIT 4'),
+            UseDatabase::query('cashback','sous_categorie="'.UseDatabase::prepare('cashback','nom="'.json_decode($_POST['text'])[0].'"')[0]->sous_categorie.'" ORDER BY RAND() LIMIT 6'),
             UseDatabase::query('histo_cashback','id_user="'.json_decode($_POST['text'])[1].'" AND id_cashback="'.UseDatabase::prepare('cashback','nom="'.json_decode($_POST['text'])[0].'"')[0]->id.'"'),
         ]);
+
+}else if(htmlspecialchars($_GET['p']) == 'getCashbackSelection'){
+
+    echo json_encode(UseDatabase::query('cashback','categorie="'.json_decode($_POST['text']).'" AND selection_du_moment=1 ORDER BY visit DESC LIMIT 4'));
 
 }else if(htmlspecialchars($_GET['p']) == 'PlusCoupns'){
 
@@ -594,16 +603,26 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
                 NOW()
             )");
 
+            UseDatabase::update('cashback',
+            " total_avis = total_avis + 1 ,
+              nbr_total_star = nbr_total_star + ".(json_decode($_POST['text'])[4]*1)." ",
+              json_decode($_POST['text'])[0]
+            );
+
             echo json_encode('add-avis-success');  
+   
     // }else{
-    //     echo json_encode('add-avis-faild');  
-        
+    //     echo json_encode('add-avis-faild');        
     // }
 
     
-}else if(htmlspecialchars($_GET['p']) == 'ViewAvis'){
+}else if(htmlspecialchars($_GET['p']) == 'ViewAvisOne'){
 
-    echo json_encode(UseDatabase::query('avis_cashback','id_cashback="'.json_decode($_POST['text']).'"'));
+    echo json_encode(UseDatabase::query('avis_cashback','id_cashback="'.json_decode($_POST['text']).'" ORDER BY id DESC LIMIT 5'));
+
+}else if(htmlspecialchars($_GET['p']) == 'ViewAvisAll'){
+
+    echo json_encode(UseDatabase::query('avis_cashback','id_cashback="'.json_decode($_POST['text']).'" ORDER BY id DESC'));
 
 }else if(htmlspecialchars($_GET['p']) == 'getMyparraaignageId'){
 
@@ -612,8 +631,9 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 }else if(htmlspecialchars($_GET['p']) == 'FindMission'){
 
     echo json_encode([
-            UseDatabase::query('mission'),
-            UseDatabase::query('historique_action','idUser="'.json_decode($_POST['text']).'"')
+            UseDatabase::query_limit('mission','ORDER BY id DESC'),
+            UseDatabase::query('historique_action','idUser="'.json_decode($_POST['text']).'"'),
+            $_SERVER['REMOTE_ADDR']
         ]);
 
 }else if(htmlspecialchars($_GET['p']) == 'addHistorique'){
@@ -1063,9 +1083,24 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
     $id= UseDatabase::prepare('sous_categorie','nom_sous_categorie="'.urldecode(addslashes(json_decode($_POST['text']))).'"')[0]->id;
     echo json_encode(UseDatabase::query('cashback','sous_categorie="'.$id.'" AND actif=1'));  
 
+}else if(htmlspecialchars($_GET['p']) == 'ViewCashbackSousCategorieComfirmePopulaire'){
+
+    $id= UseDatabase::prepare('sous_categorie','nom_sous_categorie="'.urldecode(addslashes(json_decode($_POST['text']))).'"')[0]->id;
+    echo json_encode(UseDatabase::query('cashback','sous_categorie="'.$id.'" AND actif=1 ORDER BY visit DESC'));  
+
+}else if(htmlspecialchars($_GET['p']) == 'ViewCashbackSousCategorieComfirmeTaux'){
+
+    $id= UseDatabase::prepare('sous_categorie','nom_sous_categorie="'.urldecode(addslashes(json_decode($_POST['text']))).'"')[0]->id;
+    echo json_encode(UseDatabase::query('cashback','sous_categorie="'.$id.'" AND actif=1 ORDER BY Nouveaux DESC'));  
+
+}else if(htmlspecialchars($_GET['p']) == 'ViewCashbackSousCategorieComfirmeAlphabetique'){
+
+    $id= UseDatabase::prepare('sous_categorie','nom_sous_categorie="'.urldecode(addslashes(json_decode($_POST['text']))).'"')[0]->id;
+    echo json_encode(UseDatabase::query('cashback','sous_categorie="'.$id.'" AND actif=1 ORDER BY nom'));  
+
 }else if(htmlspecialchars($_GET['p']) == 'findCachbackName'){
 
-    echo json_encode(UseDatabase::query('cashback',"nom LIKE '%".json_decode($_POST["text"])."%' AND actif=1"));  
+    echo json_encode(UseDatabase::query('cashback',"nom LIKE '".json_decode($_POST["text"]).''."%' AND actif=1"));  
 
 }else if(htmlspecialchars($_GET['p']) == 'addAvis'){
 
@@ -1088,7 +1123,7 @@ if(htmlspecialchars($_GET['p']) == 'newLetter'){
 
 }else if(htmlspecialchars($_GET['p']) == 'findUserName'){
 
-    echo json_encode(UseDatabase::query('users',"nom LIKE '%".json_decode($_POST["text"])."%'"));  
+    echo json_encode(UseDatabase::query('users',"nom LIKE '".json_decode($_POST["text"]).''."%'"));  
 
 }else if(htmlspecialchars($_GET['p']) == 'findUser'){
 
@@ -1201,30 +1236,34 @@ else if(htmlspecialchars($_GET['p']) == 'GetRgpd'){
 
 }else if(htmlspecialchars($_GET['p']) == 'registerSocial'){
 
-            UseDatabase::insert('new_letter(
-                prenom,
-                email 
-            )',"
-            VALUE(
-                '".json_decode($_POST['text'])[1]."',
-                '".json_decode($_POST['text'])[0]."'
-            )");
+    if(UseDatabase::exist('users','email="'.json_decode($_POST['text'])[0].'"')){
 
-            UseDatabase::insert('users(
-                email,
-                nom,
-                prenom,
-                idParrain,
-                date_Inscription,
-                comfirm
-            )','VALUE(
-                "'.json_decode($_POST['text'])[0].'",
-                "'.json_decode($_POST['text'])[1].'",
-                "'.json_decode($_POST['text'])[2].'",
-                "'.json_decode($_POST['text'])[3].'",
-                NOW(),
-                1
-            )');
+        UseDatabase::insert('new_letter(
+            prenom,
+            email 
+        )',"
+        VALUE(
+            '".json_decode($_POST['text'])[1]."',
+            '".json_decode($_POST['text'])[0]."'
+        )");
+
+        UseDatabase::insert('users(
+            email,
+            nom,
+            prenom,
+            idParrain,
+            date_Inscription,
+            comfirm
+        )','VALUE(
+            "'.json_decode($_POST['text'])[0].'",
+            "'.json_decode($_POST['text'])[1].'",
+            "'.json_decode($_POST['text'])[2].'",
+            "'.json_decode($_POST['text'])[3].'",
+            NOW(),
+            1
+        )');
+
+    } 
 
             echo json_encode(UseDatabase::prepare('users','email = "'.json_decode($_POST['text'])[0].'"')[0]);  
   

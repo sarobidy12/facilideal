@@ -30,7 +30,10 @@ class Mission extends Component {
                 this.getFindData();
             },600)
         }
-
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
        window.addEventListener('scroll',function(){
 
            if(document.getElementById('hero-all') && 

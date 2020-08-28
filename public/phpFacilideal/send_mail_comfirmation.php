@@ -5,7 +5,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
+ 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
 
@@ -16,28 +16,28 @@ try {
     //Server settings
     //  $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'mail.cogniperf.com ';                    // Set the SMTP server to send through
+    $mail->Host       = 'mail.facilodeal.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'contact@cogniperf.com';                     // SMTP username
-    $mail->Password   = '$cogni20trzkp&';                               // SMTP password
+    $mail->Username   = 'test@facilodeal.com';                     // SMTP username
+    $mail->Password   = '%G@I;i,g5Af2';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-    $mail->Port       = 26;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+    $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
 
-    $prenom = htmlspecialchars(json_decode($_POST['text'])[0]);    
-    $mail_address = htmlspecialchars(json_decode($_POST['text'])[1]); 
-    $password=htmlspecialchars(json_decode($_POST['text'])[2]); 
+    $prenom = htmlspecialchars("dsadsdsad");    
+    $mail_address = htmlspecialchars("sarobidyalliance@outlook.com"); 
+    $password=htmlspecialchars("dsdss"); 
     
     //Recipients
     $mail->setFrom( $mail_address, 'Code de comfirmation d\'inscription');
     $mail->addAddress( $mail_address, $prenom);     // Add a recipient
     //  $mail->addAddress('ellen@example.com');               // Name is optional
-    $mail->addReplyTo('contact@cogniperf.com', 'Code de comfirmation');
+    $mail->addReplyTo('test@facilodeal.com', 'Code de comfirmation');
     // $mail->addCC('cc@example.com');
     // $mail->addBCC('bcc@example.com');
     
-    $mail->From = 'contact@cogniperf.com';
-    $mail->Sender = 'contact@cogniperf.com';
+    $mail->From = 'test@facilodeal.com';
+    $mail->Sender = 'test@facilodeal.com';
 
     // Attachments
     // $mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments

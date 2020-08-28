@@ -101,6 +101,9 @@ const [cashback,setcashback] = useState([]);
 
                 data.push(
                     <ul className='only-historique' style={{margin: '0 auto',width:'80%'}}>
+                         <li>
+                           {MissionClick[i].offerwall}
+                        </li>
                         <li>
                            <p>
                                {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(MissionClick[i].remuneration)}
@@ -314,19 +317,12 @@ const [cashback,setcashback] = useState([]);
                                                 <li id='on-mission' onClick={()=>{ onglet('mission') }} className='onglet' >
                                                     Mission
                                                 </li>
-                                                <li id='on-click' onClick={()=>{ onglet('click') }} className='onglet' >
-                                                    click
-                                                    
-                                                </li>
+                                              
                                             </ul>
                                         </div>
 
                                         <div id='mission'  className='cashbackPromo-content'  >
                                             {loaderMission()}
-                                        </div>
-
-                                        <div id='click' className='cashbackPromo-content'  >
-                                            {loaderClick()}
                                         </div>
 
                                         <div id='cashback_v' className='cashbackPromo-content cashbackPromo-content-block'  >

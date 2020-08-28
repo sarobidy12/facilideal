@@ -100,7 +100,7 @@ const Recent=()=>{
     
     return (
             <div> 
-                <div className='container'>
+                <div  >
                     {result()}
                 </div>
                         

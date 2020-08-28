@@ -1323,18 +1323,9 @@ header{
   color: white;
 }
 
-.sugges{
-  position: fixed;
-  top: 8vh;
-  width: 50%;
-  margin-left: 25%;
-  margin-right: 25%;
-  background-color: white;
-  padding: 2vh;
-  z-index: 15;
-  border-radius: 1vh;
-}
 
+
+ 
 .search_magasin ul li button{
   border: none;
   color: white;
@@ -1358,12 +1349,38 @@ header{
   text-decoration: none;
   padding: 0.5vh 1vh;
   transition: 800ms;
+
   border-right: 1px solid white;
 }
 
 .search_magasin ul li a:hover{
   color: black;
 }
+
+@media(max-width:769px){
+  .search_magasin{
+    width: 65%;
+  }
+  .search_magasin ul li input{
+    width: 45vh;
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+ 
+  .search_magasin ul li a{
+    padding: 0.5vh 0.5vh;
+    display: none;
+    font-size: 1vh;
+  }
+  .search_magasin ul li input{
+    width: 82%;
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+  
+  }
 
 
 .Header_logo{
@@ -1373,12 +1390,16 @@ header{
   position: relative;
   top: -1vh;
 }
-
+ 
 .Header_logo img{
   width: 20vh;
  
 }
-
+@media(max-width:768px){
+  .Header_logo img{
+    width: 7vh;
+  }
+}
 .header_rigth{
   float: right;
   right: 0;
@@ -1397,9 +1418,7 @@ header{
 }
 
 @media(max-width:768px){
-  .header_rigth{
-    display: none;
-  }
+  
 }
 
 .lon{
@@ -3511,10 +3530,11 @@ strike{
 
 footer{
   width: 100%;
-  height: 50vh;
+  height: auto;
   padding: 3vh;
-  background-color: black;
+  background-color: white;
   position: absolute;
+  color: #aaa;
 }
 
 #temoignage-content ul{
@@ -3542,6 +3562,7 @@ footer{
   display: inline-table;
   border-radius: 1vh;
 }
+
 
 .view-cashback-acceuille strike{
   color: #aaa;
@@ -3682,6 +3703,8 @@ footer{
   height: 40vh;
   border-radius: 1vh;
   background-color: rgba(0, 0, 0, 0.541);
+  padding: 2vh 5vh;
+
 }
  
 .newLetter h1{
@@ -3700,12 +3723,13 @@ footer{
 
 .newLetter input{
   width: 100%;
-  background-color: black;
-  border: 1px solid white;
+  background-color: transparent;
+  border: none;
   border-bottom: 1px solid white;
   height: 4vh;
   margin:  0.5vh 0;
   display: block;
+  outline: none;
 }
 .newLetter p{
   color: white;
@@ -3721,14 +3745,13 @@ footer{
 
 .logo h1{
   font-family: Fredoka One;
-  color: white;
+  color: #aaa;
   border-radius: 1vh;
   font-size: 3vh;
-  color: white;
  }
 
  footer h2{
-  color: white;
+  color: #aaa;
   border-radius: 1vh;
   font-family: Fredoka One;
   font-size: 2vh;
@@ -3752,7 +3775,7 @@ footer ul li a{
   width: 100%;
   height: 5vh;
   line-height: 3vh;
-  color: white;
+  color: #aaa;
   padding: 1vh;
   text-decoration: none;
   transition: 500ms;
@@ -3843,6 +3866,12 @@ footer ul li a:hover{
   transition: 500ms;
 }
 
+@media(max-width:768px){
+  #sidebarHeader{
+    width: 70%;
+
+  }
+}
 #backgrondNav{
   top: 0;
   width: 100%;
@@ -4215,9 +4244,92 @@ footer ul li a:hover{
       width: 47%;
     }
   }
+
 .selection{
   width: 20vh;
   height: 5vh;
   margin: 4vh 0 2vh 0;
   border: 1px solid rgb(2, 109, 242);
+}
+
+.offerwall-view{
+  width: 23%;
+  height: 20vh;
+  box-shadow: 1vh 1vh 8vh #aaa;
+  display: inline-table;
+  margin: 1vh ;
+  transition: 600ms;
+  border-radius: 1vh;
+  overflow: hidden;
+}
+
+.offerwall-view:hover{
+  transform: translateY(-1vh);
+}
+
+.offerwall-view img{
+  width: 50%;
+  height: 7vh;
+  position: relative;
+  left: 25%;
+  margin: 5vh 0;
+}
+
+.offerwall-view h1{
+  margin: 0;
+  padding: 1vh;
+  font-size: 2vh;
+  width: 100%;
+  font-family: 'Questrial', sans-serif;
+  text-align: center;
+  background-color: rgb(2, 109, 242);
+  color: white;
+}
+
+.offewall-content{
+  width: 90%;
+  position: relative;
+  top: 10vh;
+  margin: 10vh;
+}
+
+.offerwall-view-all img{
+  width: 100%;
+  height: 7vh;
+  margin: 0.5vh 0;
+  padding: 1vh;
+  border: 1px solid;
+  color: #aaa;
+}
+
+@media(max-width:768px){
+  .media-max-view{
+    display: none;
+  }
+  .ifram-class{
+    margin: 0 -7vh
+  }
+}
+
+.btn-footer{
+  margin: 0;
+  padding: 1.5vh 5vh;
+  width: 100%;
+  height: 5vh;
+  border: 1px solid;
+  cursor: pointer;
+  border-radius: 4vh;
+  margin: 1vh 0;
+
+}
+ 
+
+.btn-footer h2{
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+.btn-footer span{
+  float: right;
+  color: rgb(2, 109, 242);
 }

@@ -252,10 +252,35 @@ class UseDatabase extends database{
             $a="";
         }
 
+            $b = parent::bdd()->prepare("SELECT * FROM $tableName $a");
+            $b->execute();
+
+                if($b->rowCount() === 0){
+                    return true;
+                }else{
+                    return false;
+                }
+    }
+
+     /**
+     * 
+     * VERIFIE IF EXISTE
+     * 
+     * 
+     */
+
+    public static function Ifexist($tableName,$where=null){
+
+        if(isset($where)){
+            $a= "WHERE ".$where;
+        }else{
+            $a="";
+        }
+
         $b = parent::bdd()->prepare("SELECT * FROM $tableName $a");
         $b->execute();
 
-        if($b->rowCount() === 0){
+        if($b->rowCount() != 0){
             return true;
         }else{
             return false;

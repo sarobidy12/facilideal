@@ -1,24 +1,16 @@
 import React , {Component, useEffect,useState }from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { withCookies, Cookies } from 'react-cookie';
-import localhost from '../../_config'
-import Empiler from "../cashback/loader/empiler";
 import MetaTags from 'react-meta-tags';
 import Footer from '../footer/index';
-import parse from 'html-react-parser';
-import { findDOMNode } from 'react-dom';
-import $ from 'jquery';
+import { withCookies, Cookies } from 'react-cookie';
+
 class Mission extends Component {
     
       componentWillMount=()=>{
-     
-        if(this.state.stop ===0){
-            setTimeout(()=>{
-                this.getFindData();
-            },600)
-        }
-
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
        window.addEventListener('scroll',function(){
 
            if(document.getElementById('hero-all') && 
@@ -88,10 +80,65 @@ class Mission extends Component {
                     </div>
                 </div>
                 <div id='all-container'>
-                    <div className='mission-container'>
-                        
+                            <div className='mission-container'>
+                                <Link to='/offerwalls/Superrewards'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/1.png'/>
+                                        <h1>Superrewards <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+                                    </div>
+                                </Link>
+                                <Link to='/offerwalls/clixwall'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/2.png'/>
+                                        <h1>clixwall <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+
+                                    </div>
+                                </Link>
+                                <Link to='/offerwalls/Adworkmedia'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/3.png'/>
+                                        <h1>Adworkmedia <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+
+                                    </div>
+                                </Link>
+                                <Link to='/offerwalls/personaly'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/4.png'/>
+                                        <h1>Static persona <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+
+                                    </div>
+                                </Link>
+                                <Link to='/offerwalls/Ptcwall'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/5.png'/>
+                                        <h1>Ptcwall <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+
+                                    </div>
+                                </Link>
+                                <Link to='/offerwalls/kiwiwall'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/6.png'/>
+                                        <h1>kiwiwall <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+
+                                    </div>
+                                </Link>
+                                <Link to='/offerwalls/offertoro'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/7.png'/>
+                                        <h1>offertoro <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+
+                                    </div>
+                                </Link>
+                                <Link to='/offerwalls/Wannads'>
+                                    <div className='offerwall-view'>
+                                        <img src='/img/offerwall/8.png'/>
+                                        <h1>Wannads <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></h1>
+                                    </div>
+                                </Link>
+                              
+                             
                             <div>
-                            </div>
+                    </div>
                     </div>
               
                 </div>

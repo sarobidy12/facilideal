@@ -66,6 +66,7 @@ import Mission from './component/mission/index';
 import Boutique from './component/boutique/index';
 import Gagnants from './component/gagnant/index';
 import Offerwall from './component/offerwall/index';
+import Offerwalls from './component/offerwall/offerwalls';
 
 import RGPD from './component/RGPD/index';
 
@@ -175,9 +176,10 @@ function App() {
 
             <Route path="/Mission" component={Mission} />
             <Route path="/Offerwall" component={Offerwall} />
+            <Route path="/Offerwalls/:id" component={Offerwalls} />
             <Route path="/Boutique" component={Boutique} />
             <Route path="/Contact" component={Contact} />
-            
+
             <Route path="/politique-de-confidentialiter" component={RGPD} />
 
             <MessengerCustomerChat
