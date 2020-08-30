@@ -21,7 +21,7 @@ class database{
      
         public static function bdd(){
     
-            $a= new \PDO("mysql:host=localhost;dbname=facil",'root','');
+            $a= new \PDO("mysql:host=localhost;dbname=c1317573c_facilodeal",'c1317573c_facilodeal','B;1[Ob0AIJ7S');
             $a->setAttribute(\PDO::ATTR_ERRMODE,\PDO::ERRMODE_EXCEPTION);
             return $a;
             

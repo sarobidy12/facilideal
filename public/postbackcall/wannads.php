@@ -1,6 +1,7 @@
 <?php
 
-require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 use classes\UseDatabase;
 
 	$secret = "a04d5a9091"; // check your app info at www.wannads.com

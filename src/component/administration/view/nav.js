@@ -29,7 +29,7 @@ const NavAdmin=()=>{
                       <ul>
                       
                           <li >
-                            <Link to=''>
+                            <Link >
                                   <span className="glyphicon glyphicon-tasks" ></span><b>Menu</b>
                             </Link> 
                           </li>
@@ -39,6 +39,13 @@ const NavAdmin=()=>{
                                   <span className="glyphicon glyphicon-user " ></span><b>Membre</b>
                             </Link> 
                           </li>
+
+                          <li id='membre' className='onglet active-nav-admin'>
+                            <Link to="/administration/tendance/" >
+                                  <span className="glyphicon glyphicon-globe" ></span><b>tendance</b>
+                            </Link> 
+                          </li>
+                          
                           
                           <li id='Mission' className='onglet'>
                               <Link to="/administration/Mission/">

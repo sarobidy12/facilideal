@@ -406,7 +406,7 @@ class Index extends Component {
 
   handletoggleapropos=()=>{
 
-    const el= findDOMNode(this.refs.apropos);  
+    const el= findDOMNode(this.refs.apropos_io);  
     this.setState({
       gliphiconaApropos:!this.state.gliphiconaApropos
     }) 
@@ -568,7 +568,7 @@ class Index extends Component {
                 <div className='btn-condition' onClick={()=>{
                     this.handletoggleapropos()
                   }}>à propos {this.gliphiconAppros()}</div>
-                  <div id='apropos' ref='apropos'>
+                  <div id='apropos_io' ref='apropos_io'>
                     {parse(this.state.result.apropos)}
                   </div>
                 </div>

@@ -67,12 +67,10 @@ const AddCoupons=()=>{
                 document.getElementById('cashbackio').value,
                 document.getElementById('url').value,
                 document.getElementById('url_img').value,
-                document.getElementById('url_img_fond').value,
                 document.getElementById('date').value
             ];
 
             if(verfie()){
-                console.log(document.getElementById('description').value)
 
                 let formData= new FormData();
                 formData.append("text", JSON.stringify(objet));
@@ -192,13 +190,8 @@ const AddCoupons=()=>{
                                             </div>
 
                                             <div className='form-group'>
-                                                <label htmlFor="url" >Url img</label>
+                                                <label htmlFor="url" >Url img (facultatif)</label>
                                                 <input type="text" id="url_img"  style={{width:'100%'}} name="url_img" />
-                                            </div>
-
-                                            <div className='form-group'>
-                                                <label htmlFor="url" >Url img fond</label>
-                                                <input type="text" id="url_img_fond"  style={{width:'100%'}} name="url_img" />
                                             </div>
 
                                             {button()}

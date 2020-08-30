@@ -222,7 +222,7 @@ const IndexAdmin=()=>{
                         element7.push(id);
                     }
         
-                    if(element7.length <= 10){
+                    if(element7.length <= 6){
                         setTchekaddHome(element7.sort((a,b)=>a-b));
                     }
 
@@ -260,7 +260,6 @@ const IndexAdmin=()=>{
         const btnRemove= function btnRemove(){
             if(Tchekremove.length > 0){
                 return <button className='btn-warning' onClick={()=>{ RemoveHome()}} >retirer de l'acceuill {nbrCheck('remove')}</button>
-
             }
         }
 

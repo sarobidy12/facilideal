@@ -6,18 +6,16 @@
 
  body::-webkit-scrollbar {
   width: 10px;
-  outline: 1px solid slategrey;
+  background-color: transparent;
 }
 
 body::-webkit-scrollbar-track{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   border-radius: 5px;
 
   }
 
   body::-webkit-scrollbar-thumb{
     background-color: darkgrey;
-    outline: 1px solid slategrey;
   border-radius: 5px;
 
   }
@@ -255,6 +253,7 @@ body::-webkit-scrollbar-track{
   outline: none;
 }
 .btn-plus{
+  outline: none;
   position: absolute;
   width: 5vh;
   height: 5vh;
@@ -262,9 +261,7 @@ body::-webkit-scrollbar-track{
   border: none;
   border-radius: 5vh;
   z-index: 10;
-  left: 15vh;
-  background-color: white;
-  box-shadow: 1px 1px 5px #aaa;
+  left: 10vh;
 }
 
 .btn-moins{
@@ -276,33 +273,78 @@ body::-webkit-scrollbar-track{
   border-radius: 5vh;
   float: right;
   z-index: 10;
-  right: 15vh;
-  background-color: white;
-  box-shadow: 1px 1px 5px #aaa;
+  right: 10vh;
+  outline: none;
+}
 
+ 
+.img-background-coupons{
+  width: 100%;
+  height: 70%;
+  overflow: hidden;
+}
+.bg-img-coupons-home{
+  background-size: cover;
+  transition: 600ms;
+}
 
+#coupons-content:hover .bg-img-coupons-home{
+  transform: scale(1.2);
 }
 
 #coupons-content{
-  width: 21vh;
-  height: 27vh;
+  width: 40vh;
+  height: 35vh;
   margin: 1vh 2vh;
   box-shadow: 0 0 25px #aaa;
   display: inline-table;
-  padding: 2vh;
+  padding: 0;
   overflow: hidden;
+  cursor: pointer;
+}
+
+#coupons-content a{
+  display: block;
+  position: absolute;
+  padding: 1vh;
+  z-index: 10;
+  color: white;
+  background-color: rgba(2, 110, 242, 0.8);
+  width: 30%;
+  left: 30%;
+  top: 30%;
+  border-radius: 5vh;
+  text-align: center;
+  text-decoration: none;
+  display: none;
+  transition: 500ms;
+}
+
+#coupons-content:hover a{
+  display: block;
+}
+
+.img-coupons-home{
+  padding: 1vh 0.5vh;
+  background-color: white;
+  position: relative;
+  top: -3vh;
+  width: 10vh;
+  height: 10vh;
+  margin: 1vh;
+  float: left;
+
 }
 
 #coupons-content img{
-  width: 20vh;
-  height: 20vh;
+  width: 5vh;
+  height: 5vh;
 }
 
-#coupons-content h2{
+#coupons-content p{
   color: rgb(2, 109, 242);
   font-family: Fredoka One;
   font-size: 2.5vh;
-  text-align: center;
 }
 
 #coupons-content p{
@@ -1281,7 +1323,11 @@ header{
   padding: 0 2vh;
   font-family: 'Questrial', sans-serif;
 }
-
+@media(max-width:768px){
+  header{
+    padding: 0 1vh;
+  }
+}
 .search_magasin{
   width: 50%;
   margin: 0 auto;
@@ -1382,13 +1428,12 @@ header{
   
   }
 
-
 .Header_logo{
   width: 10%;
   float: left;
   text-align: center;
   position: relative;
-  top: -1vh;
+  top: 30%;
 }
  
 .Header_logo img{
@@ -1396,6 +1441,9 @@ header{
  
 }
 @media(max-width:768px){
+  .Header_logo{
+    top: 20%;
+  }
   .Header_logo img{
     width: 7vh;
   }
@@ -3563,7 +3611,7 @@ footer{
   border-radius: 1vh;
 }
 
-
+ 
 .view-cashback-acceuille strike{
   color: #aaa;
 }
@@ -3584,9 +3632,15 @@ footer{
   font-size: 2vh;
 }
 .view_home li{
+  margin: 0;
+  padding: 0;
   display: inline-table;
 }
-
+ @media(max-width:768px){
+   .container{
+     width: 100%;
+   }
+ }
 .admin-view-cintent{
   width: 80%;
   margin: 0 auto;
@@ -3992,17 +4046,14 @@ footer ul li a:hover{
 
 #view_all_avis::-webkit-scrollbar {
   width: 8px;
-  outline: 1px solid slategrey;
 }
 
   #view_all_avis::-webkit-scrollbar-track{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 5px;
   }
 
   #view_all_avis::-webkit-scrollbar-thumb{
     background-color: darkgrey;
-    outline: 1px solid slategrey;
     border-radius: 5px;
   }
 

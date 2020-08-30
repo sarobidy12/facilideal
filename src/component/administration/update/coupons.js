@@ -79,7 +79,6 @@ const IndexAdmin=()=>{
             document.getElementById('Somme').value,
             document.getElementById('url').value,
             document.getElementById('url_img').value,
-            document.getElementById('url_img_fond').value,
             document.getElementById('date').value,
             window.location.pathname.split('/')[3]
         ];
@@ -91,8 +90,6 @@ const IndexAdmin=()=>{
                 const url= localhost+'/controleur.php?p=UpdateCoupons'; 
                 axios.post(url,formData)
                     .then((res)=>{
-
-                        console.log(res.data);
 
                         document.getElementById('btn-loader').innerHTML='Modifier';
 
@@ -186,21 +183,6 @@ const IndexAdmin=()=>{
                                     <input type="text" id="url_img" defaultValue={datares.link_img} style={{width:'100%'}} name="url" />
                                 </div>
                                 
-                                <div className='form-group'>
-                                    <label htmlFor="url" >Url img fond</label>
-                                    <input type="text" id="url_img_fond" defaultValue={datares.url_img_fond} style={{width:'100%'}} name="url" />
-                                </div>
-
-                                <div className='form-group'>
-                                    <label htmlFor="url" >Somme</label>
-                                    <input  type="text" placeholder='euro' step="1" id="Somme" defaultValue={datares.somme} style={{width:'100%'}} name="url_image" />
-                                </div>
-                                    
-                                <div className='form-group'>         
-                                    <label htmlFor="code">Code du coupon</label>
-                                    <input type="text"  placeholder='###' step="1" id="code" defaultValue={datares.code} style={{width:'100%'}} name="code"/>
-                                </div>
-
                                 {button()}
 
                             </div>
@@ -218,6 +200,17 @@ const IndexAdmin=()=>{
                                                 }}
                                         />
                                 </div>
+
+                                <div className='form-group'>
+                                    <label htmlFor="url" >Somme</label>
+                                    <input  type="text" placeholder='euro' step="1" id="Somme" defaultValue={datares.somme} style={{width:'100%'}} name="url_image" />
+                                </div>
+                                    
+                                <div className='form-group'>         
+                                    <label htmlFor="code">Code du coupon</label>
+                                    <input type="text"  placeholder='###' step="1" id="code" defaultValue={datares.code} style={{width:'100%'}} name="code"/>
+                                </div>
+
                                 <div className='form-group'>  
                                         <label htmlFor="date1">Date d'expiration</label>
                                         <input type="date" id="date" defaultValue={datares.end_date} style={{width:'100%'}} name="dateFin" min={Date('Y-m-d')} />

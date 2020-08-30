@@ -1,6 +1,7 @@
 <?php
 
-require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 use classes\UseDatabase;
 
 	// Your secret key can be found in your apps section by clicking on the "Secret Key" button

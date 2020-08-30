@@ -1,7 +1,8 @@
 <?php
 
 
-	require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 	use classes\UseDatabase;
 
 	$user_password = 'SA3V5730aA1GVy0KliGYTubT18pvWX2';

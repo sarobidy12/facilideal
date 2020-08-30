@@ -5,6 +5,7 @@ import 'moment/locale/fr';
 import localhost from '../../_config';
 import axios from 'axios';
 import { useCookies } from "react-cookie";
+import parse from 'html-react-parser';
 
 const Coupons=()=>{
 
@@ -18,10 +19,6 @@ const Coupons=()=>{
   
     useEffect(()=>{
          getData();
-
-         setTimeout(()=>{
-            setCountAuto(countAuto + 1);
-         },3000);
     })
 
     const getData= function getData(){
@@ -42,17 +39,15 @@ const Coupons=()=>{
 
         if(count == 0){
             setCount(3);
-            setCountAuto(3)
             document.getElementById(3).style.backgroundColor='rgb(7, 249, 178)';
-        }else if(count == 1 || countAuto == 1){
+        }else if(count == 1){
             document.getElementById('All-carousel').scrollTo(0,0);
-        }else if(count == 2 || countAuto == 2){
+        }else if(count == 2){
             document.getElementById('All-carousel').scrollTo(1000,0);
-        }else if(count == 3 || countAuto == 3){
-            document.getElementById('All-carousel').scrollTo(1800,0);
-        }else if(count == 4 || countAuto == 4){
+        }else if(count == 3){
+            document.getElementById('All-carousel').scrollTo(2000,0);
+        }else if(count == 4){
             setCount(1);
-            setCountAuto(1)
             document.getElementById(1).style.backgroundColor='rgb(7, 249, 178)';
 
         }
@@ -64,17 +59,6 @@ const Coupons=()=>{
         }
     })
 
-    const openCoupons= function openCoupons(i,id){
-        id.preventDefault();
-
-        if(cookies._lo != null){
-            document.getElementById('coupons-'+i).style='left:2vh';
-        }else{
-            setredirect(true);
-        }
-        
-    }
-
     const redirectConexion=()=>{
 
         if(redirect === true){
@@ -83,6 +67,18 @@ const Coupons=()=>{
 
       }
     
+    const WatsUrl = (e) => {
+        var text = "";
+        for (var i = 0; i < e.split(" ").length; i++) {
+        if (i === e.split(" ").length - 1) {
+            text = text + e.split(" ")[i];
+        } else {
+            text = text + e.split(" ")[i] + "-";
+        }
+        }
+        return text;
+    };
+
     const all = function all(){
 
         var data = [];
@@ -93,22 +89,21 @@ const Coupons=()=>{
                 
                 data.push(
                     <div id='coupons-content' data-aos='fade-up'>
-                            <center>
-                                <img src= {coupon[i].link_img} alt="Acheter "/>
-                                </center>
+                            <div className='img-background-coupons'>
+                                         <Link to={'/cashbackAndCoupons/'+WatsUrl(coupon[i].cashbackName)}>
+                                            Voir l'offre
+                                        </Link>
+                                <div style={{width:'100%',height:'100%',backgroundImage:'url('+coupon[i].link_img+')'}} className='bg-img-coupons-home'>
+                                       
+                                </div>
+                            </div>
+                            <div className='img-coupons-home'>
+                            <img src= {coupon[i].url_img_fond} alt="Acheter "/>  
+                            </div>
                                 <h2>
-                                    {coupon[i].title}
+                                    {parse(coupon[i].title)}
                                 </h2>
                                 
-                                <p>Economise  {coupon[i].somme} <span className="glyphicon glyphicon-upload" aria-hidden="true"></span></p>
-                                <div className='code-coupons'>
-                                    <div id={'coupons-'+coupon[i].id} className='btn-coupons up' onClick={ openCoupons.bind(this,coupon[i].id) }>
-                                            Code coupons
-                                    </div>
-                                    <div className='btn-coupons down'>
-                                        {coupon[i].code}
-                                    </div>
-                                </div>
                     </div>
                 )
             }

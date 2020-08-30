@@ -1,7 +1,8 @@
 <?php
 
 
-require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 use classes\UseDatabase;
 	// Votre clé secrète
 	$cle_secrete = 'umm5VGuSAs';

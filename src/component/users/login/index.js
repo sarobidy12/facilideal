@@ -120,7 +120,6 @@ const Login=()=>{
 
     const responseFacebook = response=>{
 
-        Setdisabled(1);
         if(response.email != null){
             Setdisabled(1);
 
@@ -161,8 +160,9 @@ const Login=()=>{
 
     const  responseGoogle = (response) => {
 
+       if(response.profileObj.name != null){
+
        Setdisabled(1);
-    
        var name = response.profileObj.name;
        var apt = name.split(' ');
     
@@ -190,6 +190,7 @@ const Login=()=>{
                                 setredirectC(1);
                             },600)
                     })
+        }
 
     }
     

@@ -183,17 +183,30 @@ class Nav extends Component {
         }
     }
 
-      view = function view(){
+    media=()=>{
+        if(window.screen.width <= 414){
+            return <Link onClick={()=>{ this.onglet('Acceuill') }}   to='/'><img src='/img/coupons-media.png' style={{width:'5vh'}} /></Link>
+        }else{
+            return <Link onClick={()=>{ this.onglet('Acceuill') }}   to='/'><img src='/img/logo.png' /></Link>
+        }
+    }
+
+    view = function view(){
        if(window.location.pathname.split('/')[1] != 'admin' && window.location.pathname.split('/')[1] != 'administration'  ){
         return  <header>
                     <div className='Header_logo'>
-                        <h1><Link   onClick={()=>{ this.onglet('Acceuill') }}   to='/'><img src='/img/logo.png' /></Link></h1>
+                        {this.media()}
                     </div>
 
                     <div className='search_magasin'>
                         <ul>
                             <li>
-                                 <Link to='/categorie'><i class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></i>categorie</Link>
+                                 <Link 
+                                    onClick={()=>{
+
+                                    }}
+                                 
+                                 ><i class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></i>categorie</Link>
                             </li>
                             <li>
                             <form method="POST" onSubmit={(e)=>{this.find(e)}}>
@@ -258,6 +271,10 @@ class Nav extends Component {
                 <div id='backgrondNav' ref='fadeOut' onClick={()=>{
                      this.close();
                 }} >
+
+                <div id='categorie_view'>
+
+                </div>
                 </div>
             </div>
         ); 

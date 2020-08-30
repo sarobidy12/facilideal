@@ -1,7 +1,8 @@
 <?php
 
 
-require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 use classes\UseDatabase;
 
 	$key = '709f763365607348e32fe195c4291572';

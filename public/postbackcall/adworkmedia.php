@@ -1,7 +1,8 @@
 <?php
 
 
-require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 use classes\UseDatabase;
 
 	if (!empty($_GET['campaign_name']) AND !empty($_GET['sid']) AND !empty($_GET['status']) AND !empty($_GET['ip']) AND !empty($_GET['vc_value']))

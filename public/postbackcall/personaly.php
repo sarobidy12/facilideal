@@ -1,7 +1,8 @@
 <?php
 
 
-require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 use classes\UseDatabase;
 
 	$publisher_hash = '5afc31b973af550011da320c';

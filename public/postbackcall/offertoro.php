@@ -1,7 +1,8 @@
 <?php
 
 
-require '../__autolaod.php';
+require '../phpFacilideal/__autolaod.php';
+
 use classes\UseDatabase;
 
 	if (!empty($_GET['o_name']) AND !empty($_GET['amount']) AND !empty($_GET['oid']) AND !empty($_GET['user_id']) AND !empty($_GET['sig']))
