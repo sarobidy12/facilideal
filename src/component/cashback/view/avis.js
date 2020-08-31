@@ -64,9 +64,10 @@ const AddSousC=(data)=>{
             .then((res)=>{
                       setAdd(res.data);
                       setTimeout(()=>{
-                            document.getElementById('view_all_avis').style.overflowY='hidden';
-                            document.getElementById('btn_avis').innerHTML='Voir tout les avis';
-
+                            if(document.getElementById('view_all_avis') && document.getElementById('btn_avis')){
+                                document.getElementById('view_all_avis').style.overflowY='hidden';
+                                document.getElementById('btn_avis').innerHTML='Voir tout les avis';
+                            }
                             setStop(1);
                       },600);
             })

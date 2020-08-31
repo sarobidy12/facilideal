@@ -3,9 +3,7 @@
 require '../phpFacilideal/__autolaod.php';
 
 use classes\UseDatabase;
-
 	$secret = "a04d5a9091"; // check your app info at www.wannads.com
-
 	$sub_id = isset($_GET['subId']) ? $_GET['subId'] : null;
 	$transactionId = isset($_GET['transId']) ? $_GET['transId'] : null;
 	$campaign_name = isset($_GET['campaign_name']) ? $_GET['campaign_name'] : null;
@@ -14,7 +12,6 @@ use classes\UseDatabase;
 	$signature = isset($_GET['signature']) ? $_GET['signature'] : null;
 	$status = isset($_GET['status']) ? $_GET['status'] : null;
 	$ipuser = isset($_GET['userIp']) ? $_GET['userIp'] : "0.0.0.0";
-
 	// validate signature
 	if (md5($sub_id.$transactionId.$coins.$secret) != $signature)
 	{
@@ -44,7 +41,6 @@ use classes\UseDatabase;
 				'".$campaign_name."', 
 				'".$montantRev."',
 				'".date('d/m/Y à H:i:s')."',
-				'0',
 				'".$ipuser."')"
 			); 
  

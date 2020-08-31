@@ -75,9 +75,10 @@ import "aos/dist/aos.css";
 import localhost from './_config';
 import { useCookies } from 'react-cookie';
 
+import DarkTheme, {createTheme} from 'react-dark-theme'
+
 function App() {
 
-  const [cookie,Setcookie,removecookie]=useCookies([]);
   const [cookies, setCookie,removeCookie] = useCookies(null);
   const [stop,setStop]=useState(0);
 
@@ -116,10 +117,24 @@ function App() {
     
   },[]);
 
- 
+  const lightTheme = {
+    background: 'white',
+    text: 'black',
+  }
+   
+  const darkTheme = {
+    background: 'black',
+    text: 'white',
+  }
+
+  const myTheme = createTheme(darkTheme, lightTheme)
+
   return (
+
     <BrowserRouter>
+    <div style={{ backgroundColor: myTheme.background, color: myTheme.text }}>
       <HeaderUser/>
+     
             <Route path="/" component={Index} exact />
             <Route path="/administration/" component={IndexAdmin}  />
             <Route path="/admin" component={LoginAdmin}  />
@@ -135,10 +150,9 @@ function App() {
             <Route path="/administration/reseaux-affiliation" component={AdminReseauxAffiliation}  />
             <Route path="/administration/histori_cashback/" component={AdminhistoriCashack}  />
             <Route path="/administration/UpdateRgpd/" component={AdminRGPD}  />
-
             <Route path="/administration/payment" component={AdminReseauxPayement}  />
             <Route path="/administration/payment-comfirmation/:id" component={AdminReseauxPayementComfirmation}  />
-          
+        
             <Route path="/administration/reseaux-add" component={AdminAddREseaux}  />
             <Route path="/administration/boutique-add" component={AdminAddBoutique}  />
             <Route path="/administration/cashback-add" component={AdminAddcashback}  />
@@ -186,6 +200,8 @@ function App() {
               pageId = "101168218368541"
               appId = "3321703071194475"
             />
+    </div>
+
     </BrowserRouter>
   
   );

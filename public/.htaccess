@@ -1,4 +1,4 @@
-# ADD IN .HTACCESS FILE
+ # ADD IN .HTACCESS FILE
 Options -MultiViews
 RewriteEngine On
 RewriteBase /

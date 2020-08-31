@@ -1,7 +1,7 @@
  body{
    margin: 0;
    padding: 0;
-  overflow-x: hidden;
+   overflow-x: hidden;
  }
 
  body::-webkit-scrollbar {
@@ -16,7 +16,7 @@ body::-webkit-scrollbar-track{
 
   body::-webkit-scrollbar-thumb{
     background-color: darkgrey;
-  border-radius: 5px;
+    border-radius: 5px;
 
   }
 
@@ -4383,4 +4383,152 @@ footer ul li a:hover{
 .btn-footer span{
   float: right;
   color: rgb(2, 109, 242);
+}
+
+#categorie_view{
+  width: 80%;
+  position: fixed;
+  left: 10%;
+  top: 10%;
+  height: 70vh;
+  background-color: white;
+  z-index: 20;
+  display: none;
+  border-radius: 1vh;
+  padding: 1vh;
+}
+
+#backgrondNav_categorie_view{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 15;
+  display: block;
+}
+.categorie_view{
+  width: 20%;
+  height: 100%;
+  float: left;
+}
+
+.categorie_view ul{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.categorie_view ul li{
+  cursor: pointer;
+  padding: 1vh;font-size: 2vh;
+  font-family: 'Questrial', sans-serif;
+}
+
+.categorie_view ul li a{
+  color: #aaa;
+  text-decoration: none;
+}
+
+.active_hover{
+  border-left: 1vh solid rgb(2, 109, 242);
+  color: rgb(2, 109, 242);
+}
+
+#view_categorie{
+  width: 80%;
+  height: 100%;
+  float: right;
+}
+
+#categorie_view h2{
+  margin: 0;
+  padding: 0;
+  font-size: 2vh;
+  font-family: 'Questrial', sans-serif;
+  color: #aaa;
+}
+
+.selection-moment-nav{
+  display: block;
+  width: 45%;
+  height: 22vh;
+  text-align: center;
+  padding: 2vh;
+  background-color: rgba(170, 170, 170, 0.486);
+  border-radius: 1vh;
+  transition: 600ms;
+  margin: 0.5vh 0.5vh;
+  float: left;
+}
+ 
+.selection-moment-nav:hover{
+  text-decoration: none;
+  background-color: rgba(170, 170, 170, 0.486);
+}
+
+.selection-moment-nav strike{
+  color: #aaa;
+  font-size: 2vh;
+}
+
+.selection-moment-nav b{
+  font-size: 3vh;
+}
+
+.categorie_view_img{
+  float: left;
+}
+.categorie_view_img img{
+  width: 50%;
+  float: left;
+}
+
+#view_categorie h1{
+  margin: 0 0;
+  padding: 0;
+  font-family: 'Questrial', sans-serif;
+}
+
+#view_categorie ul{
+  margin: 2vh 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#view_categorie ul li{
+  float: left;
+}
+
+#view_categorie ul li:nth-of-type(1){
+  width: 60%;
+}
+#view_categorie ul li:nth-of-type(2){
+  width: 40%;
+}
+
+#view_categorie ul li img{
+  width: 95%;
+  height: 50%;
+}
+
+.link-nav-categorie{
+  display: block;
+  width: 95%;
+  height: 4vh;
+  background-color: rgb(2, 109, 242);
+  text-align: center;
+  margin: 2vh 0;
+  border-radius: 5vh;
+  color: white;
+  text-decoration: none;
+  line-height: 4vh;
+}
+
+.link-nav-categorie:hover{
+  color: white;
+  text-decoration: none;
+}
+
+.link-nav-categorie:active{
+  color: white;
+  text-decoration: none;
 }

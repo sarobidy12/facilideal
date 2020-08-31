@@ -11,6 +11,7 @@ const Nav=()=>{
     const [stop1,setStop1]= useState(0);
     const [cookies, setCookie] = useCookies(null);
     const [result,SetResult]= useState([]);
+    const [url,seturl]= useState(window.location.pathname.split('/')[2]);
 
     useEffect(()=>{
         if(stop === 0 && stop1 === 0){
@@ -19,6 +20,17 @@ const Nav=()=>{
             },500)
         }
     })
+
+    const urlChange=()=>{
+        if(url != window.location.pathname.split('/')[2]){
+            setStop(0);
+            setStop1(0);
+            setTimeout(()=>{
+                getCashbac()
+            },500)
+            seturl(window.location.pathname.split('/')[2])
+        }
+    }
 
     const getCashbac= function getCashbac(){
 
@@ -182,6 +194,7 @@ const Nav=()=>{
     }
     return (
             <div> 
+                {urlChange()}
                 <select className='selection' onChange={filtre}>
                     <option value='populaire'>
                             Plus populaire

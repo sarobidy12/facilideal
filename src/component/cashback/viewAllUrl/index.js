@@ -19,7 +19,16 @@ const ViewAllCahsback = () => {
   const [stop3, setStop3] = useState(0);
   const [Boutique, setBoutique] = useState([]);
   const [cookies, setCookie] = useCookies(null);
+  const [url,seturl]= useState(window.location.pathname.split('/')[2]);
 
+  const urlChange=()=>{
+        if(url != window.location.pathname.split('/')[2]){
+          getCategorie();
+          setStop3(0);
+          getFindData();
+          seturl(window.location.pathname.split('/')[2])
+        }
+  }
   useEffect(() => {
 
     window.scrollTo({
@@ -32,7 +41,6 @@ const ViewAllCahsback = () => {
       if(stop3 === 0){
         getFindData();
       }
-      
     }, 500);
   
     window.addEventListener('scroll',function(){
@@ -197,9 +205,11 @@ const ViewAllCahsback = () => {
   };
 
   const selection=()=>{
+
     if(stop3 === 1){
       return BoutiqueView()
     } 
+
   }
 
   const NavLien = function NavLien() {
@@ -213,12 +223,11 @@ const ViewAllCahsback = () => {
           <ul>{getSousCategorie()}</ul>
         </div>
       );
-    } else {
+    }else{
       return <Empiler />;
     }
   };
 
-       
     const getSousCategorie = function getSousCategorie(e) {
     var resultat = [];
 
@@ -254,6 +263,7 @@ const ViewAllCahsback = () => {
 
   return (
     <div style={{width:'100%',overflowX:'hidden',overflowY:'hidden'}}>
+      {urlChange()}
       <MetaTags>
         <title> {WatsCategorie(window.location.pathname.split("/")[2])}</title>
       </MetaTags>

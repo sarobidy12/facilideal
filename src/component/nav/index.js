@@ -3,6 +3,10 @@ import { Link,Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { findDOMNode } from 'react-dom';
 import $ from 'jquery';
+import localhost from "../../_config";
+import All_data from '../cashback/loader/all_data';
+import Carre from '../cashback/loader/rarre';
+import axios from "axios";
 
 class Nav extends Component {
 
@@ -11,7 +15,12 @@ class Nav extends Component {
         this.state = {
             redirecturl: 0,
             gliphicon:false,
-            redirect:false
+            redirect:false,
+            viewCategorie:false,
+            Boutique:[],
+            stop3:0,
+            nom:null,
+            img:null
         };
       }
  
@@ -164,6 +173,7 @@ class Nav extends Component {
 
                     </ul>
         }
+
     }
     
     redirect= function redirect(){
@@ -203,7 +213,7 @@ class Nav extends Component {
                             <li>
                                  <Link 
                                     onClick={()=>{
-
+                                        this.openCategorie();
                                     }}
                                  
                                  ><i class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></i>categorie</Link>
@@ -240,6 +250,13 @@ class Nav extends Component {
     close=()=>{
 
         document.getElementById('sidebarHeader').style.right='-50vh';
+
+        const el= findDOMNode(document.getElementById('categorie_view'));
+        $(el).slideUp();
+            this.setState({
+                viewCategorie:false
+            })
+      
         const el2= findDOMNode(this.refs.fadeOut);   
         $(el2).fadeOut(500);
 
@@ -250,35 +267,254 @@ class Nav extends Component {
     }
 
     open=()=>{
-
         const el= findDOMNode(this.refs.toggle);   
         $(el).slideUp(1);
         document.getElementById('sidebarHeader').style.right='0';
         document.getElementById('backgrondNav').style.display='block';
     }
 
-  render() {
+    openCategorie=()=>{
+        const el= findDOMNode(document.getElementById('categorie_view'));
 
-    return (
-            <div> 
-                {this.redirect()}
-                {this.view()}
+            this.setState({
+                viewCategorie:!this.state.viewCategorie
+            }) 
+            
+                    $(el).slideToggle();
+    }
 
-                <div id='sidebarHeader' >
-                    {this.navLog()}
+    generateUrl=(e)=>{
+
+        var text ='';
+    
+        for(var i=0;i<e.split(' ').length;i++){
+            if(i === (e.split(' ').length - 1)){
+                text = text + e.split(' ')[i] 
+            }else{
+                text = text + e.split(' ')[i]+'-' 
+            }
+        }
+    
+        return text;
+    
+    };
+
+    getCAtegorie=()=>{
+        const cookies = new Cookies();
+        var element =[];
+
+        if(cookies.get('_categorieAndSousCAtegorie')){
+            for(var i=0;i<cookies.get('_categorieAndSousCAtegorie').length;i++ ){
+                element.push(
+                        <li id={'categorie-'+cookies.get('_categorieAndSousCAtegorie')[i].id}
+                            className='categorie_mouse'
+                            onClick={()=>{this.close()}}
+                            onMouseOver={this.hover.bind(this,cookies.get('_categorieAndSousCAtegorie')[i].id)}>
+                            <Link
+                            to={'/cashbackView/'+this.generateUrl(cookies.get('_categorieAndSousCAtegorie')[i].nom_categorie)}>
+                                {cookies.get('_categorieAndSousCAtegorie')[i].nom_categorie}
+                            </Link>
+                        </li>
+                )
+            }
+        }
+
+      
+       return element;
+    }
+
+    hover=(e,id)=>{
+        id.preventDefault();
+            for(var i=0;i < document.getElementsByClassName('categorie_mouse').length;i++){
+                document.getElementsByClassName('categorie_mouse')[i].classList='categorie_mouse'
+            }
+                document.getElementById('categorie-'+e).classList.add('active_hover');
+                    this.getCategorieName(e);
+                    this.getFindData(e);
+    }
+
+
+    RenderCategorieImg=()=>{
+
+        if(this.state.stop3 === 1){
+
+            return <div>
+                <h1>
+                    {this.state.nom}
+                </h1>
+                                    <ul>
+                                        <li>
+                                            {this.BoutiqueView()}
+                                        </li>
+                                        <li>
+                                            <img src={this.state.img}  />
+                                            <Link
+                                                onClick={()=>{
+                                                    this.close();
+                                                }}
+                                                className='link-nav-categorie'
+                                                to={'/cashbackView/'+this.WatsUrl(this.state.nom)}
+                                            >
+                                            Plus de boutique
+                                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                   </div>
+
+        }else{
+
+            return <div>
+                        <All_data />
+                   </div>
+        }
+
+    }
+
+    WatsUrl = (e) => {
+        var text = "";
+        for (var i = 0; i < e.split(" ").length; i++) {
+          if (i === e.split(" ").length - 1) {
+            text = text + e.split(" ")[i];
+          } else {
+            text = text + e.split(" ")[i] + "-";
+          }
+        }
+        return text;
+    };
+
+    BoutiqueView=()=>{
+
+        var BoutiqueAll = [];
+    
+         if (0 < this.state.Boutique.length) {
+           for (var i = 0; i < this.state.Boutique.length; i++) {
+             BoutiqueAll.push(
+                 <Link
+                   to={
+                     "/cashbackAndCoupons/" +
+                        this.WatsUrl(this.state.Boutique[i].nom)
+                   }
+                   onClick={()=>{
+                     window.scrollTo({
+                       top: 0,
+                       behavior: "smooth",
+                    });
+                    this.close();
+                   
+                   }}
+
+                   className='selection-moment-nav'
+                   data-aos='fade-in'
+                 >
+                     <div >
+                            <img src={this.state.Boutique[i].url_img} style={{
+                                height:'15vh'
+                            }}/>
+                                 <div className='view-link-suggestion'>
+                                 <strike>
+                                     {this.state.Boutique[i].Ancien+''}
+                                 </strike>
+                                 <b>
+                                     {this.state.Boutique[i].Nouveaux+''}
+                                     <span class="glyphicon glyphicon-circle-arrow-up" aria-hidden="true"></span>
+                                 </b>
+                             </div>
+    
+                     </div>
+                 </Link>
+             );
+           }
+    
+           return <div>
+                        <h2>séléction du moment</h2>
+                        {BoutiqueAll}
+                   </div>
+           
+           
+         } else {
+           return <h2>Aucune selection du moment</h2>;
+         }
+    
+    };
+
+    getCategorieName=(e)=>{
+        
+        const cookies = new Cookies();
+        for (var i = 0; i < cookies.get('_categorieAndSousCAtegorie').length; i++) {
+                if(cookies.get('_categorieAndSousCAtegorie')[i].id === e) {
+                        this.setState({
+                            nom:cookies.get('_categorieAndSousCAtegorie')[i].nom_categorie,
+                            img:cookies.get('_categorieAndSousCAtegorie')[i].url_img
+                        })
+                         break;
+                }
+        }
+    };
+    
+    getFindData=(id)=>{
+        this.setState({
+            stop3:0
+        });
+        let formData = new FormData();
+        formData.append("text",JSON.stringify(id));
+        const url = localhost + "/controleur.php?p=getCashbackSelection";
+            axios.post(url, formData).then((res)=>{
+                setTimeout(()=>{
+                    this.setState({
+                        Boutique:res.data,
+                        stop3:1
+                    })
+                },500)
+            });
+    };
+
+    backgroundNav=()=>{
+        if(this.state.viewCategorie){
+            return  <div id='backgrondNav_categorie_view' ref='fadeOut' onClick={()=>{
+                                const el= findDOMNode(document.getElementById('categorie_view'));
+                                    $(el).slideUp();
+                                        this.setState({
+                                            viewCategorie:false
+                                        })
+                    }}>
+                    </div>
+        }
+    }
+
+    render() {
+
+        return (
+                <div> 
+                    {this.redirect()}
+                    {this.view()}
+
+                    <div id='categorie_view'>
+                        <div className='categorie_view'>
+                            <ul>
+                                {this.getCAtegorie()}
+                            </ul>
+                        </div>
+                                <div id='view_categorie'>
+                                 {this.RenderCategorieImg()}
+                                <div>
+                            </div>
+                        </div>
+ 
+                    </div>
+
+                    <div id='sidebarHeader' >
+                        {this.navLog()}
+                    </div>
+
+                    <div id='backgrondNav' ref='fadeOut' onClick={()=>{
+                        this.close();
+                    }}>
+                    </div>
+                   {this.backgroundNav()}
                 </div>
-
-                <div id='backgrondNav' ref='fadeOut' onClick={()=>{
-                     this.close();
-                }} >
-
-                <div id='categorie_view'>
-
-                </div>
-                </div>
-            </div>
-        ); 
-  }
+            ); 
+    }
 }
 export default Nav;
 
