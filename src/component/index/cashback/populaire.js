@@ -57,7 +57,7 @@ const Recent=()=>{
                     WatsUrl(dataR[i].nom)
                   }
                 >
-                    <div className='view-cashback-acceuille' data-aos='fade-up'>
+                    <div className='view-cashback-acceuille' data-aos='fade-in'  >
                         <center>
                             <img src={dataR[i].url_img}/>
                             <div className='view-link-suggestion'>
@@ -100,10 +100,9 @@ const Recent=()=>{
     
     return (
             <div> 
-                <div  >
+              <div className='container' >
                     {result()}
                 </div>
-                        
             </div>
         ); 
   }

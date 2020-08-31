@@ -40,7 +40,8 @@ const cashbackPromo=()=>{
                         <div id='recent' className='cashbackPromo-content cashbackPromo-content-block'  >
                             <Recent />
                         </div>
-                        <div id='populaire'  className='cashbackPromo-content'  >
+   
+                        <div id='populaire'  className='cashbackPromo-content' data-aos='fade-in' >
                             <Populaire />
                         </div>
                     </div>  

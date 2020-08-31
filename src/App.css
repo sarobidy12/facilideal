@@ -47,7 +47,7 @@ body::-webkit-scrollbar-track{
       height:auto;
       background-image: url('/img/hero-background.png');  
       background-size: cover;
-      padding: 0 0 15vh 0;
+      padding: 10vh 5vh 15vh 0;
      }
 
     .img-hero{
@@ -644,9 +644,9 @@ body::-webkit-scrollbar-track{
 
 .cashbackPromo-content{
   width: 100%;
-  height: auto;
   display: none;
-  padding: 1vh;
+  padding: 0;
+  position: relative;
 }
 
 .cashbackPromo-content-block{
