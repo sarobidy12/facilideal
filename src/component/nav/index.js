@@ -304,7 +304,7 @@ class Nav extends Component {
         var element =[];
 
         if(cookies.get('_categorieAndSousCAtegorie')){
-            for(var i=0;i<cookies.get('_categorieAndSousCAtegorie').length;i++ ){
+            for(var i=0;i < cookies.get('_categorieAndSousCAtegorie').length ;i++ ){
                 element.push(
                         <li id={'categorie-'+cookies.get('_categorieAndSousCAtegorie')[i].id}
                             className='categorie_mouse'
@@ -489,15 +489,28 @@ class Nav extends Component {
                     {this.redirect()}
                     {this.view()}
 
-                    <div id='categorie_view'>
-                        <div className='categorie_view'>
-                            <ul>
-                                {this.getCAtegorie()}
-                            </ul>
-                        </div>
+                        <div id='categorie_view'>
+
+                                <div className='categorie_view'>
+                                    <ul>
+                                        {this.getCAtegorie()}
+                                    </ul>
+                                            <Link
+                                                onClick={()=>{
+                                                    this.close();
+                                                }}
+                                                className='link-nav-categorie'
+                                                to={'/categorie'}
+                                            >
+                                            Tout les categories
+                                            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                                            </Link>
+                                </div>
+
                                 <div id='view_categorie'>
-                                 {this.RenderCategorieImg()}
+                                    {this.RenderCategorieImg()}
                                 <div>
+
                             </div>
                         </div>
  
